@@ -14,7 +14,7 @@ functions/        shared code (import from here, do not copy it into notebooks)
   embeddings.py     GloVe download + embedding matrix
   cv.py             kfold_wrapper: k-fold CV, final evaluation, threshold tuning, save/load
   tuning.py         bayes_search: Bayesian hyperparameter search built on kfold_wrapper
-notebook/         one notebook per work package, e.g. 2_LSTM_model.ipynb
+notebook/         one notebook per work package, e.g. 4_LSTM_model.ipynb
 dataset/          small data files only; see dataset/README.md
 glove/            GloVe vectors (not in git, downloaded automatically)
 models/           saved search results (not in git)
