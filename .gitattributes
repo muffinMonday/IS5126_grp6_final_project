@@ -1,0 +1,3 @@
+# Strip notebook outputs on commit (each person runs `nbstripout --install` once, see README.md)
+*.ipynb filter=nbstripout
+*.ipynb diff=ipynb

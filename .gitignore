@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Large or generated files: get them with the instructions in README.md
+glove/
+models/
+*.keras
+*.zip
+
+# Data: only the small YouTube file and the dataset README are tracked
+dataset/*
+!dataset/README.md
+!dataset/youtoxic_english_1000.csv
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

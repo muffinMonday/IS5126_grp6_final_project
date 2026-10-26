@@ -1,0 +1,14 @@
+# Developed and tested on Python 3.14.7 with:
+#   numpy 2.5.4, pandas 3.1.0, scikit-learn 1.9.1, scikit-optimize 0.10.2, matplotlib 3.11.2,
+#   tensorflow 2.22.0rc0, keras-nightly 3.16.0.dev2026102504 (pre-release builds)
+# The lower bounds below let pip pick stable releases. Those combinations have not been
+# tested; the only known difference is a harmless Keras masking warning on the nightly build.
+numpy>=2.0
+pandas>=2.2
+scikit-learn>=1.4
+scikit-optimize>=0.10
+pyyaml>=6.0
+matplotlib>=3.8
+tensorflow>=2.16
+ipykernel
+nbstripout
