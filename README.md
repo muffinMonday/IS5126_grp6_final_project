@@ -14,9 +14,12 @@ functions/        shared code (import from here, do not copy it into notebooks)
   embeddings.py     GloVe download + embedding matrix
   cv.py             kfold_wrapper: k-fold CV, final evaluation, threshold tuning, save/load
   tuning.py         bayes_search: Bayesian hyperparameter search built on kfold_wrapper
+  metrics.py        toxicity_metrics / metrics_by_group: precision, recall, macro F1, PR-AUC
+  pooled_data.py    prepare_pooled_data: load, sample, clean, deduplicate and split the four training sources
+  baselines.py      run_baselines: TF-IDF + logistic regression baselines, leave-one-source-out check
   reddit_collection.py  OAuth collection, annotation preparation, balanced test-set sampling
-scripts/          command-line entry points (collect_reddit.py for work package 1)
-tests/            offline checks for the Reddit collection and annotation workflow
+scripts/          command-line entry points (collect_reddit.py, run_part3.py for a fresh kernel)
+tests/            offline checks: python -m unittest discover -s tests
 notebook/         one notebook per work package, e.g. 4_LSTM_model.ipynb
 dataset/          small data files only; see dataset/README.md
 glove/            GloVe vectors (not in git, downloaded automatically)
