@@ -1,0 +1,75 @@
+{
+  "generated_utc": "2026-10-28T02:08:50.298729+00:00",
+  "source": "Reddit r/jobs, observed public comment pages and comment search results",
+  "acquisition_method": "Read rendered comment DOM through the user-verified browser; no OAuth token used",
+  "text_format": "Rendered text, not API raw Markdown. Words/case/paragraph breaks preserved; Markdown formatting and link destinations may differ.",
+  "candidate_count": 287,
+  "selected_count": 100,
+  "ai_label_counts": {
+    "0": 50,
+    "1": 50
+  },
+  "unique_posts": 58,
+  "label_method": "Codex contextual preliminary annotation with per-comment rationales; no human review claimed",
+  "annotation_status": "pending for all 100 rows",
+  "shuffle_seed": 42,
+  "selection": "Purposive convenience sample from two discussion threads and keyword-enriched search; not random sampling of r/jobs",
+  "search_queries": [
+    "idiot OR moron OR asshole OR \"fuck you\"",
+    "\"fuck you\""
+  ],
+  "source_created_utc_min": "2022-10-17T17:51:27+00:00",
+  "source_created_utc_max": "2026-10-13T03:14:22+00:00",
+  "limits": [
+    "AI labels require human review before gold evaluation.",
+    "Keyword retrieval and thread clustering cause selection bias.",
+    "50/50 class prevalence is by design; does not estimate real traffic toxicity or topic frequencies.",
+    "Many toxic examples are insults; the set does not cover all forms of toxicity.",
+    "Labels assess wording, not truth or accuracy of advice.",
+    "Parent ID is blank when unavailable in search results.",
+    "Historical comments were read on the capture date; no historical authenticity or current deletion audit beyond the observed page is implied."
+  ],
+  "source_files": [
+    {
+      "file": "browser_candidates_20261027.json",
+      "saved_utc": "2026-10-27T14:03:07.669149+00:00",
+      "sha256": "4675eace6f2ef599e2f7376cfb3f13c84a03f989424cc59b9d81b45ed8209cad"
+    },
+    {
+      "file": "browser_search_full_20261027.json",
+      "saved_utc": "2026-10-27T14:10:02.917587+00:00",
+      "sha256": "37f6de407d39d56ba73f182e6d8dcac312bf68f0a8e866ee8f492d6ed14e27fd"
+    },
+    {
+      "file": "browser_thread_2_20261027.json",
+      "saved_utc": "2026-10-27T14:10:57.567652+00:00",
+      "sha256": "fc508ac75a1fbbb9bf2c257fc76390ac7244197e372ba68b07046adb7a046312"
+    },
+    {
+      "file": "browser_search_2_20261027.json",
+      "saved_utc": "2026-10-28T02:04:51.238559+00:00",
+      "sha256": "4fb68385f6cd66aebdee2ddf2f87587715cfe6a140c069c3155943652f033c75"
+    }
+  ],
+  "output_sha256": {
+    "test_100_ai_draft.csv": "743afb8716797ceb97fcc0be36e5ab60032d28c3cb80abbf6e3d6c54e5ba496f",
+    "review_100.csv": "96b27e0f9ba80c65fbdd2cc2c456778f5809070ec9db5000db12d9e1c919f8c8",
+    "ai_annotations_100.json": "4d7a6ad05f0628c7b7cca1b924f3c2422c062bb21888a2017374d7fead37f5de"
+  },
+  "verified": [
+    "100 rows",
+    "50 suggested labels per class",
+    "unique normalized text and IDs",
+    "selected text exactly matches imported source",
+    "all permalinks identify matching comments",
+    "all rows remain pending"
+  ],
+  "git_scope": {
+    "included": [
+      "test_100_ai_draft.csv",
+      "collection_manifest.json"
+    ],
+    "local_only": "Browser snapshots, candidate pool, AI annotation JSON and review_100.csv are not committed. Their hashes above describe the local collection record.",
+    "authorization": "User explicitly requested committing the 100 AI-labelled comments and implementation context on 2026-10-28."
+  }
+}
