@@ -14,10 +14,15 @@ models/
 *.keras
 *.zip
 
-# Data: only the small YouTube file and the dataset README are tracked
+# Data: track only the explicitly shared samples and documentation
 dataset/*
 !dataset/README.md
 !dataset/youtoxic_english_1000.csv
+!dataset/reddit/
+dataset/reddit/*
+# User-approved 100-comment AI-labelled sample and provenance only
+!dataset/reddit/test_100_ai_draft.csv
+!dataset/reddit/collection_manifest.json
 
 # Editors / OS
 .vscode/
