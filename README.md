@@ -14,7 +14,12 @@ functions/        shared code (import from here, do not copy it into notebooks)
   embeddings.py     GloVe download + embedding matrix
   cv.py             kfold_wrapper: k-fold CV, final evaluation, threshold tuning, save/load
   tuning.py         bayes_search: Bayesian hyperparameter search built on kfold_wrapper
+  metrics.py        toxicity_metrics / metrics_by_group: precision, recall, macro F1, PR-AUC
+  pooled_data.py    prepare_pooled_data: load, sample, clean, deduplicate and split the four training sources
+  baselines.py      run_baselines: TF-IDF + logistic regression baselines, leave-one-source-out check
 notebook/         one notebook per work package, e.g. 4_LSTM_model.ipynb
+tests/            offline tests for pooled_data and baselines: python -m unittest discover -s tests
+scripts/          run_part3.py runs notebook 3 in a fresh kernel
 dataset/          small data files only; see dataset/README.md
 glove/            GloVe vectors (not in git, downloaded automatically)
 models/           saved search results (not in git)

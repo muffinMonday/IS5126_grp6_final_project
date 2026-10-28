@@ -13,3 +13,15 @@ Only small files are committed. Everything else is downloaded locally and ignore
 
 Label mapping to toxic / non-toxic is described in the project proposal (`Project Proposal/`).
 Put new downloads in this folder; they stay untracked automatically.
+
+`notebook/3_pooled_data.ipynb` expects the Kaggle downloads in folders named after their Kaggle
+dataset / competition; only the files listed are read:
+
+```
+dataset/
+  youtoxic_english_1000.csv
+  jigsaw-toxic-comment-classification-challenge/train.csv.zip      (read as zip)
+  jigsaw-unintended-bias-in-toxicity-classification/train.csv
+  gosu-ai-english-dota-chat/tagged-data.csv
+  pooled/                                                         (created by notebook 3)
+```
