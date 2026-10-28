@@ -97,8 +97,8 @@ change preprocessing.
 
 ## Git workflow
 
-- `main` is protected: no direct pushes. Work on a branch per task (`feature/<short-name>`) and open a pull request with at least one reviewer.
-- Changes to `functions/` always go through a pull request, since everyone depends on it. If you change the behaviour of `cleanup_text`, say so in the pull request: saved models trained on the old cleaning are no longer valid.
+- Pushing directly to `main` is allowed. `git pull` first, and never force-push.
+- Changes to `functions/` affect everyone, so ask a teammate to review them. If you change the behaviour of `cleanup_text`, tell the team: saved models trained on the old cleaning are no longer valid.
 - Notebooks: outputs are stripped on commit (nbstripout). Keep each notebook owned by one person to avoid merge conflicts.
 - Keep data, GloVe files, saved models and credentials out of Git. The explicitly
   approved exceptions are the existing YouTube sample and the two Reddit sample

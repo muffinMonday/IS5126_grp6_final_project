@@ -5,6 +5,7 @@ from types import SimpleNamespace
 import numpy as np
 import pandas as pd
 import tensorflow as tf
+from joblib import Parallel, delayed
 from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import (
   accuracy_score,
@@ -18,13 +19,80 @@ from sklearn.metrics import (
 )
 
 
+def _compute_metrics(y, proba, threshold):
+  pred = (proba >= threshold).astype(int)
+  return {
+    'loss': log_loss(y, proba, labels=[0, 1]),
+    'accuracy': accuracy_score(y, pred),
+    'precision': precision_score(y, pred, zero_division=0),
+    'recall': recall_score(y, pred, zero_division=0),
+    'macro_f1': f1_score(y, pred, average='macro', zero_division=0),
+    'pr_auc': average_precision_score(y, proba),
+    'roc_auc': roc_auc_score(y, proba),
+  }
+
+
+def _run_task(task):
+  """Train one fresh model and score it, in this process or in a worker process.
+
+  It takes plain data only: the model arrives as (class, config, compile config), never as
+  an object, so every task starts from newly initialised weights and nothing is shared.
+  task['kind'] is 'fold' (fit on X_train, validate on X_eval, return metrics and history) or
+  'final' (fit on X_train, predict X_eval, return the weights)."""
+  # the nightly Keras build wrongly warns that LSTM / Bidirectional drop the mask (masking works)
+  warnings.filterwarnings('ignore', message='.*was passed an input with a mask attached.*')
+  if task['threads']:
+    # must be set before TensorFlow runs its first op in the process; later calls are ignored
+    try:
+      tf.config.threading.set_intra_op_parallelism_threads(task['threads'])
+    except RuntimeError:
+      pass
+
+  tf.keras.utils.set_random_seed(task['seed'])
+  model = task['model_class'].from_config(task['config'])
+  model.compile_from_config(task['compile_config'])
+
+  # Keras metrics such as F1Score need labels shaped (n, 1), not (n,)
+  validation_data = None
+  if task['kind'] == 'fold':
+    validation_data = (task['X_eval'], task['y_eval'].reshape(-1, 1))
+  history = model.fit(
+    task['X_train'],
+    task['y_train'].reshape(-1, 1),
+    epochs=task['epochs'],
+    batch_size=task['batch_size'],
+    validation_data=validation_data,
+    verbose=task['verbose'],
+  )
+  proba_eval = model.predict(task['X_eval'], verbose=0).ravel()
+
+  out = {'kind': task['kind'], 'proba_eval': proba_eval}
+  if task['kind'] == 'fold':
+    # score both sets with the final weights and dropout off, so train and
+    # validation numbers are directly comparable
+    out['history'] = history.history
+    proba_train = model.predict(task['X_train'], verbose=0).ravel()
+    out['train_metrics'] = _compute_metrics(task['y_train'], proba_train, task['threshold'])
+    out['val_metrics'] = _compute_metrics(task['y_eval'], proba_eval, task['threshold'])
+  else:
+    out['weights'] = model.get_weights()
+  tf.keras.backend.clear_session()  # worker processes are reused, so release the model
+  return out
+
+
 class kfold_wrapper:
   """Stratified k-fold cross validation on the training set, followed by a
   final evaluation on a held-out validation set.
 
   `model` must be a compiled, unfitted Keras model. It is never trained
-  directly: every fold (and the final fit) trains a fresh clone with newly
+  directly: every fold (and the final fit) trains a fresh copy with newly
   initialised weights, so no information leaks between runs.
+
+  `n_jobs` > 1 trains the folds and the final model in separate processes at the same
+  time (n_jobs=-1: one process per fold plus one for the final fit). Each process uses
+  `threads_per_job` TensorFlow threads (default: cpu count // number of processes). The
+  results match n_jobs=1 up to floating-point differences. The first call starts the worker
+  processes (they import TensorFlow), which takes a few seconds; they are then reused.
 
   Results (all metrics are computed from predictions at `threshold`):
     cv_results          per-fold train/validation metrics (DataFrame)
@@ -39,7 +107,7 @@ class kfold_wrapper:
 
   def __init__(self, model, X_train, y_train, X_val, y_val,
                n_splits=5, epochs=5, batch_size=16, threshold=0.5,
-               random_state=42, verbose=0):
+               random_state=42, verbose=0, n_jobs=1, threads_per_job=None):
     self.model = model
     self.X_train, self.y_train = np.asarray(X_train), np.asarray(y_train).astype(int)
     self.X_val, self.y_val = np.asarray(X_val), np.asarray(y_val).astype(int)
@@ -49,6 +117,8 @@ class kfold_wrapper:
     self.threshold = threshold
     self.random_state = random_state
     self.verbose = verbose
+    self.n_jobs = n_jobs
+    self.threads_per_job = threads_per_job
 
     # kept so a hyperparameter search can log what produced these scores
     self.hyperparameters = self._extract_hyperparameters(model)
@@ -65,8 +135,7 @@ class kfold_wrapper:
     self.tuned_threshold = None
     self.tuned_validation_metrics = None
 
-    self._cross_validate()
-    self._final_evaluation()
+    self._run_all()
 
   @staticmethod
   def _extract_hyperparameters(model):
@@ -97,66 +166,50 @@ class kfold_wrapper:
       params['optimizer__learning_rate'] = float(optimizer.learning_rate)
     return params
 
-  def _fresh_model(self):
-    # clone_model copies the architecture only (new random weights);
-    # the compile settings are carried over separately.
-    clone = tf.keras.models.clone_model(self.model)
-    clone.compile_from_config(self.model.get_compile_config())
-    return clone
-
-  def _fit(self, X, y, validation_data=None):
-    tf.keras.utils.set_random_seed(self.random_state)
-    model = self._fresh_model()
-    # Keras metrics such as F1Score need labels shaped (n, 1), not (n,)
-    if validation_data is not None:
-      validation_data = (validation_data[0], validation_data[1].reshape(-1, 1))
-    history = model.fit(
-      X,
-      y.reshape(-1, 1),
-      epochs=self.epochs,
-      batch_size=self.batch_size,
-      validation_data=validation_data,
-      verbose=self.verbose,
-    )
-    return model, history
-
-  def _score(self, model, X, y):
-    return self._metrics(y, model.predict(X, verbose=0).ravel())
-
   def _metrics(self, y, proba, threshold=None):
-    threshold = self.threshold if threshold is None else threshold
-    pred = (proba >= threshold).astype(int)
-    return {
-      'loss': log_loss(y, proba, labels=[0, 1]),
-      'accuracy': accuracy_score(y, pred),
-      'precision': precision_score(y, pred, zero_division=0),
-      'recall': recall_score(y, pred, zero_division=0),
-      'macro_f1': f1_score(y, pred, average='macro', zero_division=0),
-      'pr_auc': average_precision_score(y, proba),
-      'roc_auc': roc_auc_score(y, proba),
+    return _compute_metrics(y, proba, self.threshold if threshold is None else threshold)
+
+  def _run_all(self):
+    """Train the k fold models and the final model, then collect all results."""
+    spec = {
+      'model_class': type(self.model),
+      'config': self.model.get_config(),
+      'compile_config': self.model.get_compile_config(),
+      'epochs': self.epochs, 'batch_size': self.batch_size, 'seed': self.random_state,
+      'verbose': self.verbose, 'threshold': self.threshold,
     }
 
-  def _cross_validate(self):
+    # the final model fits on the whole training set only; X_val stays unseen until its prediction
     skf = StratifiedKFold(n_splits=self.n_splits, shuffle=True, random_state=self.random_state)
+    folds = list(skf.split(self.X_train, self.y_train))
+    tasks = [{**spec, 'kind': 'final', 'X_train': self.X_train, 'y_train': self.y_train,
+              'X_eval': self.X_val, 'y_eval': self.y_val}]
+    tasks += [{**spec, 'kind': 'fold',
+               'X_train': self.X_train[tr], 'y_train': self.y_train[tr],
+               'X_eval': self.X_train[va], 'y_eval': self.y_train[va]} for tr, va in folds]
+
+    n_workers = len(tasks) if self.n_jobs in (None, -1) else min(self.n_jobs, len(tasks))
+    if n_workers > 1:
+      threads = self.threads_per_job or max(1, (os.cpu_count() or 1) // n_workers)
+      for task in tasks:
+        task['threads'] = threads
+      # the final fit comes first: it has the most rows, so it should start earliest
+      results = Parallel(n_jobs=n_workers, backend='loky')(delayed(_run_task)(t) for t in tasks)
+    else:
+      for task in tasks:
+        task['threads'] = None
+      results = [_run_task(t) for t in tasks]
+    final, fold_results = results[0], results[1:]
 
     rows = []
     self.oof_proba = np.zeros(len(self.y_train))
-    for fold, (train_idx, val_idx) in enumerate(skf.split(self.X_train, self.y_train), start=1):
-      X_tr, y_tr = self.X_train[train_idx], self.y_train[train_idx]
-      X_va, y_va = self.X_train[val_idx], self.y_train[val_idx]
-
-      model, history = self._fit(X_tr, y_tr, validation_data=(X_va, y_va))
-      self.histories[fold] = history
-
+    for fold, ((_, val_idx), result) in enumerate(zip(folds, fold_results), start=1):
+      self.histories[fold] = SimpleNamespace(history=result['history'])
       # every training row is predicted once, by a model that did not train on it
-      proba_va = model.predict(X_va, verbose=0).ravel()
-      self.oof_proba[val_idx] = proba_va
-
-      # score both sets with the final weights and dropout off, so train and
-      # validation numbers are directly comparable
+      self.oof_proba[val_idx] = result['proba_eval']
       row = {'fold': fold}
-      row.update({f'train_{k}': v for k, v in self._score(model, X_tr, y_tr).items()})
-      row.update({f'val_{k}': v for k, v in self._metrics(y_va, proba_va).items()})
+      row.update({f'train_{k}': v for k, v in result['train_metrics'].items()})
+      row.update({f'val_{k}': v for k, v in result['val_metrics'].items()})
       rows.append(row)
 
     self.cv_results = pd.DataFrame(rows).set_index('fold')
@@ -164,10 +217,12 @@ class kfold_wrapper:
     self.avg_val_metrics = {k: self.cv_results[f'val_{k}'].mean() for k in self.METRICS}
     self.std_val_metrics = {k: self.cv_results[f'val_{k}'].std() for k in self.METRICS}
 
-  def _final_evaluation(self):
-    # fit on the whole training set only; X_val stays unseen until here
-    self.final_model, _ = self._fit(self.X_train, self.y_train)
-    self.val_proba = self.final_model.predict(self.X_val, verbose=0).ravel()
+    # rebuild the final model here from its weights (call it once on a sample to build it)
+    self.final_model = spec['model_class'].from_config(spec['config'])
+    self.final_model.compile_from_config(spec['compile_config'])
+    self.final_model(self.X_train[:1], training=False)
+    self.final_model.set_weights(final['weights'])
+    self.val_proba = final['proba_eval']
     self.validation_metrics = self._metrics(self.y_val, self.val_proba)
 
   def evaluate_at(self, threshold):

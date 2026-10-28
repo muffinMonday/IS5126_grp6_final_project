@@ -11,14 +11,14 @@ IS5126 group project: toxicity classification of Reddit r/jobs comments plus top
 - **Match the surrounding style.** `functions/` uses 2-space indentation and short comments; notebooks use 4-space. Keep comment density similar to the code around.
 - **Notebooks:** edit cells with notebook tools, not by hand-editing JSON. Notebook outputs are stripped at commit time (`nbstripout`); do not rely on outputs being in git.
 - **Ask before:** downloading large files (GloVe is 820 MB), starting runs that take more than a few minutes (the Bayesian search fits ~180 models), installing or upgrading packages, deleting files, or overwriting `models/`.
-- **Never commit** data, `glove/`, `models/`, `*.keras`, credentials or Reddit data. Do not commit or push unless the user asks. Never force-push or push to `main`.
+- **Never commit** data, `glove/`, `models/`, `*.keras`, credentials or Reddit data. Do not commit or push unless the user asks. Never force-push. Pushing to `main` is allowed when the user asks.
 - **Tell the user** about problems you find outside your task instead of silently fixing them.
 
 ## Workflow
-1. `git pull`, then branch: `feature/<short-name>`.
+1. `git pull` before starting work.
 2. Make small changes; restart the notebook kernel after editing `functions/` (stale classes are a common source of confusing errors).
 3. Verify before saying done: run the cell or a small synthetic test and report what actually ran. State what you did not run.
-4. Commit with a message that says why. Open a pull request; changes to `functions/` need a reviewer.
+4. Commit with a message that says why, then push to `main` when the user asks. Changes to `functions/` should be reviewed by a teammate.
 
 ## Code map
 - `functions/preprocessing.py`: `cleanup_text` (HTML/URL removal, contraction expansion, punctuation → space, keeps `!` and `?`). Output feeds the tokenizer and GloVe lookup.
