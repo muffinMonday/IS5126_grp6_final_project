@@ -21,7 +21,7 @@ functions/        shared code (import from here, do not copy it into notebooks)
 scripts/          command-line entry points (collect_reddit.py, run_part3.py for a fresh kernel)
 tests/            offline checks: python -m unittest discover -s tests
 notebook/         one notebook per work package, e.g. 4_LSTM_model.ipynb
-dataset/          small data files only; see dataset/README.md
+dataset/          approved shared data and dataset instructions; see dataset/README.md
 glove/            GloVe vectors (not in git, downloaded automatically)
 models/           saved search results (not in git)
 Project Proposal/ the project specification
@@ -41,7 +41,7 @@ Notebooks add the repo root to the path (`sys.path.append('..')`), so run them f
 
 Not in git, created locally:
 - **GloVe** (`glove/glove.6B.100d.txt`, 347 MB): downloaded on first run of the GloVe cell (needs the 820 MB `glove.6B.zip` once).
-- **Datasets:** see `dataset/README.md`.
+- **Raw datasets and other generated outputs:** see `dataset/README.md`; the approved Part 3 handoff is tracked.
 - **Saved search results** (`models/bayes_search/`, ~33 MB): created by the search cell. Re-run it; do not share it.
 
 ## Work packages
@@ -59,6 +59,14 @@ Agreed interfaces, so work doesn't block:
 - **Topic file:** `comment_id, cluster, topic_label`.
 - **Toxicity function:** `predict_toxicity(list_of_texts) -> list_of_probabilities`.
 - Until real files exist, develop against small mock files with these columns.
+
+## Work package 3: Ready-to-use training data
+
+The approved `dataset/pooled/pooled_train.csv` (19,187 rows),
+`pooled_val.csv` (4,797 rows) and `manifest.json` are tracked for package 4.
+Use `text` as input and `label` as target; fit the tokenizer on training data only.
+See the [dataset guide](dataset/README.md#pooled-training-data) for loading and version checks.
+Other Part 3 result files remain local and can be regenerated with notebook 3.
 
 ## Work package 1: Reddit test comments
 
@@ -101,8 +109,9 @@ change preprocessing.
 - Changes to `functions/` affect everyone, so ask a teammate to review them. If you change the behaviour of `cleanup_text`, tell the team: saved models trained on the old cleaning are no longer valid.
 - Notebooks: outputs are stripped on commit (nbstripout). Keep each notebook owned by one person to avoid merge conflicts.
 - Keep data, GloVe files, saved models and credentials out of Git. The explicitly
-  approved exceptions are the existing YouTube sample and the two Reddit sample
-  files listed above; do not add further raw exports or review files.
+  approved exceptions are the existing YouTube sample, the two Reddit sample
+  files and the three Part 3 handoff files listed above. Other raw downloads,
+  predictions, error tables and figures stay ignored.
 - Small, focused commits with a message that says why, not only what.
 
 ## Reproducibility

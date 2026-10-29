@@ -1,7 +1,7 @@
 # Datasets
 
-Only small files are committed. Everything else is downloaded locally and ignored by git
-(see `.gitignore`).
+Only explicitly approved data files are committed. Raw downloads and other generated
+outputs remain local and ignored by Git (see `.gitignore`).
 
 | File / folder | Source | In git? |
 |---|---|---|
@@ -9,13 +9,40 @@ Only small files are committed. Everything else is downloaded locally and ignore
 | Jigsaw Toxic Comment Classification (Wikipedia talk pages) | [Kaggle competition](https://www.kaggle.com/competitions/jigsaw-toxic-comment-classification-challenge) | no |
 | Jigsaw Unintended Bias / Civil Comments (news comments) | [Kaggle competition](https://www.kaggle.com/competitions/jigsaw-unintended-bias-in-toxicity-classification) | no |
 | GOSU.ai English Dota 2 chat | [Kaggle dataset](https://www.kaggle.com/datasets/danielfesalbon/gosu-ai-english-dota-chat) | no |
+| `pooled/pooled_train.csv` | Part 3 cleaned training split, 19,187 rows | yes (explicitly approved) |
+| `pooled/pooled_val.csv` | Part 3 fixed validation split, 4,797 rows | yes (explicitly approved) |
+| `pooled/manifest.json` | Part 3 settings, source hashes and split hashes | yes (explicitly approved) |
 | `reddit/test_100_ai_draft.csv` and `reddit/collection_manifest.json` | 100 r/jobs comments with AI preliminary labels and provenance | yes (explicitly approved) |
 | Other r/jobs candidates, browser exports and human review CSVs | collected by the team | no |
 
 Label mapping to toxic / non-toxic is described in the project proposal (`Project Proposal/`).
-Put new downloads in this folder; they stay untracked automatically.
+Put new downloads in this folder; files outside the approved list stay untracked automatically.
 
 ## Pooled training data
+
+The user approved these three handoff files on 2026-10-29. Package 4 can use them
+after pulling the repository, without downloading the four original sources or
+rerunning Part 3. Each CSV contains `orig_id, source, text_raw, text, label`.
+Read with `keep_default_na=False` and `dtype={'orig_id': str}`; use the already
+cleaned `text` as input and binary `label` as target. Fit the tokenizer and tune
+models only on `pooled_train.csv`; reserve `pooled_val.csv` for final evaluation.
+
+`manifest.json` records the source mappings, seed, preparation version and exact
+SHA-256 hashes of both CSVs. Git preserves their bytes across platforms so these
+hashes can be checked before training. Any replacement must keep the two splits
+and manifest consistent.
+
+Other Part 3 outputs are not tracked:
+
+| Output | Local files |
+|---|---|
+| Scores | `baseline_metrics.csv`, `loso_metrics.csv`, `transfer_comparison.csv` |
+| Predictions | `baseline_predictions.csv`, `loso_predictions.csv` |
+| Errors and removal audit | `baseline_errors.csv`, `error_counts.csv`, `removed_rows.csv` |
+| Summaries | `data_summary.csv`, `text_length_summary.csv`, `results_summary.txt` |
+| Figures | `figures/source_and_length.png`, `figures/baseline_confusion_matrices.png`, `figures/baseline_pr_curves.png` |
+
+To regenerate the handoff and these results, use the original downloads below.
 
 `notebook/3_pooled_data.ipynb` expects the Kaggle downloads in folders named after their Kaggle
 dataset / competition; only the files listed are read:

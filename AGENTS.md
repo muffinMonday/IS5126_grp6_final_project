@@ -11,7 +11,7 @@ IS5126 group project: toxicity classification of Reddit r/jobs comments plus top
 - **Match the surrounding style.** `functions/` uses 2-space indentation and short comments; notebooks use 4-space. Keep comment density similar to the code around.
 - **Notebooks:** edit cells with notebook tools, not by hand-editing JSON. Notebook outputs are stripped at commit time (`nbstripout`); do not rely on outputs being in git.
 - **Ask before:** downloading large files (GloVe is 820 MB), starting runs that take more than a few minutes (the Bayesian search fits ~180 models), installing or upgrading packages, deleting files, or overwriting `models/`.
-- **Never commit** data, `glove/`, `models/`, `*.keras`, credentials or Reddit data. Do not commit or push unless the user asks. Never force-push. Pushing to `main` is allowed when the user asks.
+- **Never commit** unapproved data, `glove/`, `models/`, `*.keras` or credentials. The approved data exceptions are the existing YouTube sample, the shared Reddit sample and its manifest, and exactly `dataset/pooled/pooled_train.csv`, `dataset/pooled/pooled_val.csv`, `dataset/pooled/manifest.json`. Other raw downloads and generated outputs stay ignored. Do not commit or push unless the user asks. Never force-push. Pushing to `main` is allowed when the user asks.
 - **Tell the user** about problems you find outside your task instead of silently fixing them.
 
 ## Workflow

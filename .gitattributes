@@ -1,3 +1,8 @@
 # Strip notebook outputs on commit (each person runs `nbstripout --install` once, see README.md)
 *.ipynb filter=nbstripout
 *.ipynb diff=ipynb
+
+# Preserve the exact handoff bytes and manifest hashes on every platform
+dataset/pooled/pooled_train.csv -text
+dataset/pooled/pooled_val.csv -text
+dataset/pooled/manifest.json -text

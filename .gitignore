@@ -23,6 +23,12 @@ dataset/reddit/*
 # User-approved 100-comment AI-labelled sample and provenance only
 !dataset/reddit/test_100_ai_draft.csv
 !dataset/reddit/collection_manifest.json
+!dataset/pooled/
+dataset/pooled/*
+# User-approved Part 3 handoff only; other generated outputs remain ignored
+!dataset/pooled/pooled_train.csv
+!dataset/pooled/pooled_val.csv
+!dataset/pooled/manifest.json
 
 # Editors / OS
 .vscode/
