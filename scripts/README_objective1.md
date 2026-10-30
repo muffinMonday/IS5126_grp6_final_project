@@ -4,8 +4,109 @@ Open `notebook/2_topic_discovery.ipynb`. It reuses `cleanup_text` and the existi
 CSV reader. The new `functions/topic_data.py` keeps topic-corpus rules separate
 from the toxicity test-set preparation; existing shared behaviour is unchanged.
 
-The current work is acquisition and cleaning only. Keep `RUN_TOPIC_MODEL=False`;
-the optional modelling sections have not been run on this corpus.
+The current notebook uses TF-IDF -> centered PCA (100 components) -> row L2
+normalization -> K-means (18 clusters, 30 initializations). The default reporting
+mode is `REUSE_SAVED_MODEL=True`: it loads the already reviewed local model and
+verifies input, assignment and pipeline SHA-256 values before applying names.
+No TF-IDF, PCA or K-means is fitted in this reporting mode. Archive/network
+acquisition stays disabled; earlier result files are preserved.
+
+## Named clusters and focused reporting
+
+The notebook embeds 18 suggested English topic names, interpretation confidence,
+semantic limitations and trend judgments in `TOPIC_REVIEW`. These are assistant
+interpretations, explicitly pending human validation. A changed or missing saved
+model stops reuse; disabling reuse trains a new model with unreviewed names and
+does not transfer old names by cluster number.
+
+The main analysis now shows the six user-specified cases **C2, C5, C8, C9, C11,
+and C17**, replacing the earlier strict interpretability-only filter. The case
+review table presents semantic evidence, original interpretation confidence,
+comment counts and overall shares, project relevance, and trend robustness.
+Ratings are not upgraded to include these cases. The selection covers rising,
+falling, phase-dependent and stable discussion, and remains exploratory.
+
+All 18 clusters remain in the named size chart, PCA projection colorbar and
+exported tables. The monthly heatmap hides only the C7 row AFTER all shares are
+computed; it retains each visible value and its original denominator. Its 17
+visible rows therefore need not sum to 100% within a month. A common linear
+color scale uses the visible maximum (about 13.3%, instead of about 33.4% with
+C7) and cells show their actual percentages. There is no row standardization,
+nonlinear color transformation or renormalization. C12 remains visible.
+
+The six main panels also retain all assigned comments as their denominator;
+they do not renormalize the selected topics to 100%. The additive
+`functions/topic_reporting.py` computes comment shares, equal sampled-post shares,
+largest-post contributions and leave-one-time-stratum-out ranges. Those ranges
+are sensitivity diagnostics, not confidence intervals. January-March versus
+July-September comparisons exclude partial October.
+
+New `topics_named_pca100_l2_<timestamp>/` exports include `topic_name_review.csv`,
+`trend_summary.csv`, `focus_trend_summary.csv`, `focus_case_review.csv`,
+`focus_robustness.csv`, `heatmap_visible_shares.csv`, named assignments and
+examples, the six-panel trend figure, and model reuse/provenance flags. Names are not marked
+as human reviewed merely because they are displayed. Source assignments and
+weights are unchanged. Figure text and review metadata use English with the
+portable DejaVu Sans font. The GitHub copy of the notebook has no saved outputs.
+
+Verification includes an end-to-end run with model-fit methods blocked, a test
+rejecting changed model files before deserialization, unchanged heatmap values,
+known post-weight/denominator examples and missing/partial-month behavior.
+
+## Dimension and distance comparison (2026-10-29)
+
+With the identical 9,770 comments and 10,000-feature vocabulary, 50, 100, 200 and
+400 PCA components retain 8.71%, 14.41%, 22.87% and 34.80% variance. The initial
+48 candidates compare each dimension with/without row normalization and k in
+6, 8, 10, 11, 12, 15. Local results are in
+`prepared/pca_dimension_comparison_20261029/`. Additional k=18/20 candidates use
+30 initializations; their tables are in `pca_domain_comparison_20261029/extended_*`.
+
+More retained variance alone did not improve topic separation. The selected
+100-dimensional model balances retained information, mixed-cluster size and
+example interpretation. k=18 retains a recognizable AI-related cluster; the
+inspected k=20 alternative instead has a cluster driven by the generic word
+`use`. Names remain unreviewed, and not every cluster is a substantive topic.
+The maximum cluster is smaller than the original 54.73%, but all-cluster
+semantic separation has NOT been established. Check the executed notebook's
+model comparison, original-space cosine silhouette, ARI and random examples.
+
+An additional 24-candidate experiment tests domain stop words with protected
+phrases such as `job market` and `laid off`. Although some term profiles are
+clearer, initialization stability deteriorates. This experiment is not the
+default. `vectorize_comments` keeps its prior behavior unless protected phrases
+are explicitly supplied. `topic_feature_text` must also be applied at inference
+if this optional mode is ever used. No original text is rewritten.
+
+Variance is measured BEFORE row normalization, relative to the same TF-IDF
+matrix. Normalization changes the distance geometry; PCA-space silhouette and
+inertia across representations are not direct quality rankings. The notebook
+also compares old/new assignments using identical TF-IDF vectors and a common
+1,500-comment cosine-distance subset. Absolute cosine silhouettes remain low.
+Changing dimension, normalization, k and initialization count together means
+the overall difference cannot be attributed to PCA dimension alone.
+
+New results use a fresh `topics_pca100_l2_<timestamp>/` directory. The serialized
+pipeline includes vectorizer, PCA, normalizer and K-means. Prediction must use
+that sequence, after the existing topic cleaning. Exports preserve all 10,000
+IDs, including 230 exclusions, and add relative centroid assignment margins.
+These margins are ambiguity diagnostics, not probabilities. No low-margin
+comments are dropped to make monthly curves look clearer.
+
+The optional `reduce_topics_to_variance` 90% helper remains available but was
+not executed on the real corpus. It needs dense covariance memory and separate
+long-run authorization. The proposal specified PCA50; report the requested
+dimension change and baseline comparison explicitly.
+
+Reproduce the initial dimension comparison (takes minutes; follow AGENTS.md):
+
+```powershell
+python scripts/compare_topic_models.py --baseline dataset/reddit/topics_2026/time_stratified_20261028/prepared/topics_20261029T034634149868Z --output dataset/reddit/topics_2026/time_stratified_20261028/prepared/NEW_COMPARISON
+```
+
+References: [scikit-learn text clustering example](https://scikit-learn.org/stable/auto_examples/text/plot_document_clustering.html).
+Its normalization discussion uses SVD; this project separately tests centered
+PCA, so improvements cannot be assumed from that example.
 
 Completed on 2026-10-28: 1,000 cleaned comments for each of January through
 October 2026, 10,000 unique comment IDs in total. The frozen acquisition cutoff
@@ -14,12 +115,43 @@ candidate rows, cleaning retained 17,766 eligible rows and excluded 2,447:
 1,634 deleted/removed, 804 too short and 9 empty after cleaning. The final
 10,000-row stratified sample is selected from those eligible candidates.
 
-`prepared/data_quality_report.json` records the successful quota, uniqueness,
-raw-text preservation, cleaning, hash and notebook-cell checks. Five notebook
-data cells were executed in order, through data exploration; no feature
-extraction, PCA or clustering was executed. The earlier transient September
+`prepared/data_quality_report.json` records the successful acquisition quota,
+uniqueness, raw-text preservation, cleaning, hash and original data-cell checks.
+New model runs have separate `run_parameters.json` and `verification.json` files.
+The earlier transient September
 failure is preserved in `acquisition_attempt_01.json`; the completed run resumed
 from source checkpoints.
+
+## Previous fixed-50 baseline (2026-10-29)
+
+The additive `functions/topics.py` provides topic-only feature and diagnostic
+helpers. Shared `cleanup_text` and the toxicity preprocessing are unchanged.
+The initial configuration grouped about 99% of comments together while isolating
+moderation templates. The documented topic configuration therefore excludes
+explicit moderation notice phrase combinations, applies standard English stop
+words plus listed conversational fillers, and retains `off` for `laid off`.
+This changes modelling features only; the original corpus stays at 10,000 rows.
+
+The fixed-50 baseline run excludes 106 moderation notices and 124 zero-vector comments,
+leaving 9,770 rows with 10,000 TF-IDF features. True ARPACK PCA reduces these to
+50 dimensions and retains about 8.71% of variance. k=2 through 12 are evaluated
+using inertia, a fixed 1,500-row silhouette subset and cluster size diagnostics.
+k=11 was its exploratory default (silhouette about 0.110); its extra-seed ARI is
+about 0.63-0.66, so boundaries remain initialization-sensitive. Names default to
+unreviewed identifiers, with original-space mean TF-IDF terms and example text
+available for naming. Do not describe the clusters as definitive ground truth.
+
+Each model run creates a new `prepared/topics_<timestamp>/` directory with
+assignments for every input ID, exclusion reasons, vocabulary, PCA variance,
+k diagnostics, initialization stability, profiles, representative comments,
+monthly topic shares, figures and `topic_pipeline.joblib`. `run_parameters.json`
+contains input/output hashes and exact settings. Monthly assignment coverage
+reports the difference between all sampled comments and assigned comments.
+
+If a spreadsheet program changes only coverage month labels or boolean casing,
+the loader can restore metadata in memory only when reconstructed bytes match
+the original manifest hash exactly. Changed numerical contents or changed
+comment data still stop execution. No input files are overwritten.
 
 ## Current collection: time-stratified candidates
 
@@ -93,57 +225,3 @@ Optional input columns: `link_id,parent_id,permalink,collected_utc,is_bot,langua
 An `author` column, if supplied, is used only to filter AutoModerator and is not
 saved. Export provenance and population coverage must be documented separately;
 importing a CSV cannot establish that it is representative or exhaustive.
-
-## Cleaning and outputs
-
-- Preserve `text`; create `text_topic` using HTML entity decoding, lowercase and
-  the shared `cleanup_text`.
-- Remove invalid IDs/timestamps, non-jobs rows, out-of-window comments, missing
-  bodies, deleted/removed text and known bots.
-- Filter non-English rows only when source language metadata is available.
-  Otherwise flag language as unverified and inspect a random sample manually.
-- Default to at least 3 alphabetic words after cleaning; record exclusions.
-- Deduplicate comment IDs. Fail on conflicting snapshots. Retain matching text
-  from different IDs and flag it for review.
-- Exclude zero TF-IDF rows later in the notebook and retain their IDs in exports.
-
-Each local run includes `comments_clean.csv`, `raw_candidates.csv`,
-`eligible_pool.csv`, `excluded_rows.csv`, `cleaning_audit.csv`,
-`monthly_coverage.csv`, and `sampling_manifest.json`. Archive runs additionally
-include `acquisition_status.json`. The manifest records parameters and file
-hashes. Outputs stay under the ignored `dataset/reddit/topics_2026/` directory.
-Existing run directories are never overwritten.
-
-Equal monthly quotas support comparisons of sample topic shares. They do not
-measure total subreddit discussion volume. A current partial month and missing
-archive months must remain visible in any report.
-
-## Verification
-
-```powershell
-python -m unittest discover -s tests -p test_topic_data.py
-```
-
-Notebook modelling is opt-in (`RUN_TOPIC_MODEL=True`). Examine the k-selection
-plots, set `SELECTED_K`, then name topics from original-space mean TF-IDF terms
-and representative comments. The notebook does not auto-select k or invent
-topic names. No TensorFlow, GloVe download or saved-model overwrite is involved.
-
-## Source check on 2026-10-28
-
-Initial Arctic Shift probes returned HTTP 500 and the first bounded run stopped
-on that error; its record remains in `archive_20261028/acquisition_status.json`.
-A later check succeeded, including a January-2026 request. The resumed task now
-uses the available Arctic Shift service for the time-stratified collection.
-A PullPush probe had returned HTTP 429 and was not retried. Hugging Face's
-advertised archive did not expose the expected 2026 directory, and its server
-filter timed out; large all-Reddit torrent downloads were not needed.
-
-Source documentation:
-
-- https://github.com/ArthurHeitmann/arctic_shift/blob/master/api/README.md
-- https://support.reddithelp.com/hc/en-us/articles/49381918834964-Reddit-for-Researchers-Program
-
-The official research program documents a six-month data delay, so it cannot be
-assumed to provide every recent 2026 month either. Public archive availability
-and archive coverage are separate questions from the project's data-use terms.
