@@ -25,10 +25,13 @@ dataset/reddit/*
 !dataset/reddit/collection_manifest.json
 !dataset/pooled/
 dataset/pooled/*
-# User-approved Part 3 handoff only; other generated outputs remain ignored
+# User-approved Part 3 data handoff and score summaries
 !dataset/pooled/pooled_train.csv
 !dataset/pooled/pooled_val.csv
 !dataset/pooled/manifest.json
+!dataset/pooled/baseline_metrics.csv
+!dataset/pooled/loso_metrics.csv
+!dataset/pooled/transfer_comparison.csv
 
 # Editors / OS
 .vscode/

@@ -65,8 +65,10 @@ Agreed interfaces, so work doesn't block:
 The approved `dataset/pooled/pooled_train.csv` (19,187 rows),
 `pooled_val.csv` (4,797 rows) and `manifest.json` are tracked for package 4.
 Use `text` as input and `label` as target; fit the tokenizer on training data only.
-See the [dataset guide](dataset/README.md#pooled-training-data) for loading and version checks.
-Other Part 3 result files remain local and can be regenerated with notebook 3.
+Three compact Part 3 score summaries (`baseline_metrics.csv`, `loso_metrics.csv`,
+`transfer_comparison.csv`) are also tracked as reference results. See the
+[dataset guide](dataset/README.md#pooled-training-data) for loading, version checks
+and the distinction between training inputs and reference outputs.
 
 ## Work package 1: Reddit test comments
 

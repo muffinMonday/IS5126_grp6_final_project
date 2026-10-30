@@ -12,6 +12,7 @@ outputs remain local and ignored by Git (see `.gitignore`).
 | `pooled/pooled_train.csv` | Part 3 cleaned training split, 19,187 rows | yes (explicitly approved) |
 | `pooled/pooled_val.csv` | Part 3 fixed validation split, 4,797 rows | yes (explicitly approved) |
 | `pooled/manifest.json` | Part 3 settings, source hashes and split hashes | yes (explicitly approved) |
+| `pooled/baseline_metrics.csv`, `loso_metrics.csv`, `transfer_comparison.csv` | Part 3 baseline and transfer reference scores | yes (explicitly approved) |
 | `reddit/test_100_ai_draft.csv` and `reddit/collection_manifest.json` | 100 r/jobs comments with AI preliminary labels and provenance | yes (explicitly approved) |
 | Other r/jobs candidates, browser exports and human review CSVs | collected by the team | no |
 
@@ -20,23 +21,30 @@ Put new downloads in this folder; files outside the approved list stay untracked
 
 ## Pooled training data
 
-The user approved these three handoff files on 2026-10-29. Package 4 can use them
-after pulling the repository, without downloading the four original sources or
-rerunning Part 3. Each CSV contains `orig_id, source, text_raw, text, label`.
-Read with `keep_default_na=False` and `dtype={'orig_id': str}`; use the already
-cleaned `text` as input and binary `label` as target. Fit the tokenizer and tune
-models only on `pooled_train.csv`; reserve `pooled_val.csv` for final evaluation.
+The user approved the three data handoff files on 2026-10-29 and the three score
+summary files on 2026-10-30. Package 4 can use the data after pulling the
+repository, without downloading the four original sources or rerunning Part 3.
+Each split CSV contains `orig_id, source, text_raw, text, label`. Read with
+`keep_default_na=False` and `dtype={'orig_id': str}`; use the already cleaned
+`text` as input and binary `label` as target. Fit the tokenizer and tune models
+only on `pooled_train.csv`; reserve `pooled_val.csv` for final evaluation.
+
+The score files are references only: `baseline_metrics.csv` reports the fixed
+majority and TF-IDF/logistic-regression baselines; `loso_metrics.csv` reports
+leave-one-source-out results; `transfer_comparison.csv` compares pooled and
+leave-one-source-out scores. They are useful for context when reporting Package
+4's Bi-LSTM results, but are not inputs to model training or tuning.
 
 `manifest.json` records the source mappings, seed, preparation version and exact
 SHA-256 hashes of both CSVs. Git preserves their bytes across platforms so these
 hashes can be checked before training. Any replacement must keep the two splits
 and manifest consistent.
 
-Other Part 3 outputs are not tracked:
+Other Part 3 outputs remain local and ignored; they are not needed to train the
+Package 4 model:
 
 | Output | Local files |
 |---|---|
-| Scores | `baseline_metrics.csv`, `loso_metrics.csv`, `transfer_comparison.csv` |
 | Predictions | `baseline_predictions.csv`, `loso_predictions.csv` |
 | Errors and removal audit | `baseline_errors.csv`, `error_counts.csv`, `removed_rows.csv` |
 | Summaries | `data_summary.csv`, `text_length_summary.csv`, `results_summary.txt` |

@@ -6,3 +6,6 @@
 dataset/pooled/pooled_train.csv -text
 dataset/pooled/pooled_val.csv -text
 dataset/pooled/manifest.json -text
+dataset/pooled/baseline_metrics.csv -text
+dataset/pooled/loso_metrics.csv -text
+dataset/pooled/transfer_comparison.csv -text
