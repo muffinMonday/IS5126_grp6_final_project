@@ -1,0 +1,40 @@
+{
+  "year": 2026,
+  "as_of_utc": "2026-10-28T07:10:54+00:00",
+  "seed": 42,
+  "target_per_month": 1000,
+  "min_words": 3,
+  "source": {
+    "method": "arctic_shift_time_stratified",
+    "endpoint": "https://arctic-shift.photon-reddit.com/api/comments/search",
+    "requests": 205,
+    "provenance_file": "../acquisition_status.json",
+    "keywords": null,
+    "permalinks": "Constructed from source post and comment IDs, not individually fetched."
+  },
+  "sampling": "Equal quotas across equal-duration UTC time strata; seeded random anchors define bounded candidate batches, followed by cleaning and sampling without replacement within each stratum.",
+  "population": "Supplied eligible records per month; archive coverage does not imply full Reddit coverage.",
+  "limitations": [
+    "Equal monthly sample sizes do not measure absolute discussion volume.",
+    "Current month is partial; missing months are not zero activity.",
+    "Language is unverified unless supplied by source; inspect a random sample.",
+    "Known bots only are filtered; unknown bots may remain.",
+    "Different IDs with matching text are retained and flagged.",
+    "Random-anchor candidate batches are not a simple random sample of all monthly comments; inclusion probabilities depend on local activity."
+  ],
+  "counts": {
+    "raw": 20213,
+    "eligible": 17766,
+    "excluded": 2447,
+    "selected": 10000
+  },
+  "sha256": {
+    "comments_clean.csv": "62111327682df76d2d44899c0f28cceddbe51b3800d871d684cdf29b34ea1fc3",
+    "eligible_pool.csv": "2146cba57096454ef8db6f0405d70715dc4395c8a8bf3e28b384ba55a448e952",
+    "excluded_rows.csv": "95069c2a2d14ed8af9a0df18d12c0c64193226ca4124a1920bee4fe7e057f15d",
+    "cleaning_audit.csv": "0a6e0c7a83a5baa73b22b7136291b1dae5dbef1f59ba28d2d50cd782abf09b80",
+    "monthly_coverage.csv": "e61f3f9a4a286316ee38d09f736c4a9f27937d0ff4fa01ac57c9626e4cef9ba8",
+    "raw_candidates.csv": "65f4aa29b97479275ce8d392340bf4ac9f7c7cd37513e49814da5d42e098ca3c"
+  },
+  "strata_per_month": 20
+}
