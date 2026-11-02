@@ -10,8 +10,9 @@ venv/
 
 # Large or generated files: get them with the instructions in README.md
 glove/
-models/
 *.keras
+# saved search results in models/ are shared (a .keras file elsewhere stays ignored)
+!models/**/*.keras
 *.zip
 
 # Data: track only the explicitly shared samples and documentation
@@ -39,3 +40,6 @@ dataset/pooled/*
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Report drafts (not shared through Git)
+Report/
