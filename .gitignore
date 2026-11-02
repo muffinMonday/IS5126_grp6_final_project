@@ -22,7 +22,7 @@ dataset/*
 !dataset/reddit/
 dataset/reddit/*
 # User-approved 100-comment AI-labelled sample and provenance only
-!dataset/reddit/test_100_ai_draft.csv
+!dataset/reddit/test_100_ai_labeled.csv
 !dataset/reddit/collection_manifest.json
 !dataset/pooled/
 dataset/pooled/*

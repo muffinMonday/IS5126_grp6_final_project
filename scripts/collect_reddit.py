@@ -10,13 +10,13 @@ sys.path.insert(0, str(ROOT))
 
 from functions.reddit_collection import (
   RedditAPIError, RedditClient, balanced_sample, collect_comments, prepare_comments,
-  ai_draft, read_browser_comments, read_comments, write_comments,
+  ai_labeled_sample, read_browser_comments, read_comments, write_comments,
 )
 
 
 def main(argv=None):
   parser = argparse.ArgumentParser(
-    description='Prepare 50 non-toxic + 50 toxic, manually reviewed r/jobs comments.',
+    description='Prepare 50 non-toxic + 50 toxic, AI-labelled r/jobs comments.',
   )
   commands = parser.add_subparsers(dest='command', required=True)
   collect = commands.add_parser('collect', help='Fetch recent candidates using approved OAuth access.')
@@ -32,14 +32,14 @@ def main(argv=None):
   browser.add_argument('--input', type=Path, nargs='+', required=True)
   browser.add_argument('--output', type=Path, default=ROOT / 'dataset/reddit/browser_candidates.csv')
 
-  draft = commands.add_parser('ai-draft', help='Attach AI suggestions; keep all 100 rows pending review.')
-  draft.add_argument('--input', type=Path, required=True)
-  draft.add_argument('--annotations', type=Path, required=True)
-  draft.add_argument('--output', type=Path, default=ROOT / 'dataset/reddit/test_100_ai_draft.csv')
-  draft.add_argument('--seed', type=int, default=42)
+  annotate = commands.add_parser('annotate-ai', help='Export the test set using supplied AI labels and reasons.')
+  annotate.add_argument('--input', type=Path, required=True)
+  annotate.add_argument('--annotations', type=Path, required=True)
+  annotate.add_argument('--output', type=Path, default=ROOT / 'dataset/reddit/test_100_ai_labeled.csv')
+  annotate.add_argument('--seed', type=int, default=42)
 
-  finalize = commands.add_parser('finalize', help='Export exactly 50 reviewed comments from each class.')
-  finalize.add_argument('--input', type=Path, default=ROOT / 'dataset/reddit/candidates.csv')
+  finalize = commands.add_parser('finalize', help='Sample exactly 50 AI-labelled comments from each class.')
+  finalize.add_argument('--input', type=Path, default=ROOT / 'dataset/reddit/test_100_ai_labeled.csv')
   finalize.add_argument('--output', type=Path, default=ROOT / 'dataset/reddit/test_100.csv')
   finalize.add_argument('--seed', type=int, default=42)
   args = parser.parse_args(argv)
@@ -58,9 +58,9 @@ def main(argv=None):
       rows = prepare_comments(read_comments(args.input))
     elif args.command == 'import-browser':
       rows = read_browser_comments(args.input)
-    elif args.command == 'ai-draft':
+    elif args.command == 'annotate-ai':
       annotations = json.loads(args.annotations.read_text(encoding='utf-8'))
-      rows = ai_draft(read_comments(args.input), annotations, seed=args.seed)
+      rows = ai_labeled_sample(read_comments(args.input), annotations, seed=args.seed)
     else:
       rows = balanced_sample(read_comments(args.input), seed=args.seed)
     if not rows:
@@ -70,15 +70,12 @@ def main(argv=None):
     parser.exit(2, f'Error: {exc}\n')
 
   print(f'Wrote {len(rows)} comments to {args.output}')
-  if args.command == 'finalize':
-    print('Verified: 50 non-toxic (0), 50 toxic (1), unique and human-reviewed.')
+  if args.command in ('annotate-ai', 'finalize'):
+    print('Verified: 50 non-toxic (0), 50 toxic (1), unique and AI-labelled.')
     print('Use only for final zero-shot evaluation, never training or threshold tuning.')
-  elif args.command == 'ai-draft':
-    print('50 non-toxic + 50 toxic AI suggestions; ALL rows remain pending human review.')
-    print('These are preliminary labels, not a human-labelled gold test set.')
   else:
-    print('Review raw text/context; fill is_toxic, annotator, and annotation_status=reviewed.')
-    print('Leave unclear cases pending or excluded. See dataset/README.md for the rubric.')
+    print('Prepare AI label/reason JSON, then run annotate-ai. See dataset/README.md for the rubric.')
+    print('Omit uncertain cases from the annotation JSON; collect more if either class is short.')
 
 
 if __name__ == '__main__':

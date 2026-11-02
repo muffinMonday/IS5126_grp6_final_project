@@ -21,7 +21,13 @@ from functions.preprocessing import cleanup_text
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CELL_IDS = ('reddit-load-data', 'reddit-predict', 'reddit-metrics', 'reddit-errors')
+CELL_MARKERS = {
+  'reddit-load-data': 'reddit_path = ',
+  'reddit-predict': 'reddit_dependencies = ',
+  'reddit-metrics': 'reddit_metrics = ',
+  'reddit-errors': 'reddit_predictions = ',
+}
+CELL_IDS = tuple(CELL_MARKERS)
 
 
 class InferenceOnlyTokenizer:
@@ -43,13 +49,16 @@ class RedditNotebookTests(unittest.TestCase):
   @classmethod
   def setUpClass(cls):
     notebook = json.loads((ROOT / 'notebook/4_LSTM_model.ipynb').read_text())
-    cls.cells = {cell['id']: compile(''.join(cell['source']), cell['id'], 'exec')
-                 for cell in notebook['cells'] if cell['id'] in CELL_IDS}
-    if set(cls.cells) != set(CELL_IDS):
-      raise AssertionError('Reddit evaluation cells are missing.')
+    cls.cells = {}
+    for name, marker in CELL_MARKERS.items():
+      matches = [''.join(cell['source']) for cell in notebook['cells']
+                 if cell['cell_type'] == 'code' and marker in ''.join(cell['source'])]
+      if len(matches) != 1:
+        raise AssertionError(f'Expected exactly one {name} cell.')
+      cls.cells[name] = compile(matches[0], name, 'exec')
 
   def setUp(self):
-    self.frame = pd.read_csv(ROOT / 'dataset/reddit/test_100_ai_draft.csv',
+    self.frame = pd.read_csv(ROOT / 'dataset/reddit/test_100_ai_labeled.csv',
                              dtype=str, keep_default_na=False)
     self.actual = self.frame['is_toxic'].astype(int).to_numpy()
     self.proba = np.where(self.actual == 1, 0.9, 0.1)
@@ -96,7 +105,7 @@ class RedditNotebookTests(unittest.TestCase):
     for name in ('precision', 'recall', 'macro_f1'):
       self.assertAlmostEqual(metrics[name], 0.98)
     self.assertAlmostEqual(metrics['pr_auc'], 49 / 50 + (1 / 50) * (50 / 51))
-    self.assertEqual(metrics['label_source'], 'AI / unreviewed labels')
+    self.assertEqual(metrics['label_source'], 'AI annotations')
     self.assertEqual(self.ns['reddit_pred'][positive], 0)
     self.assertEqual(self.ns['reddit_pred'][negative], 1)
     self.assertEqual(set(self.ns['reddit_errors']['error_type']),
@@ -119,7 +128,8 @@ class RedditNotebookTests(unittest.TestCase):
 
   def test_invalid_or_unlabelled_sample_stops_before_inference(self):
     changes = [('is_toxic', ''), ('text', '  '), ('subreddit', 'other'),
-               ('annotation_status', 'excluded'), ('comment_id', self.frame.loc[1, 'comment_id']),
+               ('annotation_status', 'excluded'), ('annotation_status', 'pending'),
+               ('comment_id', self.frame.loc[1, 'comment_id']),
                ('text', self.frame.loc[1, 'text'].upper())]
     for column, value in changes:
       changed = self.frame.copy()
@@ -130,14 +140,15 @@ class RedditNotebookTests(unittest.TestCase):
       self.run_cell('reddit-load-data', self.frame.drop(columns=['is_toxic']))
     self.model.predict.assert_not_called()
 
-  def test_review_status_does_not_promote_ai_labels_to_human_ground_truth(self):
-    changed = self.frame.copy()
-    changed['annotation_status'] = 'reviewed'
-    self.run_cell('reddit-load-data', changed)
-    self.assertFalse(self.ns['reddit_human_reviewed'])
-    changed['annotator'] = 'A1'
-    self.run_cell('reddit-load-data', changed)
-    self.assertTrue(self.ns['reddit_human_reviewed'])
+  def test_ai_provenance_is_required_and_reported(self):
+    self.run_cell('reddit-load-data')
+    self.assertEqual(self.ns['reddit_label_source'], 'AI annotations')
+    for column, value in (('annotator', ''), ('annotator', 'AI:'),
+                          ('annotator', 'unknown'), ('annotation_notes', ' ')):
+      changed = self.frame.copy()
+      changed.loc[0, column] = value
+      with self.subTest(column=column, value=value), self.assertRaises(ValueError):
+        self.run_cell('reddit-load-data', changed)
 
   def test_missing_model_does_not_trigger_training_or_downloads(self):
     self.run_cell('reddit-load-data')

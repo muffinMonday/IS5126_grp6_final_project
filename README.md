@@ -3,7 +3,7 @@
 Two linked pipelines (details in `Project Proposal/`):
 
 - **Objective 1, topics:** TF-IDF → PCA (50 dims) → K-means → centroid term profiles → monthly topic trends.
-- **Objective 2, toxicity:** pooled labelled datasets → GloVe → Bi-LSTM → zero-shot test on a small hand-labelled r/jobs set (precision, recall, macro F1, PR-AUC).
+- **Objective 2, toxicity:** pooled labelled datasets → GloVe → Bi-LSTM → zero-shot test on a small AI-labelled r/jobs set (precision, recall, macro F1, PR-AUC).
 - **Combined:** apply the classifier to the clustered comments → toxicity rate per topic per month → dashboard.
 
 ## Repository layout
@@ -72,26 +72,27 @@ and the distinction between training inputs and reference outputs.
 
 ## Work package 1: Reddit test comments
 
-The committed `dataset/reddit/test_100_ai_draft.csv` contains 100 real comments
-from 58 r/jobs posts, with 50 non-toxic and 50 toxic **AI suggestions**. All rows
-remain pending human review. `collection_manifest.json` records provenance and
-sampling limitations. These two files are an explicitly approved exception to
-the data exclusion rule. The blank review CSV and remaining collection artifacts
-stay local and ignored. See the
+The committed `dataset/reddit/test_100_ai_labeled.csv` contains 100 real comments
+from 58 r/jobs posts, with 50 non-toxic and 50 toxic **AI annotations**, ready for
+zero-shot evaluation in `notebook/4_LSTM_model.ipynb`. AI labels are the reference
+labels for this test set; `annotator=AI:Codex` and individual rationales retain
+their provenance. `collection_manifest.json` records acquisition and sampling
+limitations. These two files are an explicitly approved exception to the data
+exclusion rule. Other collection artifacts stay local and ignored. See the
 [dataset guide](dataset/README.md#shared-ai-labelled-sample-2026-10-28) for usage.
 
 The small test set contains **50 non-toxic (`is_toxic=0`) and 50 toxic
 (`is_toxic=1`) r/jobs comments**. These are toxicity labels, not positive/negative
-sentiment. Collect a larger candidate pool, annotate it manually, then sample
-exactly 50 reviewed comments from each class with seed 42. This is a balanced
+sentiment. Collect a larger candidate pool, obtain contextual AI annotations,
+then export exactly 50 comments from each class with seed 42. This is a balanced
 zero-shot test set, not a representative sample for estimating monthly toxicity.
 
 From the repository root (only Python's standard library is needed):
 
 ```bash
 python scripts/collect_reddit.py collect --limit 500
-# Manually annotate dataset/reddit/candidates.csv, following dataset/README.md.
-python scripts/collect_reddit.py finalize
+# Prepare AI label/reason JSON following dataset/README.md; use a new output name.
+python scripts/collect_reddit.py annotate-ai --input dataset/reddit/candidates.csv --annotations dataset/reddit/ai_annotations_100.json --output dataset/reddit/test_100_ai_labeled_v2.csv
 python -m unittest discover -s tests -p 'test_reddit_collection.py'
 ```
 

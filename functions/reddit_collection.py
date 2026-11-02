@@ -1,4 +1,4 @@
-"""Collect r/jobs candidates and sample a manually labelled toxicity test set.
+"""Collect r/jobs candidates and sample an AI-labelled toxicity test set.
 
 Uses only the standard library; importing this module does not load TensorFlow.
 Raw text is preserved for the existing training/inference preprocessing pipeline.
@@ -271,8 +271,8 @@ def read_browser_comments(paths):
   return prepare_comments(records)
 
 
-def ai_draft(records, annotations, seed=42):
-  """Attach explicit AI suggestions to 100 source comments; keep every row pending."""
+def ai_labeled_sample(records, annotations, seed=42):
+  """Attach supplied AI labels and rationales to a balanced 100-comment test set."""
   if not isinstance(annotations, dict) or len(annotations) != 100:
     raise ValueError('AI annotations must map exactly 100 comment IDs to label/reason objects.')
   sources = {row['comment_id']: row for row in prepare_comments(records)}
@@ -283,14 +283,14 @@ def ai_draft(records, annotations, seed=42):
     if (not isinstance(annotation, dict) or type(annotation.get('label')) is not int
         or annotation['label'] not in (0, 1)
         or not isinstance(annotation.get('reason'), str) or not annotation['reason'].strip()):
-      raise ValueError('Every AI suggestion needs integer label 0/1 and a nonempty reason.')
+      raise ValueError('Every AI annotation needs integer label 0/1 and a nonempty reason.')
     row = sources[comment_id].copy()
-    row.update(is_toxic=str(annotation['label']), annotation_status='pending',
+    row.update(is_toxic=str(annotation['label']), annotation_status='ai_labeled',
                annotator='AI:Codex',
-               annotation_notes='AI preliminary; human review required. ' + annotation['reason'])
+               annotation_notes='AI annotation. ' + annotation['reason'])
     rows.append(row)
   if sum(row['is_toxic'] == '1' for row in rows) != 50:
-    raise ValueError('AI draft requires exactly 50 suggested labels in each class.')
+    raise ValueError('AI test set requires exactly 50 labels in each class.')
   random.Random(seed).shuffle(rows)
   return rows
 
@@ -306,7 +306,7 @@ def write_comments(path, rows):
 
 
 def balanced_sample(records, per_class=50, seed=42):
-  """Select human-reviewed 0/1 labels only; fail rather than pad a missing class."""
+  """Select AI-labelled 0/1 comments; fail rather than pad a missing class."""
   if per_class < 1:
     raise ValueError('per_class must be positive.')
   groups = {'0': [], '1': []}
@@ -320,22 +320,23 @@ def balanced_sample(records, per_class=50, seed=42):
     seen_texts.add(text_key)
     status = str(row['annotation_status']).strip().lower()
     label = str(row['is_toxic']).strip()
-    if status not in ('pending', 'reviewed', 'excluded'):
-      raise ValueError('annotation_status must be pending, reviewed or excluded.')
+    if status not in ('pending', 'ai_labeled', 'excluded'):
+      raise ValueError('annotation_status must be pending, ai_labeled or excluded.')
     if label not in ('', '0', '1', 'uncertain'):
       raise ValueError('is_toxic must be blank, 0, 1 or uncertain; never use sentiment labels.')
-    if status != 'reviewed':
+    if status != 'ai_labeled':
       continue
-    if label not in groups or not str(row['annotator']).strip():
-      raise ValueError('Every reviewed comment needs is_toxic 0/1 and an annotator ID.')
-    if str(row['annotator']).strip().casefold().startswith('ai:'):
-      raise ValueError('AI suggestions need human review and a human annotator ID before finalize.')
+    annotator = str(row['annotator']).strip()
+    if label not in groups or not annotator.casefold().startswith('ai:') or not annotator[3:].strip():
+      raise ValueError('Every AI-labelled comment needs is_toxic 0/1 and an AI:<model> annotator.')
+    if not str(row['annotation_notes']).strip():
+      raise ValueError('Every AI-labelled comment needs an annotation reason.')
     if text_key in ('[deleted]', '[removed]'):
       raise ValueError('Deleted/removed comments cannot be included in the test set.')
     row.update(is_toxic=label, annotation_status=status)
     groups[label].append(row)
   if any(len(group) < per_class for group in groups.values()):
-    raise ValueError(f'Need {per_class} reviewed comments per class; found '
+    raise ValueError(f'Need {per_class} AI-labelled comments per class; found '
                      f'{len(groups["0"])} non-toxic and {len(groups["1"])} toxic. '
                      'Collect/annotate more; do not relabel comments to fill a quota.')
   rng = random.Random(seed)
