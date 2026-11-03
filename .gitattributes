@@ -3,6 +3,7 @@
 *.ipynb diff=ipynb
 
 # Preserve the exact handoff bytes and manifest hashes on every platform
+dataset/reddit/test_100_ai_labeled.csv -text
 dataset/pooled/pooled_train.csv -text
 dataset/pooled/pooled_val.csv -text
 dataset/pooled/manifest.json -text

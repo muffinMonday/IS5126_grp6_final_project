@@ -11,7 +11,7 @@ from unittest.mock import Mock, patch
 
 from functions.reddit_collection import (
   COMMENT_FIELDS, RedditAPIError, RedditClient, balanced_sample, collect_comments,
-  ai_draft, prepare_comments, read_browser_comments, read_comments, write_comments,
+  ai_labeled_sample, prepare_comments, read_browser_comments, read_comments, write_comments,
 )
 from scripts.collect_reddit import main
 
@@ -20,7 +20,8 @@ def comment(index, **overrides):
   row = dict.fromkeys(COMMENT_FIELDS, '')
   row.update(comment_id=f'c{index}', text=f'Synthetic annotation fixture number {index}.',
              created_utc=1700000000 + index, subreddit='jobs',
-             is_toxic=str(index % 2), annotation_status='reviewed', annotator='tester')
+             is_toxic=str(index % 2), annotation_status='ai_labeled',
+             annotator='AI:Codex', annotation_notes='AI annotation. Synthetic reason.')
   row.update(overrides)
   return row
 
@@ -107,33 +108,30 @@ class SamplingTests(unittest.TestCase):
         with self.subTest(change=change), self.assertRaises(ValueError):
           read_browser_comments([path])
 
-  def test_ai_draft_is_balanced_but_cannot_be_finalized_as_human_reviewed(self):
+  def test_ai_labels_are_balanced_and_ready_for_finalization(self):
     rows = [comment(i, collected_utc='2026-10-27T12:00:00+00:00') for i in range(100)]
     annotations = {r['comment_id']: {'label': int(r['is_toxic']), 'reason': 'Synthetic reason.'}
                    for r in rows}
-    draft = ai_draft(rows, annotations)
-    self.assertEqual(Counter(r['is_toxic'] for r in draft), {'0': 50, '1': 50})
-    self.assertTrue(all(r['annotation_status'] == 'pending' for r in draft))
-    self.assertEqual(draft, ai_draft(list(reversed(rows)), annotations))
-    with self.assertRaisesRegex(ValueError, 'reviewed comments'):
-      balanced_sample(draft)
-    for row in draft:
-      row['annotation_status'] = 'reviewed'
-    with self.assertRaisesRegex(ValueError, 'human annotator'):
-      balanced_sample(draft)
+    sample = ai_labeled_sample(rows, annotations)
+    self.assertEqual(Counter(r['is_toxic'] for r in sample), {'0': 50, '1': 50})
+    self.assertTrue(all(r['annotation_status'] == 'ai_labeled' for r in sample))
+    self.assertTrue(all(r['annotator'] == 'AI:Codex' for r in sample))
+    self.assertEqual(sample, ai_labeled_sample(list(reversed(rows)), annotations))
+    self.assertCountEqual(balanced_sample(sample), sample)
+    self.assertEqual(rows[0], comment(0, collected_utc='2026-10-27T12:00:00+00:00'))
 
-  def test_ai_draft_rejects_missing_sources_bad_labels_and_wrong_quotas(self):
+  def test_ai_labels_reject_missing_sources_bad_labels_and_wrong_quotas(self):
     rows = [comment(i) for i in range(100)]
     annotations = {r['comment_id']: {'label': int(r['is_toxic']), 'reason': 'Synthetic reason.'}
                    for r in rows}
     for change in ({'label': 1, 'reason': 'wrong quota'}, {'label': True, 'reason': 'bool'},
                    {'label': 0, 'reason': ''}, {'label': '0', 'reason': 'string'}):
       with self.subTest(change=change), self.assertRaises(ValueError):
-        ai_draft(rows, {**annotations, 'c0': change})
+        ai_labeled_sample(rows, {**annotations, 'c0': change})
     with self.assertRaises(ValueError):
-      ai_draft(rows[1:], annotations)
+      ai_labeled_sample(rows[1:], annotations)
     with self.assertRaises(ValueError):
-      ai_draft(rows, {})
+      ai_labeled_sample(rows, {})
 
   def test_malformed_csv_rejected(self):
     with tempfile.TemporaryDirectory() as tmp:
@@ -157,10 +155,11 @@ class SamplingTests(unittest.TestCase):
     self.assertNotEqual(result, balanced_sample(rows, seed=7))
     self.assertEqual(rows[0], comment(0))
 
-  def test_shortfall_pending_and_invalid_review_do_not_become_gold_labels(self):
+  def test_shortfall_pending_and_invalid_annotations_cannot_be_exported(self):
     for changes in ({'annotation_status': 'pending'}, {'annotation_status': 'excluded'},
                     {'is_toxic': ''}, {'is_toxic': 'uncertain'}, {'annotator': ''},
-                    {'is_toxic': 'positive'}, {'annotation_status': 'yes'}):
+                    {'is_toxic': 'positive'}, {'annotation_status': 'yes'},
+                    {'annotator': 'AI:'}, {'annotator': 'unknown'}, {'annotation_notes': ' '}):
       rows = [comment(i) for i in range(100)]
       rows[0].update(changes)
       with self.subTest(changes=changes), self.assertRaises(ValueError):
@@ -176,15 +175,23 @@ class SamplingTests(unittest.TestCase):
 
   def test_csv_roundtrip_cli_and_no_overwrite(self):
     with tempfile.TemporaryDirectory() as tmp:
-      source, output = Path(tmp) / 'reviewed.csv', Path(tmp) / 'test.csv'
+      source, output = Path(tmp) / 'candidates.csv', Path(tmp) / 'test.csv'
+      annotated = Path(tmp) / 'ai_labeled.csv'
+      annotations = Path(tmp) / 'annotations.json'
       rows = [comment(i) for i in range(100)]
       rows[0]['text'] = 'Mixed CASE, "quotes"\nUnicode: café 中文'
-      write_comments(source, rows)
+      write_comments(source, prepare_comments(rows))
+      annotations.write_text(json.dumps({r['comment_id']: {
+        'label': int(r['is_toxic']), 'reason': 'Synthetic reason.'} for r in rows}), encoding='utf-8')
       self.assertEqual(read_comments(source)[0]['text'], rows[0]['text'])
       with patch('sys.stdout', new_callable=io.StringIO):
-        main(['finalize', '--input', str(source), '--output', str(output)])
+        main(['annotate-ai', '--input', str(source), '--annotations', str(annotations),
+              '--output', str(annotated)])
+        main(['finalize', '--input', str(annotated), '--output', str(output)])
       exported = read_comments(output)
       self.assertEqual(Counter(row['is_toxic'] for row in exported), {'0': 50, '1': 50})
+      self.assertTrue(all(row['annotation_status'] == 'ai_labeled' for row in exported))
+      self.assertEqual(next(row['text'] for row in exported if row['comment_id'] == 'c0'), rows[0]['text'])
       before = output.read_bytes()
       with self.assertRaises(FileExistsError):
         write_comments(output, rows)
@@ -192,7 +199,7 @@ class SamplingTests(unittest.TestCase):
 
   def test_failed_cli_export_leaves_no_file(self):
     with tempfile.TemporaryDirectory() as tmp:
-      source, output = Path(tmp) / 'reviewed.csv', Path(tmp) / 'test.csv'
+      source, output = Path(tmp) / 'ai_labeled.csv', Path(tmp) / 'test.csv'
       write_comments(source, [comment(i) for i in range(99)])
       with patch('sys.stderr', new_callable=io.StringIO), self.assertRaises(SystemExit) as exc:
         main(['finalize', '--input', str(source), '--output', str(output)])
