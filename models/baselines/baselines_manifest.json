@@ -4,32 +4,60 @@
   "random_state": 42,
   "threshold": 0.5,
   "config": {
-    "random_state": 42,
-    "threshold": 0.5,
-    "tfidf": {
-      "ngram_range": [
+    "C_grid": [
+      0.01,
+      0.1,
+      1.0,
+      10.0,
+      100.0
+    ],
+    "selected_C": {
+      "tfidf_logreg": 10.0,
+      "tfidf_logreg_balanced": 10.0
+    },
+    "ngram_ranges": [
+      [
+        1,
+        1
+      ],
+      [
         1,
         2
-      ],
-      "min_df": 2,
-      "max_features": 50000,
-      "sublinear_tf": true
+      ]
+    ],
+    "min_dfs": [
+      1,
+      2,
+      5
+    ],
+    "selected_params": {
+      "tfidf_logreg": {
+        "logisticregression__C": 10.0,
+        "tfidfvectorizer__min_df": 1,
+        "tfidfvectorizer__ngram_range": [
+          1,
+          1
+        ]
+      },
+      "tfidf_logreg_balanced": {
+        "logisticregression__C": 10.0,
+        "tfidfvectorizer__min_df": 1,
+        "tfidfvectorizer__ngram_range": [
+          1,
+          1
+        ]
+      }
     },
-    "logistic_regression": {
-      "C": 1,
-      "solver": "lbfgs",
-      "max_iter": 1000
-    },
-    "baseline_class_weights": {
+    "candidates_per_variant": 30,
+    "n_splits": 5,
+    "random_state": 42,
+    "objective": "average_precision",
+    "selection": "best",
+    "threshold": 0.5,
+    "tfidf_fit": "inside each training fold",
+    "class_weights": {
       "tfidf_logreg": null,
       "tfidf_logreg_balanced": "balanced"
-    },
-    "majority_probability": 0.15213425757022983,
-    "loso_class_weight": "balanced",
-    "loso_design": "other-source training rows -> target-source shared validation rows",
-    "precision_recall_positive_label": 1,
-    "f1_average": "macro",
-    "pr_auc_definition": "average_precision_score (AP)",
-    "selection": "none; all fixed baselines and transfer checks are reported"
+    }
   }
 }
