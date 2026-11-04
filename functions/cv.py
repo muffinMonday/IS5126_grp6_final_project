@@ -32,6 +32,19 @@ def _compute_metrics(y, proba, threshold):
   }
 
 
+def _keras_class_weight(class_weight, y):
+  """Keras class_weight dict for the labels y: None, 'balanced' (n / (2 * class count), as in
+  scikit-learn, computed from y itself) or a {0: weight, 1: weight} dict."""
+  if class_weight is None:
+    return None
+  if isinstance(class_weight, str):
+    if class_weight != 'balanced':
+      raise ValueError("class_weight must be None, 'balanced' or a {0: w0, 1: w1} dict.")
+    counts = np.bincount(y, minlength=2)
+    return {c: len(y) / (2 * counts[c]) for c in (0, 1)}
+  return {int(k): float(v) for k, v in class_weight.items()}
+
+
 def _run_task(task):
   """Train one fresh model and score it, in this process or in a worker process.
 
@@ -62,6 +75,7 @@ def _run_task(task):
     epochs=task['epochs'],
     batch_size=task['batch_size'],
     validation_data=validation_data,
+    class_weight=_keras_class_weight(task['class_weight'], task['y_train']),
     verbose=task['verbose'],
   )
   proba_eval = model.predict(task['X_eval'], verbose=0).ravel()
@@ -94,6 +108,11 @@ class kfold_wrapper:
   results match n_jobs=1 up to floating-point differences. The first call starts the worker
   processes (they import TensorFlow), which takes a few seconds; they are then reused.
 
+  `class_weight` (None, 'balanced' or {0: w0, 1: w1}) weights the training loss by class, so
+  errors on the rarer class cost more. 'balanced' is computed from the labels each model trains
+  on (every fold, and the final fit). It changes training only: the reported metrics are still
+  computed from the predicted probabilities, which tend to be higher with balanced weights.
+
   Results (all metrics are computed from predictions at `threshold`):
     cv_results          per-fold train/validation metrics (DataFrame)
     avg_train_metrics   mean of each metric across folds, on the fold-train data
@@ -107,7 +126,7 @@ class kfold_wrapper:
 
   def __init__(self, model, X_train, y_train, X_val, y_val,
                n_splits=5, epochs=5, batch_size=16, threshold=0.5,
-               random_state=42, verbose=0, n_jobs=1, threads_per_job=None):
+               random_state=42, verbose=0, n_jobs=1, threads_per_job=None, class_weight=None):
     self.model = model
     self.X_train, self.y_train = np.asarray(X_train), np.asarray(y_train).astype(int)
     self.X_val, self.y_val = np.asarray(X_val), np.asarray(y_val).astype(int)
@@ -119,6 +138,7 @@ class kfold_wrapper:
     self.verbose = verbose
     self.n_jobs = n_jobs
     self.threads_per_job = threads_per_job
+    self.class_weight = class_weight
 
     # kept so a hyperparameter search can log what produced these scores
     self.hyperparameters = self._extract_hyperparameters(model)
@@ -176,7 +196,7 @@ class kfold_wrapper:
       'config': self.model.get_config(),
       'compile_config': self.model.get_compile_config(),
       'epochs': self.epochs, 'batch_size': self.batch_size, 'seed': self.random_state,
-      'verbose': self.verbose, 'threshold': self.threshold,
+      'verbose': self.verbose, 'threshold': self.threshold, 'class_weight': self.class_weight,
     }
 
     # the final model fits on the whole training set only; X_val stays unseen until its prediction

@@ -1,0 +1,8 @@
+{
+  "vocab_size": 10000,
+  "max_length": 80,
+  "oov_token": "<OOV>",
+  "padding": "post",
+  "truncating": "post",
+  "train_split_sha256": "6e92786f9cc81eb4e6deec6d20b5f28ec29fb7f1b5998a0e1788792f7b31a115"
+}

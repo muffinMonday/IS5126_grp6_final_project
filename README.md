@@ -23,7 +23,7 @@ tests/            offline checks: python -m unittest discover -s tests
 notebook/         one notebook per work package, e.g. 4_LSTM_model.ipynb
 dataset/          approved shared data and dataset instructions; see dataset/README.md
 glove/            GloVe vectors (not in git, downloaded automatically)
-models/           saved search results (not in git)
+models/           final saved models and the tokenizer, loaded by the notebooks (in git, see Git workflow)
 Project Proposal/ the project specification
 ```
 
@@ -42,7 +42,8 @@ Notebooks add the repo root to the path (`sys.path.append('..')`), so run them f
 Not in git, created locally:
 - **GloVe** (`glove/glove.6B.100d.txt`, 347 MB): downloaded on first run of the GloVe cell (needs the 820 MB `glove.6B.zip` once).
 - **Raw datasets and other generated outputs:** see `dataset/README.md`; the approved Part 3 handoff is tracked.
-- **Saved search results** (`models/bayes_search/`, ~33 MB): created by the search cell. Re-run it; do not share it.
+
+The final saved models are in git, so notebook 4b runs without training: `models/baselines/` and `models/tokenizer/` (written by notebooks 3 and 4), and `models/bayes_search_pooled_balanced/` and `models/bayes_search_pooled_unweighted/` (about 25 MB each, written by the search in notebook 4). Regenerate them by re-running notebooks 3 and 4 when the data, cleaning, tokenizer or search space change.
 
 ## Work packages
 
@@ -111,15 +112,16 @@ change preprocessing.
 - Pushing directly to `main` is allowed. `git pull` first, and never force-push.
 - Changes to `functions/` affect everyone, so ask a teammate to review them. If you change the behaviour of `cleanup_text`, tell the team: saved models trained on the old cleaning are no longer valid.
 - Notebooks: outputs are stripped on commit (nbstripout). Keep each notebook owned by one person to avoid merge conflicts.
-- Keep data, GloVe files, saved models and credentials out of Git. The explicitly
+- Keep data, GloVe files and credentials out of Git. The explicitly
   approved exceptions are the existing YouTube sample, the two Reddit sample
   files and the three Part 3 handoff files listed above. Other raw downloads,
   predictions, error tables and figures stay ignored.
+- Saved models are the other exception: commit only the four final folders listed under Setup. Replace them when the data, cleaning, tokenizer or search space change, and do not add a folder per retrain, because every `.keras` file (about 25 MB) stays in the Git history.
 - Small, focused commits with a message that says why, not only what.
 
 ## Reproducibility
 
 - Random seeds are fixed (`random_state=42`); keep them so results are comparable between people.
 - After editing anything in `functions/`, restart the notebook kernel: a running kernel keeps the old classes.
-- A saved search in `models/` is not checked against the data or preprocessing. After changing the data, cleaning, tokenizer or search space, re-run the search.
+- A saved search in `models/` is not checked against the data or preprocessing. After changing the data, cleaning, tokenizer or search space, re-run the search and replace the committed models.
 - The code was developed on pre-release TensorFlow/Keras builds (see `requirements.txt`).
