@@ -29,17 +29,23 @@ class LRTuningTests(unittest.TestCase):
     with patch.object(TfidfVectorizer, 'fit_transform', record):
       result = tune_logistic_regressions(self.texts, self.labels, c_values=[0.1, 1], n_splits=3)
     folds = list(StratifiedKFold(3, shuffle=True, random_state=42).split(self.texts, self.labels))
-    expected = [tuple(self.texts[tr]) for tr, _ in folds] * 2 + [tuple(self.texts)]
+    expected = [tuple(self.texts[tr]) for tr, _ in folds] * 12 + [tuple(self.texts)]
     self.assertEqual(fitted, expected * 2)
     for name, model in result['models'].items():
       lr = model.named_steps['logisticregression']
       self.assertEqual(lr.class_weight, 'balanced' if name.endswith('balanced') else None)
       log = result['cv_results'].query('model == @name')
       best = log.loc[log.mean_cv_pr_auc.idxmax()]
-      eligible = log[log.mean_cv_pr_auc >= best.mean_cv_pr_auc - best.std_cv_pr_auc]
       chosen = log[log.selected].iloc[0]
-      self.assertAlmostEqual(chosen.std_cv_pr_auc, eligible.std_cv_pr_auc.min())
+      self.assertAlmostEqual(chosen.mean_cv_pr_auc, best.mean_cv_pr_auc)
       self.assertEqual(lr.C, chosen.C)
+      tfidf = model.named_steps['tfidfvectorizer']
+      self.assertEqual(tfidf.ngram_range, chosen.ngram_range)
+      self.assertEqual(tfidf.min_df, chosen.min_df)
+      self.assertEqual(len(log), 12)
+      self.assertEqual(result['config']['selected_params'][name], {
+        'logisticregression__C': lr.C, 'tfidfvectorizer__ngram_range': tfidf.ngram_range,
+        'tfidfvectorizer__min_df': tfidf.min_df})
       self.assertEqual(model.predict_proba(['unseen validationonly']).shape, (1, 2))
       self.assertNotIn('validationonly', model.named_steps['tfidfvectorizer'].vocabulary_)
 
@@ -49,6 +55,17 @@ class LRTuningTests(unittest.TestCase):
         tune_logistic_regressions(self.texts, self.labels, c_values=grid)
     with self.assertRaises(ValueError):
       tune_logistic_regressions(self.texts, self.labels, n_splits=13)
+    for kwargs in [{'ngram_ranges': []}, {'min_dfs': [0]}, {'selection': 'holdout'}]:
+      with self.assertRaises(ValueError):
+        tune_logistic_regressions(self.texts, self.labels, **kwargs)
+
+  def test_stable_selection_remains_available(self):
+    result = tune_logistic_regressions(self.texts, self.labels, c_values=[0.1, 1],
+                                      ngram_ranges=[(1, 2)], min_dfs=[2], selection='stable')
+    for _, log in result['cv_results'].groupby('model'):
+      best = log.loc[log.mean_cv_pr_auc.idxmax()]
+      eligible = log[log.mean_cv_pr_auc >= best.mean_cv_pr_auc - best.std_cv_pr_auc]
+      self.assertAlmostEqual(log[log.selected].iloc[0].std_cv_pr_auc, eligible.std_cv_pr_auc.min())
 
   def test_notebook_defaults_do_not_train_or_save(self):
     path = Path(__file__).resolve().parents[1] / 'notebook/3_pooled_data.ipynb'
@@ -73,6 +90,8 @@ class LRTuningTests(unittest.TestCase):
                    str(path), 'exec'), namespace)
       save.assert_not_called()
     self.assertEqual(len(namespace['tuned_lr']['models']), 2)
+    self.assertEqual(len(namespace['tuned_lr']['cv_results']), 60)
+    self.assertEqual(namespace['tuned_lr']['config']['selection'], 'best')
     self.assertEqual(len(namespace['tuned_lr_metrics']), 4)
     self.assertTrue(namespace['tuned_lr_metrics']['threshold'].eq(0.5).all())
     for model in namespace['tuned_lr']['models'].values():
