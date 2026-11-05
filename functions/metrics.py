@@ -51,3 +51,48 @@ def metrics_by_group(y_true, proba, groups, threshold=0.5):
     mask = g == name
     rows[name] = toxicity_metrics(y[mask], p[mask], threshold)
   return pd.DataFrame(rows).T.rename_axis('group')
+
+
+def paired_bootstrap(y_true, proba_a, proba_b, n_boot=1000, seed=0, threshold=0.5, level=0.95):
+  """Paired bootstrap of the metric differences between two models (a minus b).
+
+  Resamples the comments with replacement, the same comments for both models, and
+  recomputes recall, false positive rate (FPR), macro F1 and PR-AUC each time.
+  Returns one row per metric: the `difference` on the full sample, the bootstrap
+  `mean`, and the percentile interval `ci_low`/`ci_high` at `level`. If the interval
+  includes zero, the sample cannot tell the models apart on that metric. Resamples
+  with a single class are skipped. The comments are treated as independent."""
+  y = np.asarray(y_true).astype(int).ravel()
+  pa = np.asarray(proba_a, dtype=float).ravel()
+  pb = np.asarray(proba_b, dtype=float).ravel()
+  if not len(y) == len(pa) == len(pb):
+    raise ValueError('y_true and both probability arrays must have the same length.')
+
+  def scores(idx):
+    out = {}
+    for name, p in (('a', pa), ('b', pb)):
+      yy, pp = y[idx], p[idx]
+      pred = (pp >= threshold).astype(int)
+      out[name] = {
+        'recall': recall_score(yy, pred, zero_division=0),
+        'FPR': ((pred == 1) & (yy == 0)).sum() / (yy == 0).sum(),
+        'macro_f1': f1_score(yy, pred, average='macro', zero_division=0),
+        'pr_auc': average_precision_score(yy, pp),
+      }
+    return {k: out['a'][k] - out['b'][k] for k in out['a']}
+
+  observed = scores(np.arange(len(y)))
+  rng = np.random.default_rng(seed)
+  draws = {k: [] for k in observed}
+  for _ in range(n_boot):
+    idx = rng.choice(len(y), len(y))
+    if len(np.unique(y[idx])) < 2:
+      continue
+    for k, v in scores(idx).items():
+      draws[k].append(v)
+  tail = (1 - level) / 2 * 100
+  return pd.DataFrame({
+    k: {'difference': observed[k], 'mean': np.mean(v),
+        'ci_low': np.percentile(v, tail), 'ci_high': np.percentile(v, 100 - tail)}
+    for k, v in draws.items()
+  }).T.rename_axis('metric')
