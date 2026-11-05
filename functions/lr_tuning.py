@@ -88,3 +88,106 @@ def tune_logistic_regressions(texts, labels, c_values=(0.01, 0.1, 1, 10, 100),
                      'objective': 'average_precision', 'selection': selection,
                      'threshold': 0.5, 'tfidf_fit': 'inside each training fold',
                      'class_weights': {'tfidf_logreg': None, 'tfidf_logreg_balanced': 'balanced'}}}
+
+
+def bayes_tune_logistic_regressions(texts, labels, n_iter=30, n_initial_points=10,
+                                   n_splits=5, random_state=42, n_jobs=1,
+                                   c_range=(0.01, 100.0), ngram_ranges=((1, 1), (1, 2)),
+                                   min_df_range=(1, 5), selection='stable',
+                                   stability_tolerance=1.0):
+  """Bayesian counterpart of tune_logistic_regressions, mirroring functions.tuning.bayes_search.
+
+  Same protocol as the LSTM search: skopt ask/tell (`n_iter` trials, `n_initial_points`
+  random starts), stratified folds with shuffle and `random_state`, mean AP across folds
+  as the objective, TF-IDF refitted inside each fold. With selection='stable', the chosen
+  trial has the lowest sample SD among trials whose mean is within `stability_tolerance`
+  SDs of the best trial's SD below the best mean. Training data only; no threshold is tuned.
+  Returns the same structure as tune_logistic_regressions.
+  """
+  from joblib import Parallel, delayed
+  from skopt import Optimizer
+  from skopt.space import Categorical, Integer, Real
+  from sklearn.base import clone
+  from sklearn.metrics import average_precision_score
+
+  texts = np.asarray(texts)
+  labels = np.asarray(labels)
+  if texts.ndim != 1 or labels.ndim != 1 or len(texts) != len(labels):
+    raise ValueError('Expected equally sized one-dimensional texts and labels.')
+  if not len(texts) or not all(isinstance(t, str) and t.strip() for t in texts):
+    raise ValueError('Training texts must be nonempty strings.')
+  if not np.isin(labels, [0, 1]).all() or len(np.unique(labels)) != 2:
+    raise ValueError('Training labels must contain both binary classes.')
+  if isinstance(n_splits, bool) or not isinstance(n_splits, int) or n_splits < 2:
+    raise ValueError('n_splits must be an integer of at least 2.')
+  if np.bincount(labels.astype(int)).min() < n_splits:
+    raise ValueError('Each class needs at least n_splits training rows.')
+  if selection not in ('best', 'stable'):
+    raise ValueError("selection must be 'best' or 'stable'.")
+  if not 0 < n_initial_points <= n_iter:
+    raise ValueError('Need 0 < n_initial_points <= n_iter.')
+  if len(c_range) != 2 or not 0 < c_range[0] < c_range[1]:
+    raise ValueError('c_range must be an increasing pair of positive numbers.')
+  if len(min_df_range) != 2 or not 1 <= min_df_range[0] <= min_df_range[1]:
+    raise ValueError('min_df_range must be an increasing pair of positive integers.')
+  ngram_ranges = [tuple(value) for value in ngram_ranges]
+  if not ngram_ranges or any(len(v) != 2 or any(not isinstance(x, int) or isinstance(x, bool) for x in v)
+                             or not 1 <= v[0] <= v[1] for v in ngram_ranges):
+    raise ValueError('ngram_ranges must contain positive ordered integer pairs.')
+
+  cv = list(StratifiedKFold(n_splits=n_splits, shuffle=True,
+                           random_state=random_state).split(texts, labels))
+  space = [Real(*c_range, prior='log-uniform'), Integer(*min_df_range),
+           Categorical(list(range(len(ngram_ranges))))]
+
+  def pipeline(weight, c, ngram, min_df):
+    return build_tfidf_logreg(weight, random_state).set_params(
+      logisticregression__C=c, tfidfvectorizer__ngram_range=ngram, tfidfvectorizer__min_df=min_df)
+
+  def fold_ap(model, train, test):
+    fitted = clone(model).fit(texts[train], labels[train])
+    return average_precision_score(labels[test], fitted.predict_proba(texts[test])[:, 1])
+
+  models, logs, selected_params = {}, [], {}
+  for name, weight in [('tfidf_logreg', None), ('tfidf_logreg_balanced', 'balanced')]:
+    optimizer = Optimizer(space, n_initial_points=n_initial_points, random_state=random_state)
+    rows = []
+    for trial in range(1, n_iter + 1):
+      point = optimizer.ask()
+      c, min_df, ngram_index = float(point[0]), int(point[1]), int(point[2])
+      model = pipeline(weight, c, ngram_ranges[ngram_index], min_df)
+      scores = np.array(Parallel(n_jobs=n_jobs)(delayed(fold_ap)(model, tr, te) for tr, te in cv))
+      optimizer.tell(point, -float(scores.mean()))  # skopt minimises
+      rows.append({'model': name, 'trial': trial, 'C': c, 'ngram_range': ngram_ranges[ngram_index],
+                   'min_df': min_df, 'mean_cv_pr_auc': scores.mean(),
+                   'std_cv_pr_auc': scores.std(ddof=1),
+                   **{f'fold_{i + 1}_pr_auc': s for i, s in enumerate(scores)}})
+    log = pd.DataFrame(rows)
+    mean, std = log['mean_cv_pr_auc'], log['std_cv_pr_auc']
+    best = mean.idxmax()
+    if selection == 'best':
+      chosen = best
+    else:
+      near_ties = mean.index[mean >= mean[best] - stability_tolerance * std[best]]
+      chosen = std[near_ties].idxmin()
+    log['selected'] = log.index == chosen
+    row = log.loc[chosen]
+    selected_params[name] = {'logisticregression__C': float(row['C']),
+                             'tfidfvectorizer__ngram_range': tuple(row['ngram_range']),
+                             'tfidfvectorizer__min_df': int(row['min_df'])}
+    models[name] = pipeline(weight, float(row['C']), tuple(row['ngram_range']), int(row['min_df'])).fit(texts, labels)
+    logs.append(log)
+    print(f'{name}: selected trial {row["trial"]} ({selection}) AP {row["mean_cv_pr_auc"]:.4f} '
+          f'+- {row["std_cv_pr_auc"]:.4f}')
+  return {'models': models, 'cv_results': pd.concat(logs, ignore_index=True),
+          'config': {'search': 'bayes', 'n_iter': n_iter, 'n_initial_points': n_initial_points,
+                     'c_range': list(c_range), 'ngram_ranges': ngram_ranges,
+                     'min_df_range': list(min_df_range),
+                     'selected_C': {n: p['logisticregression__C'] for n, p in selected_params.items()},
+                     'selected_params': selected_params,
+                     'candidates_per_variant': n_iter,
+                     'n_splits': n_splits, 'random_state': random_state,
+                     'objective': 'average_precision', 'selection': selection,
+                     'stability_tolerance': stability_tolerance,
+                     'threshold': 0.5, 'tfidf_fit': 'inside each training fold',
+                     'class_weights': {'tfidf_logreg': None, 'tfidf_logreg_balanced': 'balanced'}}}

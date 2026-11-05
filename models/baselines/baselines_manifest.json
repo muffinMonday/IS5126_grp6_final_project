@@ -4,17 +4,13 @@
   "random_state": 42,
   "threshold": 0.5,
   "config": {
-    "C_grid": [
+    "search": "bayes",
+    "n_iter": 30,
+    "n_initial_points": 10,
+    "c_range": [
       0.01,
-      0.1,
-      1.0,
-      10.0,
       100.0
     ],
-    "selected_C": {
-      "tfidf_logreg": 10.0,
-      "tfidf_logreg_balanced": 10.0
-    },
     "ngram_ranges": [
       [
         1,
@@ -25,34 +21,38 @@
         2
       ]
     ],
-    "min_dfs": [
+    "min_df_range": [
       1,
-      2,
       5
     ],
+    "selected_C": {
+      "tfidf_logreg": 15.35224694197351,
+      "tfidf_logreg_balanced": 18.286039416630523
+    },
     "selected_params": {
       "tfidf_logreg": {
-        "logisticregression__C": 10.0,
-        "tfidfvectorizer__min_df": 1,
+        "logisticregression__C": 15.35224694197351,
         "tfidfvectorizer__ngram_range": [
           1,
-          1
-        ]
+          2
+        ],
+        "tfidfvectorizer__min_df": 2
       },
       "tfidf_logreg_balanced": {
-        "logisticregression__C": 10.0,
-        "tfidfvectorizer__min_df": 1,
+        "logisticregression__C": 18.286039416630523,
         "tfidfvectorizer__ngram_range": [
           1,
           1
-        ]
+        ],
+        "tfidfvectorizer__min_df": 1
       }
     },
     "candidates_per_variant": 30,
     "n_splits": 5,
     "random_state": 42,
     "objective": "average_precision",
-    "selection": "best",
+    "selection": "stable",
+    "stability_tolerance": 1.0,
     "threshold": 0.5,
     "tfidf_fit": "inside each training fold",
     "class_weights": {
