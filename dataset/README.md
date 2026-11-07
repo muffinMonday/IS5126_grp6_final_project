@@ -12,9 +12,9 @@ offline count verification and the limitation of the replacement collector.
 | File / folder | Source | In git? |
 |---|---|---|
 | `youtoxic_english_1000.csv` | [YouTube Toxicity Data](https://www.kaggle.com/datasets/reihanenamdari/youtube-toxicity-data) (label: `IsToxic`) | yes (small) |
-| Jigsaw Toxic Comment Classification (Wikipedia talk pages) | [Kaggle competition](https://www.kaggle.com/competitions/jigsaw-toxic-comment-classification-challenge) | no |
+| Jigsaw Toxic Comment Classification (Wikipedia talk pages) | [Kaggle competition](https://www.kaggle.com/competitions/jigsaw-toxic-comment-classification-challenge) | yes (`train.csv.zip`, approved 2026-11-07) |
 | Jigsaw Unintended Bias / Civil Comments (news comments) | [Kaggle competition](https://www.kaggle.com/competitions/jigsaw-unintended-bias-in-toxicity-classification) | no |
-| GOSU.ai English Dota 2 chat | [Kaggle dataset](https://www.kaggle.com/datasets/danielfesalbon/gosu-ai-english-dota-chat) | no |
+| GOSU.ai English Dota 2 chat | [Kaggle dataset](https://www.kaggle.com/datasets/danielfesalbon/gosu-ai-english-dota-chat) | yes (`tagged-data.csv`, approved 2026-11-07) |
 | `pooled/pooled_train.csv` | Part 3 cleaned training split, 19,187 rows | yes (explicitly approved) |
 | `pooled/pooled_val.csv` | Part 3 fixed validation split, 4,797 rows | yes (explicitly approved) |
 | `pooled/manifest.json` | Part 3 settings, source hashes and split hashes | yes (explicitly approved) |

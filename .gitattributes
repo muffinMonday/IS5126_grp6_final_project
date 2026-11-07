@@ -10,3 +10,5 @@ dataset/pooled/manifest.json -text
 dataset/pooled/baseline_metrics.csv -text
 dataset/pooled/loso_metrics.csv -text
 dataset/pooled/transfer_comparison.csv -text
+dataset/jigsaw-toxic-comment-classification-challenge/train.csv.zip -text
+dataset/gosu-ai-english-dota-chat/tagged-data.csv -text

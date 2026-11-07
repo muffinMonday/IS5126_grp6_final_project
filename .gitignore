@@ -41,6 +41,14 @@ dataset/layoffs/*
 !dataset/layoffs/layoffs.csv
 !dataset/reddit/layoff_mentions/
 
+# User-approved original Part 3 training sources
+!dataset/jigsaw-toxic-comment-classification-challenge/
+dataset/jigsaw-toxic-comment-classification-challenge/*
+!dataset/jigsaw-toxic-comment-classification-challenge/train.csv.zip
+!dataset/gosu-ai-english-dota-chat/
+dataset/gosu-ai-english-dota-chat/*
+!dataset/gosu-ai-english-dota-chat/tagged-data.csv
+
 # Editors / OS
 .vscode/
 .idea/
