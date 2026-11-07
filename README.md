@@ -12,7 +12,7 @@ Two linked pipelines (details in `Project Proposal/`):
 
 - **Objective 1, topics:** TF-IDF → PCA (100 dims, row-normalised) → K-means (18 clusters) → centroid term profiles → monthly topic trends, cross-checked with LDA and compared with layoffs.fyi.
 - **Objective 2, toxicity:** pooled labelled datasets → GloVe → Bi-LSTM → zero-shot test on a small hand-labelled r/jobs set (precision, recall, macro F1, PR-AUC).
-- **Combined:** apply the classifier to the clustered comments → toxicity rate per topic per month → dashboard.
+- **In use:** topic trends show moderators how discussion moves over time; the classifier triages potentially toxic comments for moderators to review.
 
 ## Repository layout
 
@@ -92,7 +92,7 @@ The final saved models are in git, so notebook 4b runs without training: `models
 | 2 | Objective 1: topics | `comment_id, cluster, topic_label` file + trend plots |
 | 3 | Pooled training data and baselines | cleaned pooled dataset, baseline scores, evaluation code |
 | 4 | Objective 2: Bi-LSTM | `predict_toxicity(texts) -> probabilities`, zero-shot results |
-| 5 | Integration, dashboard, report | toxicity rate per topic per month, dashboard |
+| 5 | Integration and report | main_analysis.ipynb, slides, video |
 
 Agreed interfaces, so work doesn't block:
 - **Comment table:** `comment_id, text, created_utc` (CSV or parquet).
