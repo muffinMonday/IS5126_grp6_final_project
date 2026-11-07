@@ -13,7 +13,7 @@ offline count verification and the limitation of the replacement collector.
 |---|---|---|
 | `youtoxic_english_1000.csv` | [YouTube Toxicity Data](https://www.kaggle.com/datasets/reihanenamdari/youtube-toxicity-data) (label: `IsToxic`) | yes (small) |
 | Jigsaw Toxic Comment Classification (Wikipedia talk pages) | [Kaggle competition](https://www.kaggle.com/competitions/jigsaw-toxic-comment-classification-challenge) | yes (`train.csv.zip`, approved 2026-11-07) |
-| Jigsaw Unintended Bias / Civil Comments (news comments) | [Kaggle competition](https://www.kaggle.com/competitions/jigsaw-unintended-bias-in-toxicity-classification) | no |
+| Jigsaw Unintended Bias / Civil Comments (news comments) | [Kaggle competition](https://www.kaggle.com/competitions/jigsaw-unintended-bias-in-toxicity-classification) | yes (`train.csv.zip`, Git LFS, approved 2026-11-07; extract before use) |
 | GOSU.ai English Dota 2 chat | [Kaggle dataset](https://www.kaggle.com/datasets/danielfesalbon/gosu-ai-english-dota-chat) | yes (`tagged-data.csv`, approved 2026-11-07) |
 | `pooled/pooled_train.csv` | Part 3 cleaned training split, 19,187 rows | yes (explicitly approved) |
 | `pooled/pooled_val.csv` | Part 3 fixed validation split, 4,797 rows | yes (explicitly approved) |
@@ -58,6 +58,27 @@ Package 4 model:
 
 To regenerate the handoff and these results, use the original downloads below.
 
+All four original inputs are now shared. Civil Comments is shared as a ZIP
+(about 273 MiB) in Git LFS; the extracted CSV is 816,211,476 bytes
+(about 778 MiB). Install Git LFS before pulling
+the data; without it, the ZIP may only contain a small LFS pointer. After
+installing Git LFS from <https://git-lfs.com/>, run from the repository root:
+
+```bash
+git lfs install
+git pull --ff-only
+git lfs pull
+git lfs fsck
+python -m zipfile -e dataset/jigsaw-unintended-bias-in-toxicity-classification/train.csv.zip dataset/jigsaw-unintended-bias-in-toxicity-classification
+```
+
+The download requires about 273 MiB. Extract `train.csv` next to the ZIP before
+running notebook 3; the extracted CSV remains local and ignored. The CSV must have SHA-256
+`9bc510519bb010a46c343d9733f9abfb33d31127d7fc08d72237cdfcb7a982be`,
+also recorded in `pooled/manifest.json`. With all four inputs and the project
+dependencies installed, run notebook 3 from `notebook/` to rebuild the pooled
+data. Its optional LR tuning remains disabled by default.
+
 `notebook/3_pooled_data.ipynb` expects the Kaggle downloads in folders named after their Kaggle
 dataset / competition; only the files listed are read:
 
@@ -65,7 +86,8 @@ dataset / competition; only the files listed are read:
 dataset/
   youtoxic_english_1000.csv
   jigsaw-toxic-comment-classification-challenge/train.csv.zip      (read as zip)
-  jigsaw-unintended-bias-in-toxicity-classification/train.csv
+  jigsaw-unintended-bias-in-toxicity-classification/train.csv.zip    (shared through LFS)
+  jigsaw-unintended-bias-in-toxicity-classification/train.csv        (extract locally)
   gosu-ai-english-dota-chat/tagged-data.csv
   pooled/                                                         (created by notebook 3)
 ```
