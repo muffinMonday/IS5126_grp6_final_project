@@ -48,6 +48,9 @@ dataset/jigsaw-toxic-comment-classification-challenge/*
 !dataset/gosu-ai-english-dota-chat/
 dataset/gosu-ai-english-dota-chat/*
 !dataset/gosu-ai-english-dota-chat/tagged-data.csv
+!dataset/jigsaw-unintended-bias-in-toxicity-classification/
+dataset/jigsaw-unintended-bias-in-toxicity-classification/*
+!dataset/jigsaw-unintended-bias-in-toxicity-classification/train.csv.zip
 
 # Editors / OS
 .vscode/

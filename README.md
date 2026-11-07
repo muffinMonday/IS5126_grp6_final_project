@@ -37,11 +37,17 @@ pip install -r requirements.txt
 nbstripout --install            # once per clone: commits notebooks without outputs
 ```
 
+To run notebook 3 from the original data, also install [Git LFS](https://git-lfs.com/),
+then run `git lfs install` and `git lfs pull` in this repository. The Civil Comments
+training ZIP uses LFS (about 273 MiB); extract its `train.csv` before running
+notebook 3. The other three original inputs are in ordinary Git. See
+`dataset/README.md` for verification and setup details.
+
 Notebooks add the repo root to the path (`sys.path.append('..')`), so run them from `notebook/`.
 
 Not in git, created locally:
 - **GloVe** (`glove/glove.6B.100d.txt`, 347 MB): downloaded on first run of the GloVe cell (needs the 820 MB `glove.6B.zip` once).
-- **Raw datasets and other generated outputs:** see `dataset/README.md`; the approved Part 3 handoff is tracked.
+- **Other datasets and generated outputs:** see `dataset/README.md`; the four approved Part 3 source inputs and the prepared handoff are tracked.
 
 The final saved models are in git, so notebook 4b runs without training: `models/baselines/` and `models/tokenizer/` (written by notebooks 3 and 4), and `models/bayes_search_pooled_balanced/` and `models/bayes_search_pooled_unweighted/` (about 25 MB each, written by the search in notebook 4). Regenerate them by re-running notebooks 3 and 4 when the data, cleaning, tokenizer or search space change.
 
