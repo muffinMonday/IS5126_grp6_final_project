@@ -1,0 +1,52 @@
+{
+  "k": 10,
+  "seed": 42,
+  "check_seed": 7,
+  "max_iter": 200,
+  "iterations": [
+    159,
+    200
+  ],
+  "modelled_comments": 9660,
+  "vocabulary_size": 8058,
+  "stop_words": "sklearn English + notebook 2 fillers + compare_topic_models.DOMAIN_STOP_WORDS; keep \"off\"",
+  "protected_phrases": [
+    "job market",
+    "job search",
+    "job hunt",
+    "job offer",
+    "job interview",
+    "new job",
+    "entry level",
+    "hiring manager",
+    "laid off",
+    "time off",
+    "sick leave",
+    "sick time",
+    "sick days",
+    "paid leave",
+    "minimum wage",
+    "remote work",
+    "work life",
+    "work experience",
+    "part time",
+    "full time",
+    "cover letter",
+    "human resources",
+    "two weeks",
+    "notice period"
+  ],
+  "topic_labels": {
+    "0": "Mixed: workplace, business and services",
+    "1": "Job-search difficulty, hiring process and AI",
+    "2": "Offers, resigning and changing jobs",
+    "3": "Pay, hours, experience and degrees",
+    "4": "PTO, leave and bosses",
+    "5": "Mixed: personal stories, school and tests",
+    "6": "Applications, recruiters, background checks and scams",
+    "7": "Mixed: life advice and skills",
+    "8": "Advice, good wishes and job-market comments",
+    "9": "Economy: wages, cost of living, unemployment and AI"
+  },
+  "input_sha256": "62111327682df76d2d44899c0f28cceddbe51b3800d871d684cdf29b34ea1fc3"
+}

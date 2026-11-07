@@ -34,6 +34,13 @@ dataset/pooled/*
 !dataset/pooled/loso_metrics.csv
 !dataset/pooled/transfer_comparison.csv
 
+# User-approved Objective 1 handoff: frozen inputs, exports and provenance
+!dataset/monthly_Topics/
+!dataset/layoffs/
+dataset/layoffs/*
+!dataset/layoffs/layoffs.csv
+!dataset/reddit/layoff_mentions/
+
 # Editors / OS
 .vscode/
 .idea/

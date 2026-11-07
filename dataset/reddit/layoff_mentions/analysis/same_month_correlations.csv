@@ -1,0 +1,3 @@
+external_measure,n_months,spearman_rho,p_value
+disclosed_headcount,9,0.5333333333333333,0.13922686754397814
+events,9,-0.25,0.5164895523012261

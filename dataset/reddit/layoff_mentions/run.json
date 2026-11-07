@@ -1,0 +1,32 @@
+{
+  "source": "https://arctic-shift.photon-reddit.com/api/",
+  "subreddit": "jobs",
+  "cutoff_utc": "2026-10-28T07:10:54+00:00",
+  "months": [
+    "2026-01",
+    "2026-02",
+    "2026-03",
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08",
+    "2026-09",
+    "2026-10"
+  ],
+  "terms": [
+    "laid_off",
+    "layoff"
+  ],
+  "queries": {
+    "laid_off": "\"laid off\"",
+    "layoff": "layoff"
+  },
+  "patterns": {
+    "laid_off": "\\blaid[\\s-]+(?:[a-z]+\\s+){0,2}?off\\b",
+    "layoff": "\\blay[\\s-]?offs?\\b"
+  },
+  "requests_this_run": 205,
+  "seconds_this_run": 5987,
+  "finished_utc": "2026-10-31T04:37:05+00:00"
+}

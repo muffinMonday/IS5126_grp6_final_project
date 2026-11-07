@@ -1,0 +1,11 @@
+topic,label,share,top_words,npmi,stability
+0,"Mixed: workplace, business and services",0.08508111635553343,"office, money, degree, off, coffee, home, service, manager, business, customer, mean, small",0.08131670672283466,0.4525096559873325
+1,"Job-search difficulty, hiring process and AI",0.11299269107068924,"ai, hr, months, role, manager, interview, process, interviews, unemployment, pip, tech, hiring",0.059778723573314645,0.4679888721739965
+2,"Offers, resigning and changing jobs",0.11372395670029682,"offer, start, interview, employer, current, notice, new_job, date, fast, reason, quit, hr",0.13293141508273076,0.6840272427688668
+3,"Pay, hours, experience and degrees",0.12153589889469164,"experience, hours, pay, degree, hour, applying, remote, hard, career, roles, role, 10",0.1428531426120169,0.6849430331412617
+4,"PTO, leave and bosses",0.10069318565530738,"pay, boss, pto, off, leave, hours, start, im, paid, mental, vacation, two_weeks",0.09773362707626387,0.5990558973746328
+5,"Mixed: personal stories, school and tests",0.09615468101678327,"manager, school, business, high, leave, different, test, went, place, happened, high school, gave",0.09616739902953603,0.46545826155917996
+6,"Applications, recruiters, background checks and scams",0.09389547365980924,"resume, email, interview, check, background, linkedin, phone, red, send, recruiter, contact, scam",0.18846196833442663,0.6885153087568309
+7,Mixed: life advice and skills,0.09367824268638057,"skills, big, world, deal, family, dont, age, taking, true, apply, care, range",0.08019843398995025,0.46416150760742225
+8,"Advice, good wishes and job-market comments",0.09291941060400487,"best, luck, business, advice, sorry, great, experience, long, man, job_market, college, sales",0.1286675260593033,0.5066270616167682
+9,"Economy: wages, cost of living, unemployment and AI",0.0893253433565037,"ai, money, pay, living, income, unemployment, country, state, life, healthcare, social, labor",0.12019154789352963,0.386252078445529

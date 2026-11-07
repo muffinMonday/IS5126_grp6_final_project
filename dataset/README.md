@@ -3,6 +3,12 @@
 Only explicitly approved data files are committed. Raw downloads and other generated
 outputs remain local and ignored by Git (see `.gitignore`).
 
+The owner of notebooks 2b/2d additionally approved sharing the frozen Objective 1
+handoff on 2026-11-07: `monthly_Topics/lda/`, `reddit/layoff_mentions/` (including
+archived keyword matches), and `layoffs/layoffs.csv`. See
+[the reproduction notes](monthly_Topics/lda/README.md) for restored helper code,
+offline count verification and the limitation of the replacement collector.
+
 | File / folder | Source | In git? |
 |---|---|---|
 | `youtoxic_english_1000.csv` | [YouTube Toxicity Data](https://www.kaggle.com/datasets/reihanenamdari/youtube-toxicity-data) (label: `IsToxic`) | yes (small) |
