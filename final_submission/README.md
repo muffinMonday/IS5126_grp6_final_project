@@ -16,7 +16,7 @@ The notebook is saved with the outputs of the run the slides use, so it can be r
 | `scripts/compare_topic_models.py` | stop-word and phrase lists, needed only by the LDA refit (`RETRAIN = True`) |
 | `requirements.txt` | Python packages |
 
-The data and the trained models are **not** in this folder, to keep it small. The first cell of the notebook after the settings downloads whatever is missing (74 files, about 96 MB) from our repository, <https://github.com/muffinMonday/IS5126_grp6_final_project>, at a fixed release tag, and checks each file against a SHA-256 hash recorded in the notebook. Nothing is downloaded if the files are already present. If you have the repository folders (`dataset/`, `models/`), copy them next to the notebook and nothing needs to be downloaded.
+The data and the trained models are **not** in this folder, to keep it small. The first cell of the notebook after the settings downloads whatever is missing (74 files, about 96 MB) from our repository, <https://github.com/muffinMonday/IS5126_grp6_final_project>, at the fixed release tag `submission-v1`, and checks each file against a SHA-256 hash recorded in the notebook. Nothing is downloaded if the files are already present. If you have the repository folders (`dataset/`, `models/`), copy them next to the notebook and nothing needs to be downloaded.
 
 ## How to run
 
