@@ -28,48 +28,41 @@ not refit it. New fits do not inherit the frozen model's reviewed topic names.
 Upload the notebook together with its imported `functions/` modules; GitHub
 output stripping removes saved outputs, not executable code cells.
 
-## Reproduce the K-means presentation results
+## Analytical figures and numerical checks
 
-Sections **12.2-12.6** cover every quantitative page in the `03 K-means`
-section of the unified presentation. Page 10 is a section divider.
+Sections **12.2-12.6** describe corpus coverage, dimensionality comparisons,
+cluster profiles, monthly trends and sensitivity analysis.
 
-| PDF page | Notebook evidence | New figure or table |
+| Analysis | Content and purpose | Main output |
 |---|---|---|
-| 11 | Sampled/assigned counts, exclusions and actual model parameters | `ppt_data_counts.csv`, `ppt_model_settings.csv` |
-| 12 | PCA 50/100/200/400 variance, the recorded dimension grid, and k diagnostics | `ppt_pca_dimensions.png`, `ppt_dimension_separation.png`, `ppt_dimension_candidates.csv`, `ppt_k_selection.csv` |
-| 13 | All 18 cluster shares, focus/mixed percentages, silhouettes and C9/C17 naming evidence | `ppt_cluster_shares.png`, `ppt_naming_evidence.csv`, `ppt_naming_examples.csv` |
-| 14 | Six combined monthly curves with labelled endpoints and turning points | `ppt_focus_monthly_trends.png`, `ppt_monthly_key_points.csv` |
-| 15 | Q3-Q1 changes under both weightings, the C2/(C8+C11) count ratio, and deletion/deduplication sensitivity | `ppt_quarter_changes.png`, `ppt_attention_ratio.png`, `ppt_period_sensitivity.png` |
+| Corpus and settings | Distinguish sampled/assigned counts and exclusions, and record actual model parameters | `analysis_data_counts.csv`, `analysis_model_settings.csv` |
+| Dimensions and k | Compare retained variance across 50/100/200/400 components, assess separation on common TF-IDF geometry, and examine k diagnostics | `analysis_pca_dimensions.png`, `analysis_dimension_separation.png`, `analysis_dimension_candidates.csv`, `analysis_k_selection.csv` |
+| Cluster profiles | Compare all 18 proportions and examine focus/mixed shares and C9/C17 naming evidence | `analysis_cluster_shares.png`, `analysis_naming_evidence.csv`, `analysis_naming_examples.csv` |
+| Monthly trends | Compare six topic curves and identify selected endpoints, peaks and low points | `analysis_focus_monthly_trends.png`, `analysis_monthly_key_points.csv` |
+| Quarterly sensitivity | Compare Q3-Q1 changes under two weightings, relative attention and sensitivity to influential observations | `analysis_quarter_changes.png`, `analysis_attention_ratio.png`, `analysis_period_sensitivity.png` |
 
-Run from the top in the default verified-model reuse mode. Counts and trends
-are recalculated without refitting the topic model. The four-dimension graph
-requires `comparison_manifest.json`, `pca_variance.csv` and `comparison.csv` in
-`PCA_COMPARISON_DIR` (by default the local `pca_dimension_comparison_20261029/`
-folder beneath `RUN_DIR`). The loader checks the corpus hash, seed, spectrum
-overlap and consistency of retained variance. It does not launch a new
-400-component fit or fill missing files with numbers copied from the slides.
+The four-dimension graph uses `comparison_manifest.json`, `pca_variance.csv`
+and `comparison.csv` in `PCA_COMPARISON_DIR`. Input hashes, the seed, spectrum
+overlap and retained variance establish consistency with the selected model.
 The historical dimension grid used 10 initializations; the final k comparison
-used 30. PCA-space silhouettes from different representations are not a common
-quality scale; the supplementary dimension plot uses original TF-IDF cosine
-silhouette at fixed k=10.
+used 30. Original TF-IDF cosine silhouette at fixed k=10 provides a common
+geometry for comparing dimensions and normalization settings.
 
-The additive `topic_period_sensitivity` helper in `functions/topic_reporting.py`
-computes conservative deletion envelopes separately in each complete quarter.
-Posts are identified by `link_id`; time units are `(month, sampling_stratum)`;
-duplicate-text sensitivity retains one `normalized_text_key` per month. These
-checks keep cluster assignments fixed and retain all topics in denominators.
-They are not confidence intervals or evidence of model or causal validity.
-C5 remains a near-stable reference and is not required to preserve the sign of
-its very small change.
+Quarterly sensitivity is calculated with fixed assignments. Posts are
+identified by `link_id`, time units by `(month, sampling_stratum)`, and
+within-month duplicate text by `normalized_text_key`. All assigned topics remain
+in each denominator. Conservative deletion envelopes measure dependence on
+individual observations. They are not confidence intervals or evidence of
+semantic or causal validity. C5 is a near-stable reference, so the sign of its
+very small change should not be treated as a substantive trend.
 
-`ppt_page_coverage.csv` maps slides to outputs, `ppt_numeric_checks.csv` compares
-recomputed values with the slides at displayed precision, and
-`ppt_source_provenance.csv` records comparison-source hashes. Section 13 exports
-these alongside all seven new figures into a fresh timestamped result folder
-when `SAVE_TOPIC_OUTPUTS=True`. Notebook outputs remain stripped for GitHub;
-run the cells locally to display them. Missing local data or comparison files
-are reported explicitly. Data/model downloads, retraining, commits and pushes
-are not performed by these reporting cells.
+`analysis_output_inventory.csv` records output availability,
+`analysis_reference_checks.csv` verifies numerical consistency with the frozen
+reference snapshot, and `analysis_source_provenance.csv` records experiment
+source hashes. Section 13 exports these tables and seven figures into a fresh
+timestamped folder when `SAVE_TOPIC_OUTPUTS=True`. Missing local sources remain
+explicitly unavailable. Notebook outputs are stripped for GitHub and are
+displayed by running the cells locally in verified-model reuse mode.
 
 ## Named clusters and focused reporting
 

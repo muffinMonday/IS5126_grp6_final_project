@@ -85,7 +85,7 @@ def topic_period_sensitivity(frame, coverage, early_months, late_months, cluster
   """Recompute quarter changes after deleting units or within-month duplicates.
 
   Keep all assigned topics in each denominator. Deletion envelopes allow no
-  deletion or one deletion independently in each period, as in the report.
+  deletion or one deletion independently in each period for sensitivity analysis.
   They are sensitivity ranges, not confidence intervals or model refits.
   """
   if set(early_months) & set(late_months):
