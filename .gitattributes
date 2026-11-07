@@ -12,3 +12,4 @@ dataset/pooled/loso_metrics.csv -text
 dataset/pooled/transfer_comparison.csv -text
 dataset/jigsaw-toxic-comment-classification-challenge/train.csv.zip -text
 dataset/gosu-ai-english-dota-chat/tagged-data.csv -text
+dataset/jigsaw-unintended-bias-in-toxicity-classification/train.csv.zip filter=lfs diff=lfs merge=lfs -text
