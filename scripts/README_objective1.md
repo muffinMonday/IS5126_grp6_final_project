@@ -11,6 +11,33 @@ verifies input, assignment and pipeline SHA-256 values before applying names.
 No TF-IDF, PCA or K-means is fitted in this reporting mode. Archive/network
 acquisition stays disabled; earlier result files are preserved.
 
+## Shared inputs for a fresh checkout
+
+The default `RUN_DIR` is now `dataset/monthly_Topics/kmeans/prepared/`.
+The [complete bundle inventory](../dataset/monthly_Topics/kmeans/README.md)
+lists 31 payload files and explains which are raw observations, cleaned inputs,
+sampling metadata, final-model references or dimension-comparison results.
+`file_inventory.csv` includes byte sizes, row counts, source paths and SHA-256
+values. `bundle_manifest.json` verifies the complete payload.
+
+The bundle contains every file named by the sampling and frozen-run integrity
+manifests, together with the one final pipeline needed by the default reuse
+mode. The PCA50 baseline is loaded from the hash-verified `model_comparison.csv`
+reference table, so historical fitted models are unnecessary. The shared
+parent-directory files used by LDA and integration are unchanged.
+
+For a separate Objective 1 environment on Windows:
+
+```powershell
+py -3.13 -m venv .venv-objective1
+.\.venv-objective1\Scripts\python -m pip install -r requirements-objective1.txt
+```
+
+Select that Python interpreter as the notebook kernel, then run from the top.
+The analytical dependencies match the frozen pipeline; TensorFlow and GloVe
+are not required. Generated runs remain ignored, while exact allowlist rules
+share only the documented inputs. Git attributes preserve their original bytes.
+
 ## Where to find and run K-means
 
 Section 8 of `notebook/2_topic_discovery.ipynb` compares candidate k values using

@@ -1,0 +1,245 @@
+{
+  "schema_version": 1,
+  "bundle": "Objective 1 K-means reproducibility inputs",
+  "shared_on": "2026-11-07",
+  "cutoff_utc": "2026-10-28T07:10:54+00:00",
+  "authorization": "User requested upload of all files needed for K-means computation and result analysis.",
+  "sampled_comments": 10000,
+  "assigned_comments": 9770,
+  "clusters": 18,
+  "pca_components": 100,
+  "pca_row_l2": true,
+  "seed": 42,
+  "n_init": 30,
+  "corpus_sha256": "62111327682df76d2d44899c0f28cceddbe51b3800d871d684cdf29b34ea1fc3",
+  "final_pipeline_sha256": "6be0804458701fc1d1dce6684fb30e9dbd7c167a2e8af359cb8ceadce5e548ef",
+  "payload_files": {
+    "prepared/raw_candidates.csv": {
+      "sha256": "65f4aa29b97479275ce8d392340bf4ac9f7c7cd37513e49814da5d42e098ca3c",
+      "bytes": 7224599,
+      "rows": 20213,
+      "role": "Raw historical candidate comments, before cleaning",
+      "required_for": "Acquisition audit and sampling integrity"
+    },
+    "prepared/eligible_pool.csv": {
+      "sha256": "2146cba57096454ef8db6f0405d70715dc4395c8a8bf3e28b384ba55a448e952",
+      "bytes": 15986785,
+      "rows": 17766,
+      "role": "All candidates that passed cleaning, before stratified sampling",
+      "required_for": "Sampling integrity"
+    },
+    "prepared/excluded_rows.csv": {
+      "sha256": "95069c2a2d14ed8af9a0df18d12c0c64193226ca4124a1920bee4fe7e057f15d",
+      "bytes": 596916,
+      "rows": 2447,
+      "role": "Rejected candidates with reasons",
+      "required_for": "Cleaning audit and sampling integrity"
+    },
+    "prepared/cleaning_audit.csv": {
+      "sha256": "0a6e0c7a83a5baa73b22b7136291b1dae5dbef1f59ba28d2d50cd782abf09b80",
+      "bytes": 98,
+      "rows": 4,
+      "role": "Counts of retained and excluded candidate rows",
+      "required_for": "Cleaning audit and sampling integrity"
+    },
+    "prepared/comments_clean.csv": {
+      "sha256": "62111327682df76d2d44899c0f28cceddbe51b3800d871d684cdf29b34ea1fc3",
+      "bytes": 9054268,
+      "rows": 10000,
+      "role": "Selected corpus with original text, cleaned text, UTC timestamps and strata",
+      "required_for": "Training and all analyses"
+    },
+    "prepared/monthly_coverage.csv": {
+      "sha256": "e61f3f9a4a286316ee38d09f736c4a9f27937d0ff4fa01ac57c9626e4cef9ba8",
+      "bytes": 1135,
+      "rows": 10,
+      "role": "Monthly windows, sample quotas and partial-month flags",
+      "required_for": "Training and all analyses"
+    },
+    "prepared/sampling_manifest.json": {
+      "sha256": "96820a886a6d7fafe122b3915468b3be5ec999296623a26c161629ebc47bda9c",
+      "bytes": 2040,
+      "rows": "",
+      "role": "Sampling design, original counts and six input-file hashes",
+      "required_for": "Training and all analyses"
+    },
+    "prepared/data_quality_report.json": {
+      "sha256": "bc8658a58b05f9f6fc5a01e22a7bc4669658d3fd6515dfea096898ee7533902e",
+      "bytes": 2655,
+      "rows": "",
+      "role": "Recorded acquisition and cleaning validation",
+      "required_for": "Provenance"
+    },
+    "acquisition_status.json": {
+      "sha256": "86a6f47bf36d2c4f4a45c31b999d7d1a9728a77ad5ba97a475772155620138c6",
+      "bytes": 74231,
+      "rows": "",
+      "role": "Retrieval status and 200 time-stratum records",
+      "required_for": "Sampling provenance"
+    },
+    "collection_plan.json": {
+      "sha256": "b64cb3c593ef3fd6819f990b56d8bd95cedd65beb343b3224f48b520c40c5a15",
+      "bytes": 209,
+      "rows": "",
+      "role": "Frozen cutoff, sampling quotas and random seed",
+      "required_for": "Sampling provenance"
+    },
+    "prepared/topics_pca100_l2_20261029T105658930366Z/comment_topics.csv": {
+      "sha256": "10bd31d6f387cb4a8889ac529b8c37f349633406856a7307b1edff4fa05a5e79",
+      "bytes": 623916,
+      "rows": 10000,
+      "role": "Frozen assignments and exclusion status for every sampled comment",
+      "required_for": "Verified frozen-model reuse and integrity checks"
+    },
+    "prepared/topics_pca100_l2_20261029T105658930366Z/topic_profiles.csv": {
+      "sha256": "9c84082882dd466acb624b8acc2b5e40a3a394f66df74d215ca9158771176737",
+      "bytes": 4683,
+      "rows": 18,
+      "role": "Original cluster sizes and keyword profiles",
+      "required_for": "Verified frozen-model reuse and integrity checks"
+    },
+    "prepared/topics_pca100_l2_20261029T105658930366Z/monthly_topic_trends.csv": {
+      "sha256": "7ab03cc4768d53ff47ff7bb2fc115b1d15f8be0319c9966ff88375b59e81d154",
+      "bytes": 13030,
+      "rows": 180,
+      "role": "Original monthly counts and topic shares",
+      "required_for": "Verified frozen-model reuse and integrity checks"
+    },
+    "prepared/topics_pca100_l2_20261029T105658930366Z/excluded_from_modelling.csv": {
+      "sha256": "aa5b821471bcf645f405a212e1d91b8fb0cfbc8da01cda3ef7e25fe93403a763",
+      "bytes": 7222,
+      "rows": 230,
+      "role": "Comments excluded from topic modelling",
+      "required_for": "Verified frozen-model reuse and integrity checks"
+    },
+    "prepared/topics_pca100_l2_20261029T105658930366Z/zero_tfidf_comments.csv": {
+      "sha256": "04637f8ecf41ca832ff16f3fd7d2d8dc0bc04cfd3a9dd6b841ab25636ff6e27b",
+      "bytes": 3512,
+      "rows": 124,
+      "role": "Comments with no retained TF-IDF features",
+      "required_for": "Verified frozen-model reuse and integrity checks"
+    },
+    "prepared/topics_pca100_l2_20261029T105658930366Z/representative_comments.csv": {
+      "sha256": "dd7d78f49575602429a49e453f15afa0f683ca42a9e29765cec2e7d4b3b6c44d",
+      "bytes": 47846,
+      "rows": 180,
+      "role": "Nearest-centroid and random examples for topic interpretation",
+      "required_for": "Verified frozen-model reuse and integrity checks"
+    },
+    "prepared/topics_pca100_l2_20261029T105658930366Z/k_selection.csv": {
+      "sha256": "4c6cf4763672d32e8de77bd9207e090407018fc96bd7a5982da238d45cb45957",
+      "bytes": 900,
+      "rows": 6,
+      "role": "Candidate k diagnostics in the selected representation",
+      "required_for": "Verified frozen-model reuse and integrity checks"
+    },
+    "prepared/topics_pca100_l2_20261029T105658930366Z/model_comparison.csv": {
+      "sha256": "d2f5d1acfafd5fde080c372d497811bda15735412e3f794f636cb7e4f2ebef69",
+      "bytes": 413,
+      "rows": 2,
+      "role": "Frozen PCA50 baseline and selected-model comparison",
+      "required_for": "Verified frozen-model reuse and integrity checks"
+    },
+    "prepared/topics_pca100_l2_20261029T105658930366Z/boundary_diagnostics.csv": {
+      "sha256": "55c32be5203f5351d7d30ab27f20b54fd681fac9ac116493e14965f8003f35ee",
+      "bytes": 733,
+      "rows": 18,
+      "role": "Cluster-level assignment ambiguity diagnostics",
+      "required_for": "Verified frozen-model reuse and integrity checks"
+    },
+    "prepared/topics_pca100_l2_20261029T105658930366Z/common_space_quality.csv": {
+      "sha256": "fdebe529f661a9a980e8afdd6ad30ae094ed9e5bfe9ceaf4ec1162e38c5fcc39",
+      "bytes": 90,
+      "rows": 1,
+      "role": "Original TF-IDF cosine silhouette and term-overlap diagnostics",
+      "required_for": "Verified frozen-model reuse and integrity checks"
+    },
+    "prepared/topics_pca100_l2_20261029T105658930366Z/pca_variance.csv": {
+      "sha256": "7dd3d09cb4bb7f3f0ef6f400915255218aa240c260486ed866976874ef678d67",
+      "bytes": 2873,
+      "rows": 100,
+      "role": "Selected 100-component PCA spectrum",
+      "required_for": "Verified frozen-model reuse and integrity checks"
+    },
+    "prepared/topics_pca100_l2_20261029T105658930366Z/pca_comparison.csv": {
+      "sha256": "35287649a9b557be686cb1cdc69d9d1db78a1fa7ef77f23d2dff01416aa3cb66",
+      "bytes": 135,
+      "rows": 2,
+      "role": "Fixed-50 and selected-dimension retained variance",
+      "required_for": "Verified frozen-model reuse and integrity checks"
+    },
+    "prepared/topics_pca100_l2_20261029T105658930366Z/initialization_stability.csv": {
+      "sha256": "879d43cd508dc46f9feae097d70badd6bcccc80ba7b015607def776e9bb026a1",
+      "bytes": 113,
+      "rows": 2,
+      "role": "Alternative-seed assignment stability",
+      "required_for": "Verified frozen-model reuse and integrity checks"
+    },
+    "prepared/topics_pca100_l2_20261029T105658930366Z/tfidf_vocabulary.csv": {
+      "sha256": "957d963f7f8895aa4d0c6abb9804cd509ce8326aed5892d87a9fff0b603d211e",
+      "bytes": 195773,
+      "rows": 10000,
+      "role": "Frozen vocabulary and IDF weights",
+      "required_for": "Verified frozen-model reuse and integrity checks"
+    },
+    "prepared/topics_pca100_l2_20261029T105658930366Z/monthly_assignment_coverage.csv": {
+      "sha256": "0b8262d0f292678dd7c1146be5d190d343e9f7ad4c34f31d42a0d0a55c872947",
+      "bytes": 282,
+      "rows": 10,
+      "role": "Sampled versus assigned comments per month",
+      "required_for": "Verified frozen-model reuse and integrity checks"
+    },
+    "prepared/topics_pca100_l2_20261029T105658930366Z/run_parameters.json": {
+      "sha256": "b5f0a29ff69a1b650527497377d4f681c1994eb00b32d4b2343d4098986cca41",
+      "bytes": 10450,
+      "rows": "",
+      "role": "Exact frozen configuration and result-file hashes",
+      "required_for": "Verified frozen-model reuse"
+    },
+    "prepared/topics_pca100_l2_20261029T105658930366Z/topic_pipeline.joblib": {
+      "sha256": "6be0804458701fc1d1dce6684fb30e9dbd7c167a2e8af359cb8ceadce5e548ef",
+      "bytes": 3901861,
+      "rows": "",
+      "role": "One final fitted TF-IDF/PCA/normalizer/K-means pipeline",
+      "required_for": "Exact frozen assignments and named analyses"
+    },
+    "prepared/topics_pca100_l2_20261029T105658930366Z/verification.json": {
+      "sha256": "c133d8756c45d9b328b63dc582f85a537c84697e53d6004ac065f1c8b7e81c5d",
+      "bytes": 705,
+      "rows": "",
+      "role": "Recorded final-model validation",
+      "required_for": "Provenance"
+    },
+    "prepared/pca_dimension_comparison_20261029/comparison_manifest.json": {
+      "sha256": "01cabd0e044ff6abc6a0d6ab593fe34d3e31f553d8726eb48274e0a6d06a3f54",
+      "bytes": 463,
+      "rows": "",
+      "role": "Input hash, dimensions, k grid and comparison settings",
+      "required_for": "Dimension comparisons without refitting"
+    },
+    "prepared/pca_dimension_comparison_20261029/pca_variance.csv": {
+      "sha256": "f5c33eb96b27445b7eb26f68d2169fe30f7a735bbf126e115ac7f09d24186dd1",
+      "bytes": 11569,
+      "rows": 400,
+      "role": "Recorded 400-component spectrum for 50/100/200/400 comparisons",
+      "required_for": "Dimension comparisons without refitting"
+    },
+    "prepared/pca_dimension_comparison_20261029/comparison.csv": {
+      "sha256": "eb67a3e6c4bba385a6ac89c8dc12aa08c53821040ece42743773671a9f7dae50",
+      "bytes": 10317,
+      "rows": 48,
+      "role": "All 48 dimension/normalization/k candidate diagnostics",
+      "required_for": "Dimension comparisons without refitting"
+    }
+  },
+  "inventory_sha256": "786aa9532f6a268bb3d083b7c9e8cc908beffaeacd098021772409c379dce9e6",
+  "payload_bytes": 37779822,
+  "excluded": [
+    "source-cache checkpoints",
+    "historical fitted models",
+    "candidate model bundles",
+    "generated figures",
+    "execution logs",
+    "new timestamped run outputs"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "input_sha256": "62111327682df76d2d44899c0f28cceddbe51b3800d871d684cdf29b34ea1fc3",
+  "baseline": "dataset\\reddit\\topics_2026\\time_stratified_20261028\\prepared\\topics_20261029T034634149868Z",
+  "dimensions": [
+    50,
+    100,
+    200,
+    400
+  ],
+  "ks": [
+    6,
+    8,
+    10,
+    11,
+    12,
+    15
+  ],
+  "seed": 42,
+  "n_init": 10,
+  "silhouette_sample_size": 1500,
+  "note": "No month or external series used in selection."
+}

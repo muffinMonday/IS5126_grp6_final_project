@@ -1,0 +1,11 @@
+# Analytical stack used by the frozen pipeline; tested with Python 3.13.
+numpy==2.3.0
+pandas==2.3.0
+scikit-learn==1.7.0
+scipy==1.15.3
+matplotlib==3.10.3
+joblib==1.5.1
+threadpoolctl==3.6.0
+# Notebook execution and validation; no TensorFlow or GloVe dependency.
+nbformat>=5.10
+ipykernel>=6

@@ -1,0 +1,27 @@
+{
+  "comments": 10000,
+  "clustered": 9770,
+  "excluded": 230,
+  "pca_shape": [
+    9770,
+    100
+  ],
+  "pca_variance": 0.14405205845832825,
+  "selected_k": 18,
+  "silhouette": 0.06752385199069977,
+  "stability": [
+    {
+      "seed": 7,
+      "adjusted_rand_index": 0.6849193169509961,
+      "inertia": 7803.55078125
+    },
+    {
+      "seed": 21,
+      "adjusted_rand_index": 0.5983737871470153,
+      "inertia": 7801.94384765625
+    }
+  ],
+  "notebook_cells_executed": 15,
+  "seconds": 21.960727599915117,
+  "output_dir": "C:\\nus\\IS5126\\IS5126_grp6_final_project\\dataset\\reddit\\topics_2026\\time_stratified_20261028\\prepared\\topics_pca100_l2_20261029T105658930366Z"
+}

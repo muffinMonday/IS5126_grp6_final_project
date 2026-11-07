@@ -61,6 +61,15 @@ Agreed interfaces, so work doesn't block:
 - **Toxicity function:** `predict_toxicity(list_of_texts) -> list_of_probabilities`.
 - Until real files exist, develop against small mock files with these columns.
 
+## Work package 2: Ready-to-use topic inputs
+
+`notebook/2_topic_discovery.ipynb` now defaults to the complete
+[`dataset/monthly_Topics/kmeans/`](dataset/monthly_Topics/kmeans/README.md)
+bundle: raw candidates, cleaned data, sampling metadata, the final PCA100/L2/
+k=18 pipeline and reference comparison tables. It reproduces the named analyses
+offline from a fresh checkout. Use `requirements-objective1.txt` for a separate
+analytical environment. New run outputs and intermediate models remain ignored.
+
 ## Work package 3: Ready-to-use training data
 
 The approved `dataset/pooled/pooled_train.csv` (19,187 rows),

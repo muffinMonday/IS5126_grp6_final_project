@@ -314,3 +314,12 @@ sampling changes class prevalence, so precision/PR-AUC are conditional on this
 test design, not estimates for live r/jobs traffic. With 100 rows, a few comments
 can change scores materially. Do not use this curated set to estimate monthly
 topic frequencies or toxicity rates; that needs a separate time-based corpus.
+
+## Complete Objective 1 K-means inputs
+
+The user-approved [`monthly_Topics/kmeans/`](monthly_Topics/kmeans/README.md)
+bundle contains all 31 payload dependencies for offline topic modelling and
+analysis: original candidates, cleaning/sampling records, the final pipeline
+and diagnostic reference tables. Its inventory records sizes, row counts and
+hashes. `notebook/2_topic_discovery.ipynb` uses this bundle by default. New run
+outputs, collection caches and historical model bundles remain ignored.

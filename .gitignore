@@ -58,3 +58,47 @@ desktop.ini
 
 # Report drafts (not shared through Git)
 Report/
+
+# Exact Objective 1 K-means bundle; future runs and caches stay ignored
+dataset/monthly_Topics/kmeans/*
+.venv-objective1/
+!dataset/monthly_Topics/kmeans/README.md
+!dataset/monthly_Topics/kmeans/file_inventory.csv
+!dataset/monthly_Topics/kmeans/bundle_manifest.json
+!dataset/monthly_Topics/kmeans/prepared/
+dataset/monthly_Topics/kmeans/prepared/*
+!dataset/monthly_Topics/kmeans/prepared/pca_dimension_comparison_20261029/
+dataset/monthly_Topics/kmeans/prepared/pca_dimension_comparison_20261029/*
+!dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/
+dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/*
+!dataset/monthly_Topics/kmeans/prepared/raw_candidates.csv
+!dataset/monthly_Topics/kmeans/prepared/eligible_pool.csv
+!dataset/monthly_Topics/kmeans/prepared/excluded_rows.csv
+!dataset/monthly_Topics/kmeans/prepared/cleaning_audit.csv
+!dataset/monthly_Topics/kmeans/prepared/comments_clean.csv
+!dataset/monthly_Topics/kmeans/prepared/monthly_coverage.csv
+!dataset/monthly_Topics/kmeans/prepared/sampling_manifest.json
+!dataset/monthly_Topics/kmeans/prepared/data_quality_report.json
+!dataset/monthly_Topics/kmeans/acquisition_status.json
+!dataset/monthly_Topics/kmeans/collection_plan.json
+!dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/comment_topics.csv
+!dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/topic_profiles.csv
+!dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/monthly_topic_trends.csv
+!dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/excluded_from_modelling.csv
+!dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/zero_tfidf_comments.csv
+!dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/representative_comments.csv
+!dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/k_selection.csv
+!dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/model_comparison.csv
+!dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/boundary_diagnostics.csv
+!dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/common_space_quality.csv
+!dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/pca_variance.csv
+!dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/pca_comparison.csv
+!dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/initialization_stability.csv
+!dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/tfidf_vocabulary.csv
+!dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/monthly_assignment_coverage.csv
+!dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/run_parameters.json
+!dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/topic_pipeline.joblib
+!dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/verification.json
+!dataset/monthly_Topics/kmeans/prepared/pca_dimension_comparison_20261029/comparison_manifest.json
+!dataset/monthly_Topics/kmeans/prepared/pca_dimension_comparison_20261029/pca_variance.csv
+!dataset/monthly_Topics/kmeans/prepared/pca_dimension_comparison_20261029/comparison.csv

@@ -1,0 +1,109 @@
+{
+  "counts": {
+    "raw": 20213,
+    "eligible": 17766,
+    "excluded": 2447,
+    "selected": 10000
+  },
+  "months": [
+    {
+      "month": "2026-01",
+      "n_comments": 1000,
+      "n_posts": 351,
+      "earliest_created_utc": 1767305708,
+      "latest_created_utc": 1769781614
+    },
+    {
+      "month": "2026-02",
+      "n_comments": 1000,
+      "n_posts": 373,
+      "earliest_created_utc": 1769944952,
+      "latest_created_utc": 1772247760
+    },
+    {
+      "month": "2026-03",
+      "n_comments": 1000,
+      "n_posts": 385,
+      "earliest_created_utc": 1772344931,
+      "latest_created_utc": 1774899595
+    },
+    {
+      "month": "2026-04",
+      "n_comments": 1000,
+      "n_posts": 382,
+      "earliest_created_utc": 1775043125,
+      "latest_created_utc": 1777535369
+    },
+    {
+      "month": "2026-05",
+      "n_comments": 1000,
+      "n_posts": 388,
+      "earliest_created_utc": 1777604301,
+      "latest_created_utc": 1780160345
+    },
+    {
+      "month": "2026-06",
+      "n_comments": 1000,
+      "n_posts": 373,
+      "earliest_created_utc": 1780382704,
+      "latest_created_utc": 1782791083
+    },
+    {
+      "month": "2026-07",
+      "n_comments": 1000,
+      "n_posts": 396,
+      "earliest_created_utc": 1782890844,
+      "latest_created_utc": 1785443286
+    },
+    {
+      "month": "2026-08",
+      "n_comments": 1000,
+      "n_posts": 351,
+      "earliest_created_utc": 1785628420,
+      "latest_created_utc": 1788220019
+    },
+    {
+      "month": "2026-09",
+      "n_comments": 1000,
+      "n_posts": 340,
+      "earliest_created_utc": 1788277237,
+      "latest_created_utc": 1790743520
+    },
+    {
+      "month": "2026-10",
+      "n_comments": 1000,
+      "n_posts": 315,
+      "earliest_created_utc": 1790869177,
+      "latest_created_utc": 1793115384
+    }
+  ],
+  "as_of_utc": "2026-10-28T07:10:54+00:00",
+  "executed_notebook_cells": [
+    "topic-setup",
+    "topic-acquire",
+    "topic-load-and-coverage",
+    "topic-cleaning-audit",
+    "topic-eda"
+  ],
+  "model_executed": false,
+  "checks_passed": true,
+  "sampling": "Equal quotas across equal-duration UTC time strata; seeded random anchors define bounded candidate batches, followed by cleaning and sampling without replacement within each stratum.",
+  "exclusion_counts": [
+    {
+      "reason": "eligible",
+      "n_rows": 17766
+    },
+    {
+      "reason": "deleted_or_removed",
+      "n_rows": 1634
+    },
+    {
+      "reason": "too_short",
+      "n_rows": 804
+    },
+    {
+      "reason": "empty_after_cleaning",
+      "n_rows": 9
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "year": 2026,
+  "per_month": 1000,
+  "strata": 20,
+  "seed": 42,
+  "min_words": 3,
+  "as_of": "2026-10-28T07:10:54+00:00",
+  "source": "https://arctic-shift.photon-reddit.com/api/comments/search"
+}

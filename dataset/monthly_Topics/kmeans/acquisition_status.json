@@ -1,0 +1,3442 @@
+{
+  "status": "candidates_ready",
+  "plan": {
+    "year": 2026,
+    "per_month": 1000,
+    "strata": 20,
+    "seed": 42,
+    "min_words": 3,
+    "as_of": "2026-10-28T07:10:54+00:00",
+    "source": "https://arctic-shift.photon-reddit.com/api/comments/search"
+  },
+  "requests_this_session": 23,
+  "completed_strata": 200,
+  "errors": [],
+  "strata": [
+    {
+      "month": "2026-01",
+      "stratum": 0,
+      "start": 1767225600,
+      "end": 1767359520,
+      "anchor": 1767305674,
+      "quota": 50,
+      "eligible_candidates": 92,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1767305674,
+          "end": 1767359520,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-01",
+      "stratum": 1,
+      "start": 1767359520,
+      "end": 1767493440,
+      "anchor": 1767407433,
+      "quota": 50,
+      "eligible_candidates": 84,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1767407433,
+          "end": 1767493440,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-01",
+      "stratum": 2,
+      "start": 1767493440,
+      "end": 1767627360,
+      "anchor": 1767501836,
+      "quota": 50,
+      "eligible_candidates": 93,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1767501836,
+          "end": 1767627360,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-01",
+      "stratum": 3,
+      "start": 1767627360,
+      "end": 1767761280,
+      "anchor": 1767683962,
+      "quota": 50,
+      "eligible_candidates": 90,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1767683962,
+          "end": 1767761280,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-01",
+      "stratum": 4,
+      "start": 1767761280,
+      "end": 1767895200,
+      "anchor": 1767894676,
+      "quota": 50,
+      "eligible_candidates": 108,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1767894676,
+          "end": 1767895200,
+          "returned": 26
+        },
+        {
+          "start": 1767761280,
+          "end": 1767894676,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-01",
+      "stratum": 5,
+      "start": 1767895200,
+      "end": 1768029120,
+      "anchor": 1767900229,
+      "quota": 50,
+      "eligible_candidates": 94,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1767900229,
+          "end": 1768029120,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-01",
+      "stratum": 6,
+      "start": 1768029120,
+      "end": 1768163040,
+      "anchor": 1768088132,
+      "quota": 50,
+      "eligible_candidates": 90,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1768088132,
+          "end": 1768163040,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-01",
+      "stratum": 7,
+      "start": 1768163040,
+      "end": 1768296960,
+      "anchor": 1768254638,
+      "quota": 50,
+      "eligible_candidates": 90,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1768254638,
+          "end": 1768296960,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-01",
+      "stratum": 8,
+      "start": 1768296960,
+      "end": 1768430880,
+      "anchor": 1768424195,
+      "quota": 50,
+      "eligible_candidates": 96,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1768424195,
+          "end": 1768430880,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-01",
+      "stratum": 9,
+      "start": 1768430880,
+      "end": 1768564800,
+      "anchor": 1768453540,
+      "quota": 50,
+      "eligible_candidates": 91,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1768453540,
+          "end": 1768564800,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-01",
+      "stratum": 10,
+      "start": 1768564800,
+      "end": 1768698720,
+      "anchor": 1768641919,
+      "quota": 50,
+      "eligible_candidates": 86,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1768641919,
+          "end": 1768698720,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-01",
+      "stratum": 11,
+      "start": 1768698720,
+      "end": 1768832640,
+      "anchor": 1768791846,
+      "quota": 50,
+      "eligible_candidates": 87,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1768791846,
+          "end": 1768832640,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-01",
+      "stratum": 12,
+      "start": 1768832640,
+      "end": 1768966560,
+      "anchor": 1768906669,
+      "quota": 50,
+      "eligible_candidates": 92,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1768906669,
+          "end": 1768966560,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-01",
+      "stratum": 13,
+      "start": 1768966560,
+      "end": 1769100480,
+      "anchor": 1769073316,
+      "quota": 50,
+      "eligible_candidates": 85,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1769073316,
+          "end": 1769100480,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-01",
+      "stratum": 14,
+      "start": 1769100480,
+      "end": 1769234400,
+      "anchor": 1769108096,
+      "quota": 50,
+      "eligible_candidates": 87,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1769108096,
+          "end": 1769234400,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-01",
+      "stratum": 15,
+      "start": 1769234400,
+      "end": 1769368320,
+      "anchor": 1769277132,
+      "quota": 50,
+      "eligible_candidates": 88,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1769277132,
+          "end": 1769368320,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-01",
+      "stratum": 16,
+      "start": 1769368320,
+      "end": 1769502240,
+      "anchor": 1769500238,
+      "quota": 50,
+      "eligible_candidates": 120,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1769500238,
+          "end": 1769502240,
+          "returned": 35
+        },
+        {
+          "start": 1769368320,
+          "end": 1769500238,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-01",
+      "stratum": 17,
+      "start": 1769502240,
+      "end": 1769636160,
+      "anchor": 1769579847,
+      "quota": 50,
+      "eligible_candidates": 85,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1769579847,
+          "end": 1769636160,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-01",
+      "stratum": 18,
+      "start": 1769636160,
+      "end": 1769770080,
+      "anchor": 1769757401,
+      "quota": 50,
+      "eligible_candidates": 72,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1769757401,
+          "end": 1769770080,
+          "returned": 97
+        }
+      ]
+    },
+    {
+      "month": "2026-01",
+      "stratum": 19,
+      "start": 1769770080,
+      "end": 1769904000,
+      "anchor": 1769777416,
+      "quota": 50,
+      "eligible_candidates": 89,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1769777416,
+          "end": 1769904000,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "stratum": 0,
+      "start": 1769904000,
+      "end": 1770024960,
+      "anchor": 1769944336,
+      "quota": 50,
+      "eligible_candidates": 88,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1769944336,
+          "end": 1770024960,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "stratum": 1,
+      "start": 1770024960,
+      "end": 1770145920,
+      "anchor": 1770027012,
+      "quota": 50,
+      "eligible_candidates": 90,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1770027012,
+          "end": 1770145920,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "stratum": 2,
+      "start": 1770145920,
+      "end": 1770266880,
+      "anchor": 1770240220,
+      "quota": 50,
+      "eligible_candidates": 96,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1770240220,
+          "end": 1770266880,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "stratum": 3,
+      "start": 1770266880,
+      "end": 1770387840,
+      "anchor": 1770275614,
+      "quota": 50,
+      "eligible_candidates": 87,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1770275614,
+          "end": 1770387840,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "stratum": 4,
+      "start": 1770387840,
+      "end": 1770508800,
+      "anchor": 1770416027,
+      "quota": 50,
+      "eligible_candidates": 94,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1770416027,
+          "end": 1770508800,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "stratum": 5,
+      "start": 1770508800,
+      "end": 1770629760,
+      "anchor": 1770531340,
+      "quota": 50,
+      "eligible_candidates": 77,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1770531340,
+          "end": 1770629760,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "stratum": 6,
+      "start": 1770629760,
+      "end": 1770750720,
+      "anchor": 1770671648,
+      "quota": 50,
+      "eligible_candidates": 92,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1770671648,
+          "end": 1770750720,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "stratum": 7,
+      "start": 1770750720,
+      "end": 1770871680,
+      "anchor": 1770780741,
+      "quota": 50,
+      "eligible_candidates": 89,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1770780741,
+          "end": 1770871680,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "stratum": 8,
+      "start": 1770871680,
+      "end": 1770992640,
+      "anchor": 1770880515,
+      "quota": 50,
+      "eligible_candidates": 85,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1770880515,
+          "end": 1770992640,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "stratum": 9,
+      "start": 1770992640,
+      "end": 1771113600,
+      "anchor": 1771036211,
+      "quota": 50,
+      "eligible_candidates": 88,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1771036211,
+          "end": 1771113600,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "stratum": 10,
+      "start": 1771113600,
+      "end": 1771234560,
+      "anchor": 1771168454,
+      "quota": 50,
+      "eligible_candidates": 92,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1771168454,
+          "end": 1771234560,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "stratum": 11,
+      "start": 1771234560,
+      "end": 1771355520,
+      "anchor": 1771295190,
+      "quota": 50,
+      "eligible_candidates": 85,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1771295190,
+          "end": 1771355520,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "stratum": 12,
+      "start": 1771355520,
+      "end": 1771476480,
+      "anchor": 1771467669,
+      "quota": 50,
+      "eligible_candidates": 86,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1771467669,
+          "end": 1771476480,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "stratum": 13,
+      "start": 1771476480,
+      "end": 1771597440,
+      "anchor": 1771476760,
+      "quota": 50,
+      "eligible_candidates": 83,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1771476760,
+          "end": 1771597440,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "stratum": 14,
+      "start": 1771597440,
+      "end": 1771718400,
+      "anchor": 1771640786,
+      "quota": 50,
+      "eligible_candidates": 91,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1771640786,
+          "end": 1771718400,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "stratum": 15,
+      "start": 1771718400,
+      "end": 1771839360,
+      "anchor": 1771775690,
+      "quota": 50,
+      "eligible_candidates": 84,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1771775690,
+          "end": 1771839360,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "stratum": 16,
+      "start": 1771839360,
+      "end": 1771960320,
+      "anchor": 1771878469,
+      "quota": 50,
+      "eligible_candidates": 94,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1771878469,
+          "end": 1771960320,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "stratum": 17,
+      "start": 1771960320,
+      "end": 1772081280,
+      "anchor": 1771961307,
+      "quota": 50,
+      "eligible_candidates": 90,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1771961307,
+          "end": 1772081280,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "stratum": 18,
+      "start": 1772081280,
+      "end": 1772202240,
+      "anchor": 1772145417,
+      "quota": 50,
+      "eligible_candidates": 87,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1772145417,
+          "end": 1772202240,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-02",
+      "stratum": 19,
+      "start": 1772202240,
+      "end": 1772323200,
+      "anchor": 1772245216,
+      "quota": 50,
+      "eligible_candidates": 82,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1772245216,
+          "end": 1772323200,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "stratum": 0,
+      "start": 1772323200,
+      "end": 1772457120,
+      "anchor": 1772344754,
+      "quota": 50,
+      "eligible_candidates": 82,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1772344754,
+          "end": 1772457120,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "stratum": 1,
+      "start": 1772457120,
+      "end": 1772591040,
+      "anchor": 1772475772,
+      "quota": 50,
+      "eligible_candidates": 89,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1772475772,
+          "end": 1772591040,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "stratum": 2,
+      "start": 1772591040,
+      "end": 1772724960,
+      "anchor": 1772723270,
+      "quota": 50,
+      "eligible_candidates": 115,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1772723270,
+          "end": 1772724960,
+          "returned": 32
+        },
+        {
+          "start": 1772591040,
+          "end": 1772723270,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "stratum": 3,
+      "start": 1772724960,
+      "end": 1772858880,
+      "anchor": 1772731702,
+      "quota": 50,
+      "eligible_candidates": 89,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1772731702,
+          "end": 1772858880,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "stratum": 4,
+      "start": 1772858880,
+      "end": 1772992800,
+      "anchor": 1772930693,
+      "quota": 50,
+      "eligible_candidates": 88,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1772930693,
+          "end": 1772992800,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "stratum": 5,
+      "start": 1772992800,
+      "end": 1773126720,
+      "anchor": 1773014158,
+      "quota": 50,
+      "eligible_candidates": 88,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1773014158,
+          "end": 1773126720,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "stratum": 6,
+      "start": 1773126720,
+      "end": 1773260640,
+      "anchor": 1773209984,
+      "quota": 50,
+      "eligible_candidates": 92,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1773209984,
+          "end": 1773260640,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "stratum": 7,
+      "start": 1773260640,
+      "end": 1773394560,
+      "anchor": 1773269516,
+      "quota": 50,
+      "eligible_candidates": 87,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1773269516,
+          "end": 1773394560,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "stratum": 8,
+      "start": 1773394560,
+      "end": 1773528480,
+      "anchor": 1773412058,
+      "quota": 50,
+      "eligible_candidates": 90,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1773412058,
+          "end": 1773528480,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "stratum": 9,
+      "start": 1773528480,
+      "end": 1773662400,
+      "anchor": 1773540021,
+      "quota": 50,
+      "eligible_candidates": 93,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1773540021,
+          "end": 1773662400,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "stratum": 10,
+      "start": 1773662400,
+      "end": 1773796320,
+      "anchor": 1773688503,
+      "quota": 50,
+      "eligible_candidates": 89,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1773688503,
+          "end": 1773796320,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "stratum": 11,
+      "start": 1773796320,
+      "end": 1773930240,
+      "anchor": 1773859893,
+      "quota": 50,
+      "eligible_candidates": 84,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1773859893,
+          "end": 1773930240,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "stratum": 12,
+      "start": 1773930240,
+      "end": 1774064160,
+      "anchor": 1774038311,
+      "quota": 50,
+      "eligible_candidates": 88,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1774038311,
+          "end": 1774064160,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "stratum": 13,
+      "start": 1774064160,
+      "end": 1774198080,
+      "anchor": 1774094550,
+      "quota": 50,
+      "eligible_candidates": 94,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1774094550,
+          "end": 1774198080,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "stratum": 14,
+      "start": 1774198080,
+      "end": 1774332000,
+      "anchor": 1774277985,
+      "quota": 50,
+      "eligible_candidates": 93,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1774277985,
+          "end": 1774332000,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "stratum": 15,
+      "start": 1774332000,
+      "end": 1774465920,
+      "anchor": 1774432558,
+      "quota": 50,
+      "eligible_candidates": 91,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1774432558,
+          "end": 1774465920,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "stratum": 16,
+      "start": 1774465920,
+      "end": 1774599840,
+      "anchor": 1774473248,
+      "quota": 50,
+      "eligible_candidates": 88,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1774473248,
+          "end": 1774599840,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "stratum": 17,
+      "start": 1774599840,
+      "end": 1774733760,
+      "anchor": 1774670115,
+      "quota": 50,
+      "eligible_candidates": 85,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1774670115,
+          "end": 1774733760,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "stratum": 18,
+      "start": 1774733760,
+      "end": 1774867680,
+      "anchor": 1774776926,
+      "quota": 50,
+      "eligible_candidates": 87,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1774776926,
+          "end": 1774867680,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-03",
+      "stratum": 19,
+      "start": 1774867680,
+      "end": 1775001600,
+      "anchor": 1774897612,
+      "quota": 50,
+      "eligible_candidates": 87,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1774897612,
+          "end": 1775001600,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "stratum": 0,
+      "start": 1775001600,
+      "end": 1775131200,
+      "anchor": 1775043111,
+      "quota": 50,
+      "eligible_candidates": 92,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1775043111,
+          "end": 1775131200,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "stratum": 1,
+      "start": 1775131200,
+      "end": 1775260800,
+      "anchor": 1775165776,
+      "quota": 50,
+      "eligible_candidates": 86,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1775165776,
+          "end": 1775260800,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "stratum": 2,
+      "start": 1775260800,
+      "end": 1775390400,
+      "anchor": 1775373426,
+      "quota": 50,
+      "eligible_candidates": 83,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1775373426,
+          "end": 1775390400,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "stratum": 3,
+      "start": 1775390400,
+      "end": 1775520000,
+      "anchor": 1775484935,
+      "quota": 50,
+      "eligible_candidates": 92,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1775484935,
+          "end": 1775520000,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "stratum": 4,
+      "start": 1775520000,
+      "end": 1775649600,
+      "anchor": 1775629993,
+      "quota": 50,
+      "eligible_candidates": 85,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1775629993,
+          "end": 1775649600,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "stratum": 5,
+      "start": 1775649600,
+      "end": 1775779200,
+      "anchor": 1775744892,
+      "quota": 50,
+      "eligible_candidates": 89,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1775744892,
+          "end": 1775779200,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "stratum": 6,
+      "start": 1775779200,
+      "end": 1775908800,
+      "anchor": 1775838068,
+      "quota": 50,
+      "eligible_candidates": 88,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1775838068,
+          "end": 1775908800,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "stratum": 7,
+      "start": 1775908800,
+      "end": 1776038400,
+      "anchor": 1776000396,
+      "quota": 50,
+      "eligible_candidates": 90,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1776000396,
+          "end": 1776038400,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "stratum": 8,
+      "start": 1776038400,
+      "end": 1776168000,
+      "anchor": 1776107989,
+      "quota": 50,
+      "eligible_candidates": 92,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1776107989,
+          "end": 1776168000,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "stratum": 9,
+      "start": 1776168000,
+      "end": 1776297600,
+      "anchor": 1776211100,
+      "quota": 50,
+      "eligible_candidates": 77,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1776211100,
+          "end": 1776297600,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "stratum": 10,
+      "start": 1776297600,
+      "end": 1776427200,
+      "anchor": 1776347375,
+      "quota": 50,
+      "eligible_candidates": 86,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1776347375,
+          "end": 1776427200,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "stratum": 11,
+      "start": 1776427200,
+      "end": 1776556800,
+      "anchor": 1776511794,
+      "quota": 50,
+      "eligible_candidates": 88,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1776511794,
+          "end": 1776556800,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "stratum": 12,
+      "start": 1776556800,
+      "end": 1776686400,
+      "anchor": 1776608403,
+      "quota": 50,
+      "eligible_candidates": 86,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1776608403,
+          "end": 1776686400,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "stratum": 13,
+      "start": 1776686400,
+      "end": 1776816000,
+      "anchor": 1776800832,
+      "quota": 50,
+      "eligible_candidates": 91,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1776800832,
+          "end": 1776816000,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "stratum": 14,
+      "start": 1776816000,
+      "end": 1776945600,
+      "anchor": 1776897043,
+      "quota": 50,
+      "eligible_candidates": 96,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1776897043,
+          "end": 1776945600,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "stratum": 15,
+      "start": 1776945600,
+      "end": 1777075200,
+      "anchor": 1776965214,
+      "quota": 50,
+      "eligible_candidates": 94,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1776965214,
+          "end": 1777075200,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "stratum": 16,
+      "start": 1777075200,
+      "end": 1777204800,
+      "anchor": 1777120237,
+      "quota": 50,
+      "eligible_candidates": 90,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1777120237,
+          "end": 1777204800,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "stratum": 17,
+      "start": 1777204800,
+      "end": 1777334400,
+      "anchor": 1777327050,
+      "quota": 50,
+      "eligible_candidates": 92,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1777327050,
+          "end": 1777334400,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "stratum": 18,
+      "start": 1777334400,
+      "end": 1777464000,
+      "anchor": 1777355860,
+      "quota": 50,
+      "eligible_candidates": 94,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1777355860,
+          "end": 1777464000,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-04",
+      "stratum": 19,
+      "start": 1777464000,
+      "end": 1777593600,
+      "anchor": 1777525932,
+      "quota": 50,
+      "eligible_candidates": 88,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1777525932,
+          "end": 1777593600,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "stratum": 0,
+      "start": 1777593600,
+      "end": 1777727520,
+      "anchor": 1777604293,
+      "quota": 50,
+      "eligible_candidates": 85,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1777604293,
+          "end": 1777727520,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "stratum": 1,
+      "start": 1777727520,
+      "end": 1777861440,
+      "anchor": 1777783978,
+      "quota": 50,
+      "eligible_candidates": 84,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1777783978,
+          "end": 1777861440,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "stratum": 2,
+      "start": 1777861440,
+      "end": 1777995360,
+      "anchor": 1777977167,
+      "quota": 50,
+      "eligible_candidates": 89,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1777977167,
+          "end": 1777995360,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "stratum": 3,
+      "start": 1777995360,
+      "end": 1778129280,
+      "anchor": 1778090371,
+      "quota": 50,
+      "eligible_candidates": 89,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1778090371,
+          "end": 1778129280,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "stratum": 4,
+      "start": 1778129280,
+      "end": 1778263200,
+      "anchor": 1778249167,
+      "quota": 50,
+      "eligible_candidates": 90,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1778249167,
+          "end": 1778263200,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "stratum": 5,
+      "start": 1778263200,
+      "end": 1778397120,
+      "anchor": 1778346343,
+      "quota": 50,
+      "eligible_candidates": 95,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1778346343,
+          "end": 1778397120,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "stratum": 6,
+      "start": 1778397120,
+      "end": 1778531040,
+      "anchor": 1778455309,
+      "quota": 50,
+      "eligible_candidates": 85,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1778455309,
+          "end": 1778531040,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "stratum": 7,
+      "start": 1778531040,
+      "end": 1778664960,
+      "anchor": 1778534692,
+      "quota": 50,
+      "eligible_candidates": 87,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1778534692,
+          "end": 1778664960,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "stratum": 8,
+      "start": 1778664960,
+      "end": 1778798880,
+      "anchor": 1778772462,
+      "quota": 50,
+      "eligible_candidates": 74,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1778772462,
+          "end": 1778798880,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "stratum": 9,
+      "start": 1778798880,
+      "end": 1778932800,
+      "anchor": 1778881747,
+      "quota": 50,
+      "eligible_candidates": 87,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1778881747,
+          "end": 1778932800,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "stratum": 10,
+      "start": 1778932800,
+      "end": 1779066720,
+      "anchor": 1778973059,
+      "quota": 50,
+      "eligible_candidates": 94,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1778973059,
+          "end": 1779066720,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "stratum": 11,
+      "start": 1779066720,
+      "end": 1779200640,
+      "anchor": 1779126568,
+      "quota": 50,
+      "eligible_candidates": 90,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1779126568,
+          "end": 1779200640,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "stratum": 12,
+      "start": 1779200640,
+      "end": 1779334560,
+      "anchor": 1779242741,
+      "quota": 50,
+      "eligible_candidates": 93,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1779242741,
+          "end": 1779334560,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "stratum": 13,
+      "start": 1779334560,
+      "end": 1779468480,
+      "anchor": 1779423298,
+      "quota": 50,
+      "eligible_candidates": 87,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1779423298,
+          "end": 1779468480,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "stratum": 14,
+      "start": 1779468480,
+      "end": 1779602400,
+      "anchor": 1779515600,
+      "quota": 50,
+      "eligible_candidates": 84,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1779515600,
+          "end": 1779602400,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "stratum": 15,
+      "start": 1779602400,
+      "end": 1779736320,
+      "anchor": 1779612294,
+      "quota": 50,
+      "eligible_candidates": 80,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1779612294,
+          "end": 1779736320,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "stratum": 16,
+      "start": 1779736320,
+      "end": 1779870240,
+      "anchor": 1779843213,
+      "quota": 50,
+      "eligible_candidates": 90,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1779843213,
+          "end": 1779870240,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "stratum": 17,
+      "start": 1779870240,
+      "end": 1780004160,
+      "anchor": 1779996106,
+      "quota": 50,
+      "eligible_candidates": 84,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1779996106,
+          "end": 1780004160,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "stratum": 18,
+      "start": 1780004160,
+      "end": 1780138080,
+      "anchor": 1780010280,
+      "quota": 50,
+      "eligible_candidates": 93,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1780010280,
+          "end": 1780138080,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-05",
+      "stratum": 19,
+      "start": 1780138080,
+      "end": 1780272000,
+      "anchor": 1780158985,
+      "quota": 50,
+      "eligible_candidates": 94,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1780158985,
+          "end": 1780272000,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "stratum": 0,
+      "start": 1780272000,
+      "end": 1780401600,
+      "anchor": 1780382690,
+      "quota": 50,
+      "eligible_candidates": 82,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1780382690,
+          "end": 1780401600,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "stratum": 1,
+      "start": 1780401600,
+      "end": 1780531200,
+      "anchor": 1780513986,
+      "quota": 50,
+      "eligible_candidates": 89,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1780513986,
+          "end": 1780531200,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "stratum": 2,
+      "start": 1780531200,
+      "end": 1780660800,
+      "anchor": 1780608205,
+      "quota": 50,
+      "eligible_candidates": 89,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1780608205,
+          "end": 1780660800,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "stratum": 3,
+      "start": 1780660800,
+      "end": 1780790400,
+      "anchor": 1780696757,
+      "quota": 50,
+      "eligible_candidates": 89,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1780696757,
+          "end": 1780790400,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "stratum": 4,
+      "start": 1780790400,
+      "end": 1780920000,
+      "anchor": 1780798121,
+      "quota": 50,
+      "eligible_candidates": 85,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1780798121,
+          "end": 1780920000,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "stratum": 5,
+      "start": 1780920000,
+      "end": 1781049600,
+      "anchor": 1780937976,
+      "quota": 50,
+      "eligible_candidates": 87,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1780937976,
+          "end": 1781049600,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "stratum": 6,
+      "start": 1781049600,
+      "end": 1781179200,
+      "anchor": 1781089604,
+      "quota": 50,
+      "eligible_candidates": 82,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1781089604,
+          "end": 1781179200,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "stratum": 7,
+      "start": 1781179200,
+      "end": 1781308800,
+      "anchor": 1781280192,
+      "quota": 50,
+      "eligible_candidates": 93,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1781280192,
+          "end": 1781308800,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "stratum": 8,
+      "start": 1781308800,
+      "end": 1781438400,
+      "anchor": 1781328469,
+      "quota": 50,
+      "eligible_candidates": 87,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1781328469,
+          "end": 1781438400,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "stratum": 9,
+      "start": 1781438400,
+      "end": 1781568000,
+      "anchor": 1781452434,
+      "quota": 50,
+      "eligible_candidates": 80,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1781452434,
+          "end": 1781568000,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "stratum": 10,
+      "start": 1781568000,
+      "end": 1781697600,
+      "anchor": 1781598661,
+      "quota": 50,
+      "eligible_candidates": 82,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1781598661,
+          "end": 1781697600,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "stratum": 11,
+      "start": 1781697600,
+      "end": 1781827200,
+      "anchor": 1781720543,
+      "quota": 50,
+      "eligible_candidates": 91,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1781720543,
+          "end": 1781827200,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "stratum": 12,
+      "start": 1781827200,
+      "end": 1781956800,
+      "anchor": 1781938706,
+      "quota": 50,
+      "eligible_candidates": 94,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1781938706,
+          "end": 1781956800,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "stratum": 13,
+      "start": 1781956800,
+      "end": 1782086400,
+      "anchor": 1782034410,
+      "quota": 50,
+      "eligible_candidates": 86,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1782034410,
+          "end": 1782086400,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "stratum": 14,
+      "start": 1782086400,
+      "end": 1782216000,
+      "anchor": 1782095254,
+      "quota": 50,
+      "eligible_candidates": 90,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1782095254,
+          "end": 1782216000,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "stratum": 15,
+      "start": 1782216000,
+      "end": 1782345600,
+      "anchor": 1782308638,
+      "quota": 50,
+      "eligible_candidates": 93,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1782308638,
+          "end": 1782345600,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "stratum": 16,
+      "start": 1782345600,
+      "end": 1782475200,
+      "anchor": 1782369273,
+      "quota": 50,
+      "eligible_candidates": 81,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1782369273,
+          "end": 1782475200,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "stratum": 17,
+      "start": 1782475200,
+      "end": 1782604800,
+      "anchor": 1782536638,
+      "quota": 50,
+      "eligible_candidates": 91,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1782536638,
+          "end": 1782604800,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "stratum": 18,
+      "start": 1782604800,
+      "end": 1782734400,
+      "anchor": 1782649867,
+      "quota": 50,
+      "eligible_candidates": 91,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1782649867,
+          "end": 1782734400,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-06",
+      "stratum": 19,
+      "start": 1782734400,
+      "end": 1782864000,
+      "anchor": 1782784880,
+      "quota": 50,
+      "eligible_candidates": 77,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1782784880,
+          "end": 1782864000,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-07",
+      "stratum": 0,
+      "start": 1782864000,
+      "end": 1782997920,
+      "anchor": 1782890738,
+      "quota": 50,
+      "eligible_candidates": 86,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1782890738,
+          "end": 1782997920,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-07",
+      "stratum": 1,
+      "start": 1782997920,
+      "end": 1783131840,
+      "anchor": 1783021093,
+      "quota": 50,
+      "eligible_candidates": 90,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1783021093,
+          "end": 1783131840,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-07",
+      "stratum": 2,
+      "start": 1783131840,
+      "end": 1783265760,
+      "anchor": 1783160398,
+      "quota": 50,
+      "eligible_candidates": 81,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1783160398,
+          "end": 1783265760,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-07",
+      "stratum": 3,
+      "start": 1783265760,
+      "end": 1783399680,
+      "anchor": 1783394591,
+      "quota": 50,
+      "eligible_candidates": 149,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1783394591,
+          "end": 1783399680,
+          "returned": 71
+        },
+        {
+          "start": 1783265760,
+          "end": 1783394591,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-07",
+      "stratum": 4,
+      "start": 1783399680,
+      "end": 1783533600,
+      "anchor": 1783476418,
+      "quota": 50,
+      "eligible_candidates": 88,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1783476418,
+          "end": 1783533600,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-07",
+      "stratum": 5,
+      "start": 1783533600,
+      "end": 1783667520,
+      "anchor": 1783595131,
+      "quota": 50,
+      "eligible_candidates": 72,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1783595131,
+          "end": 1783667520,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-07",
+      "stratum": 6,
+      "start": 1783667520,
+      "end": 1783801440,
+      "anchor": 1783766367,
+      "quota": 50,
+      "eligible_candidates": 87,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1783766367,
+          "end": 1783801440,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-07",
+      "stratum": 7,
+      "start": 1783801440,
+      "end": 1783935360,
+      "anchor": 1783837855,
+      "quota": 50,
+      "eligible_candidates": 81,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1783837855,
+          "end": 1783935360,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-07",
+      "stratum": 8,
+      "start": 1783935360,
+      "end": 1784069280,
+      "anchor": 1784043724,
+      "quota": 50,
+      "eligible_candidates": 86,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1784043724,
+          "end": 1784069280,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-07",
+      "stratum": 9,
+      "start": 1784069280,
+      "end": 1784203200,
+      "anchor": 1784146690,
+      "quota": 50,
+      "eligible_candidates": 90,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1784146690,
+          "end": 1784203200,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-07",
+      "stratum": 10,
+      "start": 1784203200,
+      "end": 1784337120,
+      "anchor": 1784288408,
+      "quota": 50,
+      "eligible_candidates": 89,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1784288408,
+          "end": 1784337120,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-07",
+      "stratum": 11,
+      "start": 1784337120,
+      "end": 1784471040,
+      "anchor": 1784394318,
+      "quota": 50,
+      "eligible_candidates": 92,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1784394318,
+          "end": 1784471040,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-07",
+      "stratum": 12,
+      "start": 1784471040,
+      "end": 1784604960,
+      "anchor": 1784509828,
+      "quota": 50,
+      "eligible_candidates": 81,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1784509828,
+          "end": 1784604960,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-07",
+      "stratum": 13,
+      "start": 1784604960,
+      "end": 1784738880,
+      "anchor": 1784681847,
+      "quota": 50,
+      "eligible_candidates": 74,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1784681847,
+          "end": 1784738880,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-07",
+      "stratum": 14,
+      "start": 1784738880,
+      "end": 1784872800,
+      "anchor": 1784779539,
+      "quota": 50,
+      "eligible_candidates": 88,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1784779539,
+          "end": 1784872800,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-07",
+      "stratum": 15,
+      "start": 1784872800,
+      "end": 1785006720,
+      "anchor": 1784921998,
+      "quota": 50,
+      "eligible_candidates": 79,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1784921998,
+          "end": 1785006720,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-07",
+      "stratum": 16,
+      "start": 1785006720,
+      "end": 1785140640,
+      "anchor": 1785062907,
+      "quota": 50,
+      "eligible_candidates": 84,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1785062907,
+          "end": 1785140640,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-07",
+      "stratum": 17,
+      "start": 1785140640,
+      "end": 1785274560,
+      "anchor": 1785209760,
+      "quota": 50,
+      "eligible_candidates": 79,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1785209760,
+          "end": 1785274560,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-07",
+      "stratum": 18,
+      "start": 1785274560,
+      "end": 1785408480,
+      "anchor": 1785393822,
+      "quota": 50,
+      "eligible_candidates": 90,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1785393822,
+          "end": 1785408480,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-07",
+      "stratum": 19,
+      "start": 1785408480,
+      "end": 1785542400,
+      "anchor": 1785437514,
+      "quota": 50,
+      "eligible_candidates": 86,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1785437514,
+          "end": 1785542400,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-08",
+      "stratum": 0,
+      "start": 1785542400,
+      "end": 1785676320,
+      "anchor": 1785628418,
+      "quota": 50,
+      "eligible_candidates": 92,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1785628418,
+          "end": 1785676320,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-08",
+      "stratum": 1,
+      "start": 1785676320,
+      "end": 1785810240,
+      "anchor": 1785767053,
+      "quota": 50,
+      "eligible_candidates": 91,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1785767053,
+          "end": 1785810240,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-08",
+      "stratum": 2,
+      "start": 1785810240,
+      "end": 1785944160,
+      "anchor": 1785848207,
+      "quota": 50,
+      "eligible_candidates": 89,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1785848207,
+          "end": 1785944160,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-08",
+      "stratum": 3,
+      "start": 1785944160,
+      "end": 1786078080,
+      "anchor": 1786040804,
+      "quota": 50,
+      "eligible_candidates": 96,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1786040804,
+          "end": 1786078080,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-08",
+      "stratum": 4,
+      "start": 1786078080,
+      "end": 1786212000,
+      "anchor": 1786191630,
+      "quota": 50,
+      "eligible_candidates": 96,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1786191630,
+          "end": 1786212000,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-08",
+      "stratum": 5,
+      "start": 1786212000,
+      "end": 1786345920,
+      "anchor": 1786220044,
+      "quota": 50,
+      "eligible_candidates": 87,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1786220044,
+          "end": 1786345920,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-08",
+      "stratum": 6,
+      "start": 1786345920,
+      "end": 1786479840,
+      "anchor": 1786345980,
+      "quota": 50,
+      "eligible_candidates": 67,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1786345980,
+          "end": 1786479840,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-08",
+      "stratum": 7,
+      "start": 1786479840,
+      "end": 1786613760,
+      "anchor": 1786609269,
+      "quota": 50,
+      "eligible_candidates": 133,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1786609269,
+          "end": 1786613760,
+          "returned": 52
+        },
+        {
+          "start": 1786479840,
+          "end": 1786609269,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-08",
+      "stratum": 8,
+      "start": 1786613760,
+      "end": 1786747680,
+      "anchor": 1786656853,
+      "quota": 50,
+      "eligible_candidates": 90,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1786656853,
+          "end": 1786747680,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-08",
+      "stratum": 9,
+      "start": 1786747680,
+      "end": 1786881600,
+      "anchor": 1786792654,
+      "quota": 50,
+      "eligible_candidates": 94,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1786792654,
+          "end": 1786881600,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-08",
+      "stratum": 10,
+      "start": 1786881600,
+      "end": 1787015520,
+      "anchor": 1786989456,
+      "quota": 50,
+      "eligible_candidates": 94,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1786989456,
+          "end": 1787015520,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-08",
+      "stratum": 11,
+      "start": 1787015520,
+      "end": 1787149440,
+      "anchor": 1787028326,
+      "quota": 50,
+      "eligible_candidates": 93,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1787028326,
+          "end": 1787149440,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-08",
+      "stratum": 12,
+      "start": 1787149440,
+      "end": 1787283360,
+      "anchor": 1787250469,
+      "quota": 50,
+      "eligible_candidates": 88,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1787250469,
+          "end": 1787283360,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-08",
+      "stratum": 13,
+      "start": 1787283360,
+      "end": 1787417280,
+      "anchor": 1787384483,
+      "quota": 50,
+      "eligible_candidates": 71,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1787384483,
+          "end": 1787417280,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-08",
+      "stratum": 14,
+      "start": 1787417280,
+      "end": 1787551200,
+      "anchor": 1787461852,
+      "quota": 50,
+      "eligible_candidates": 85,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1787461852,
+          "end": 1787551200,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-08",
+      "stratum": 15,
+      "start": 1787551200,
+      "end": 1787685120,
+      "anchor": 1787664788,
+      "quota": 50,
+      "eligible_candidates": 86,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1787664788,
+          "end": 1787685120,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-08",
+      "stratum": 16,
+      "start": 1787685120,
+      "end": 1787819040,
+      "anchor": 1787740933,
+      "quota": 50,
+      "eligible_candidates": 87,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1787740933,
+          "end": 1787819040,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-08",
+      "stratum": 17,
+      "start": 1787819040,
+      "end": 1787952960,
+      "anchor": 1787925638,
+      "quota": 50,
+      "eligible_candidates": 88,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1787925638,
+          "end": 1787952960,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-08",
+      "stratum": 18,
+      "start": 1787952960,
+      "end": 1788086880,
+      "anchor": 1787954193,
+      "quota": 50,
+      "eligible_candidates": 90,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1787954193,
+          "end": 1788086880,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-08",
+      "stratum": 19,
+      "start": 1788086880,
+      "end": 1788220800,
+      "anchor": 1788217668,
+      "quota": 50,
+      "eligible_candidates": 89,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1788217668,
+          "end": 1788220800,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "stratum": 0,
+      "start": 1788220800,
+      "end": 1788350400,
+      "anchor": 1788277200,
+      "quota": 50,
+      "eligible_candidates": 88,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1788277200,
+          "end": 1788350400,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "stratum": 1,
+      "start": 1788350400,
+      "end": 1788480000,
+      "anchor": 1788455707,
+      "quota": 50,
+      "eligible_candidates": 87,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1788455707,
+          "end": 1788480000,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "stratum": 2,
+      "start": 1788480000,
+      "end": 1788609600,
+      "anchor": 1788544390,
+      "quota": 50,
+      "eligible_candidates": 81,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1788544390,
+          "end": 1788609600,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "stratum": 3,
+      "start": 1788609600,
+      "end": 1788739200,
+      "anchor": 1788724544,
+      "quota": 50,
+      "eligible_candidates": 91,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1788724544,
+          "end": 1788739200,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "stratum": 4,
+      "start": 1788739200,
+      "end": 1788868800,
+      "anchor": 1788844734,
+      "quota": 50,
+      "eligible_candidates": 75,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1788844734,
+          "end": 1788868800,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "stratum": 5,
+      "start": 1788868800,
+      "end": 1788998400,
+      "anchor": 1788985439,
+      "quota": 50,
+      "eligible_candidates": 89,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1788985439,
+          "end": 1788998400,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "stratum": 6,
+      "start": 1788998400,
+      "end": 1789128000,
+      "anchor": 1789061341,
+      "quota": 50,
+      "eligible_candidates": 92,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1789061341,
+          "end": 1789128000,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "stratum": 7,
+      "start": 1789128000,
+      "end": 1789257600,
+      "anchor": 1789196646,
+      "quota": 50,
+      "eligible_candidates": 84,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1789196646,
+          "end": 1789257600,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "stratum": 8,
+      "start": 1789257600,
+      "end": 1789387200,
+      "anchor": 1789293019,
+      "quota": 50,
+      "eligible_candidates": 81,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1789293019,
+          "end": 1789387200,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "stratum": 9,
+      "start": 1789387200,
+      "end": 1789516800,
+      "anchor": 1789407613,
+      "quota": 50,
+      "eligible_candidates": 87,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1789407613,
+          "end": 1789516800,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "stratum": 10,
+      "start": 1789516800,
+      "end": 1789646400,
+      "anchor": 1789617251,
+      "quota": 50,
+      "eligible_candidates": 88,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1789617251,
+          "end": 1789646400,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "stratum": 11,
+      "start": 1789646400,
+      "end": 1789776000,
+      "anchor": 1789696134,
+      "quota": 50,
+      "eligible_candidates": 85,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1789696134,
+          "end": 1789776000,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "stratum": 12,
+      "start": 1789776000,
+      "end": 1789905600,
+      "anchor": 1789780658,
+      "quota": 50,
+      "eligible_candidates": 89,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1789780658,
+          "end": 1789905600,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "stratum": 13,
+      "start": 1789905600,
+      "end": 1790035200,
+      "anchor": 1789960746,
+      "quota": 50,
+      "eligible_candidates": 80,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1789960746,
+          "end": 1790035200,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "stratum": 14,
+      "start": 1790035200,
+      "end": 1790164800,
+      "anchor": 1790142494,
+      "quota": 50,
+      "eligible_candidates": 90,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1790142494,
+          "end": 1790164800,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "stratum": 15,
+      "start": 1790164800,
+      "end": 1790294400,
+      "anchor": 1790221465,
+      "quota": 50,
+      "eligible_candidates": 88,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1790221465,
+          "end": 1790294400,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "stratum": 16,
+      "start": 1790294400,
+      "end": 1790424000,
+      "anchor": 1790376854,
+      "quota": 50,
+      "eligible_candidates": 87,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1790376854,
+          "end": 1790424000,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "stratum": 17,
+      "start": 1790424000,
+      "end": 1790553600,
+      "anchor": 1790487655,
+      "quota": 50,
+      "eligible_candidates": 88,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1790487655,
+          "end": 1790553600,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "stratum": 18,
+      "start": 1790553600,
+      "end": 1790683200,
+      "anchor": 1790678562,
+      "quota": 50,
+      "eligible_candidates": 89,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1790678562,
+          "end": 1790683200,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-09",
+      "stratum": 19,
+      "start": 1790683200,
+      "end": 1790812800,
+      "anchor": 1790739155,
+      "quota": 50,
+      "eligible_candidates": 91,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1790739155,
+          "end": 1790812800,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-10",
+      "stratum": 0,
+      "start": 1790812800,
+      "end": 1790930732,
+      "anchor": 1790869159,
+      "quota": 50,
+      "eligible_candidates": 93,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1790869159,
+          "end": 1790930732,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-10",
+      "stratum": 1,
+      "start": 1790930732,
+      "end": 1791048665,
+      "anchor": 1790959759,
+      "quota": 50,
+      "eligible_candidates": 91,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1790959759,
+          "end": 1791048665,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-10",
+      "stratum": 2,
+      "start": 1791048665,
+      "end": 1791166598,
+      "anchor": 1791108649,
+      "quota": 50,
+      "eligible_candidates": 82,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1791108649,
+          "end": 1791166598,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-10",
+      "stratum": 3,
+      "start": 1791166598,
+      "end": 1791284530,
+      "anchor": 1791189808,
+      "quota": 50,
+      "eligible_candidates": 85,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1791189808,
+          "end": 1791284530,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-10",
+      "stratum": 4,
+      "start": 1791284530,
+      "end": 1791402463,
+      "anchor": 1791373675,
+      "quota": 50,
+      "eligible_candidates": 89,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1791373675,
+          "end": 1791402463,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-10",
+      "stratum": 5,
+      "start": 1791402463,
+      "end": 1791520396,
+      "anchor": 1791403649,
+      "quota": 50,
+      "eligible_candidates": 89,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1791403649,
+          "end": 1791520396,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-10",
+      "stratum": 6,
+      "start": 1791520396,
+      "end": 1791638328,
+      "anchor": 1791526375,
+      "quota": 50,
+      "eligible_candidates": 90,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1791526375,
+          "end": 1791638328,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-10",
+      "stratum": 7,
+      "start": 1791638328,
+      "end": 1791756261,
+      "anchor": 1791712479,
+      "quota": 50,
+      "eligible_candidates": 90,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1791712479,
+          "end": 1791756261,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-10",
+      "stratum": 8,
+      "start": 1791756261,
+      "end": 1791874194,
+      "anchor": 1791781183,
+      "quota": 50,
+      "eligible_candidates": 88,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1791781183,
+          "end": 1791874194,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-10",
+      "stratum": 9,
+      "start": 1791874194,
+      "end": 1791992127,
+      "anchor": 1791971946,
+      "quota": 50,
+      "eligible_candidates": 91,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1791971946,
+          "end": 1791992127,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-10",
+      "stratum": 10,
+      "start": 1791992127,
+      "end": 1792110059,
+      "anchor": 1792001529,
+      "quota": 50,
+      "eligible_candidates": 84,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1792001529,
+          "end": 1792110059,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-10",
+      "stratum": 11,
+      "start": 1792110059,
+      "end": 1792227992,
+      "anchor": 1792123323,
+      "quota": 50,
+      "eligible_candidates": 89,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1792123323,
+          "end": 1792227992,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-10",
+      "stratum": 12,
+      "start": 1792227992,
+      "end": 1792345925,
+      "anchor": 1792334232,
+      "quota": 50,
+      "eligible_candidates": 94,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1792334232,
+          "end": 1792345925,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-10",
+      "stratum": 13,
+      "start": 1792345925,
+      "end": 1792463857,
+      "anchor": 1792355753,
+      "quota": 50,
+      "eligible_candidates": 95,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1792355753,
+          "end": 1792463857,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-10",
+      "stratum": 14,
+      "start": 1792463857,
+      "end": 1792581790,
+      "anchor": 1792566386,
+      "quota": 50,
+      "eligible_candidates": 93,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1792566386,
+          "end": 1792581790,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-10",
+      "stratum": 15,
+      "start": 1792581790,
+      "end": 1792699723,
+      "anchor": 1792677517,
+      "quota": 50,
+      "eligible_candidates": 98,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1792677517,
+          "end": 1792699723,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-10",
+      "stratum": 16,
+      "start": 1792699723,
+      "end": 1792817655,
+      "anchor": 1792807252,
+      "quota": 50,
+      "eligible_candidates": 96,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1792807252,
+          "end": 1792817655,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-10",
+      "stratum": 17,
+      "start": 1792817655,
+      "end": 1792935588,
+      "anchor": 1792851817,
+      "quota": 50,
+      "eligible_candidates": 96,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1792851817,
+          "end": 1792935588,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-10",
+      "stratum": 18,
+      "start": 1792935588,
+      "end": 1793053521,
+      "anchor": 1793039389,
+      "quota": 50,
+      "eligible_candidates": 95,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1793039389,
+          "end": 1793053521,
+          "returned": 100
+        }
+      ]
+    },
+    {
+      "month": "2026-10",
+      "stratum": 19,
+      "start": 1793053521,
+      "end": 1793171454,
+      "anchor": 1793107052,
+      "quota": 50,
+      "eligible_candidates": 100,
+      "complete": true,
+      "requests": [
+        {
+          "start": 1793107052,
+          "end": 1793171454,
+          "returned": 100
+        }
+      ]
+    }
+  ]
+}
