@@ -11,6 +11,66 @@ verifies input, assignment and pipeline SHA-256 values before applying names.
 No TF-IDF, PCA or K-means is fitted in this reporting mode. Archive/network
 acquisition stays disabled; earlier result files are preserved.
 
+## Where to find and run K-means
+
+Section 8 of `notebook/2_topic_discovery.ipynb` compares candidate k values using
+`evaluate_clusters` from `functions/topics.py`. Section 9 shows the final
+`KMeans(...)` constructor and `fit_predict(Z)` call directly. Its input `Z` is
+the PCA projection after the configured row L2 normalization; the resulting
+labels are aligned with `comment_id`.
+
+For a new fit, keep `RUN_TOPIC_MODEL=True`, set `REUSE_SAVED_MODEL=False`, restart
+the kernel and run from the top with the local cleaned corpus available. This
+fits a final model with k-means++, 18 clusters, 30 initializations and seed 42.
+Follow the repository's approval rule before a full-corpus run taking more than
+a few minutes. The default reuse mode predicts with the frozen model and does
+not refit it. New fits do not inherit the frozen model's reviewed topic names.
+Upload the notebook together with its imported `functions/` modules; GitHub
+output stripping removes saved outputs, not executable code cells.
+
+## Reproduce the K-means presentation results
+
+Sections **12.2-12.6** cover every quantitative page in the `03 K-means`
+section of the unified presentation. Page 10 is a section divider.
+
+| PDF page | Notebook evidence | New figure or table |
+|---|---|---|
+| 11 | Sampled/assigned counts, exclusions and actual model parameters | `ppt_data_counts.csv`, `ppt_model_settings.csv` |
+| 12 | PCA 50/100/200/400 variance, the recorded dimension grid, and k diagnostics | `ppt_pca_dimensions.png`, `ppt_dimension_separation.png`, `ppt_dimension_candidates.csv`, `ppt_k_selection.csv` |
+| 13 | All 18 cluster shares, focus/mixed percentages, silhouettes and C9/C17 naming evidence | `ppt_cluster_shares.png`, `ppt_naming_evidence.csv`, `ppt_naming_examples.csv` |
+| 14 | Six combined monthly curves with labelled endpoints and turning points | `ppt_focus_monthly_trends.png`, `ppt_monthly_key_points.csv` |
+| 15 | Q3-Q1 changes under both weightings, the C2/(C8+C11) count ratio, and deletion/deduplication sensitivity | `ppt_quarter_changes.png`, `ppt_attention_ratio.png`, `ppt_period_sensitivity.png` |
+
+Run from the top in the default verified-model reuse mode. Counts and trends
+are recalculated without refitting the topic model. The four-dimension graph
+requires `comparison_manifest.json`, `pca_variance.csv` and `comparison.csv` in
+`PCA_COMPARISON_DIR` (by default the local `pca_dimension_comparison_20261029/`
+folder beneath `RUN_DIR`). The loader checks the corpus hash, seed, spectrum
+overlap and consistency of retained variance. It does not launch a new
+400-component fit or fill missing files with numbers copied from the slides.
+The historical dimension grid used 10 initializations; the final k comparison
+used 30. PCA-space silhouettes from different representations are not a common
+quality scale; the supplementary dimension plot uses original TF-IDF cosine
+silhouette at fixed k=10.
+
+The additive `topic_period_sensitivity` helper in `functions/topic_reporting.py`
+computes conservative deletion envelopes separately in each complete quarter.
+Posts are identified by `link_id`; time units are `(month, sampling_stratum)`;
+duplicate-text sensitivity retains one `normalized_text_key` per month. These
+checks keep cluster assignments fixed and retain all topics in denominators.
+They are not confidence intervals or evidence of model or causal validity.
+C5 remains a near-stable reference and is not required to preserve the sign of
+its very small change.
+
+`ppt_page_coverage.csv` maps slides to outputs, `ppt_numeric_checks.csv` compares
+recomputed values with the slides at displayed precision, and
+`ppt_source_provenance.csv` records comparison-source hashes. Section 13 exports
+these alongside all seven new figures into a fresh timestamped result folder
+when `SAVE_TOPIC_OUTPUTS=True`. Notebook outputs remain stripped for GitHub;
+run the cells locally to display them. Missing local data or comparison files
+are reported explicitly. Data/model downloads, retraining, commits and pushes
+are not performed by these reporting cells.
+
 ## Named clusters and focused reporting
 
 The notebook embeds 18 suggested English topic names, interpretation confidence,

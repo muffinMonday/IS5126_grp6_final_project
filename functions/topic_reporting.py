@@ -79,3 +79,57 @@ def topic_trend_diagnostics(frame, coverage, early_months, late_months):
                  'equal_post_change_pp': (post_late - post_early) * 100,
                  'complete_months': len(complete), 'both_periods_available': early_ready and late_ready})
   return counts, shares, monthly, pd.DataFrame(rows)
+
+
+def topic_period_sensitivity(frame, coverage, early_months, late_months, clusters):
+  """Recompute quarter changes after deleting units or within-month duplicates.
+
+  Keep all assigned topics in each denominator. Deletion envelopes allow no
+  deletion or one deletion independently in each period, as in the report.
+  They are sensitivity ranges, not confidence intervals or model refits.
+  """
+  if set(early_months) & set(late_months):
+    raise ValueError('Sensitivity periods must not overlap.')
+  _, _, _, summary = topic_trend_diagnostics(frame, coverage, early_months, late_months)
+  if not set(clusters).issubset(set(summary.cluster)):
+    raise ValueError('Sensitivity clusters must exist in the assigned corpus.')
+  data = frame.copy()
+
+  def available(columns):
+    return all(column in data and data[column].notna().all()
+               and data[column].astype(str).ne('').all() for column in columns)
+
+  def deletion_range(months, cluster, keys):
+    if not available(keys):
+      return np.nan, np.nan
+    group = data.loc[data.month.isin(months)].copy()
+    group['target'] = group.cluster.eq(cluster).astype(int)
+    units = group.groupby(keys, observed=True).target.agg(['sum', 'size'])
+    denominator = len(group) - units['size']
+    valid = denominator.gt(0)
+    if not valid.any():
+      return np.nan, np.nan
+    rates = (group.target.sum() - units.loc[valid, 'sum']) / denominator[valid]
+    baseline = group.target.mean()
+    return min(float(rates.min()), baseline), max(float(rates.max()), baseline)
+
+  has_text_keys = available(['normalized_text_key'])
+  deduplicated = data.drop_duplicates(['month', 'normalized_text_key']) if has_text_keys else None
+  indexed = summary.set_index('cluster')
+  rows = []
+  for cluster in clusters:
+    baseline = indexed.loc[cluster]
+    row = {'cluster': cluster, **{name: baseline[name] for name in [
+        'first3_share', 'last3_share', 'change_pp', 'equal_post_change_pp', 'both_periods_available']}}
+    for unit, keys in [('post', ['link_id']), ('stratum', ['month', 'sampling_stratum'])]:
+      early = deletion_range(early_months, cluster, keys) if baseline.both_periods_available else (np.nan, np.nan)
+      late = deletion_range(late_months, cluster, keys) if baseline.both_periods_available else (np.nan, np.nan)
+      row[unit + '_delta_min_pp'] = (late[0] - early[1]) * 100
+      row[unit + '_delta_max_pp'] = (late[1] - early[0]) * 100
+    row['deduplicated_change_pp'] = np.nan
+    if baseline.both_periods_available and has_text_keys:
+      early = deduplicated.loc[deduplicated.month.isin(early_months), 'cluster']
+      late = deduplicated.loc[deduplicated.month.isin(late_months), 'cluster']
+      row['deduplicated_change_pp'] = (late.eq(cluster).mean() - early.eq(cluster).mean()) * 100
+    rows.append(row)
+  return pd.DataFrame(rows)
