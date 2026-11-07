@@ -1,0 +1,20 @@
+# Packages for main_analysis.ipynb (IS5126 Group 6).
+#
+# Developed and run on Python 3.14.7 (Windows 11, CPU only) with:
+#   numpy 2.5.4, pandas 3.1.0, scipy 1.18.1, scikit-learn 1.9.1, scikit-optimize 0.10.2,
+#   matplotlib 3.11.2, tensorflow 2.22.0rc0 (with a pre-release Keras build), ipykernel 7.3.0
+# The lower bounds below let pip choose releases that exist for your Python. Those combinations
+# have not all been tested. Known differences:
+#   - the frozen K-means model was fitted with scikit-learn 1.7.0 and loads under newer
+#     versions with a harmless InconsistentVersionWarning (its cluster assignments are reproduced exactly);
+#   - the pre-release Keras build prints a harmless warning about LSTM masking, which the notebook filters.
+numpy>=2.0
+pandas>=2.2
+scipy>=1.11
+scikit-learn>=1.4
+scikit-optimize>=0.10
+matplotlib>=3.8
+tensorflow>=2.16
+# to open and run the notebook
+notebook
+ipykernel
