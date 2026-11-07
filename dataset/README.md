@@ -19,7 +19,7 @@ offline count verification and the limitation of the replacement collector.
 | `pooled/pooled_val.csv` | Part 3 fixed validation split, 4,797 rows | yes (explicitly approved) |
 | `pooled/manifest.json` | Part 3 settings, source hashes and split hashes | yes (explicitly approved) |
 | `pooled/baseline_metrics.csv`, `loso_metrics.csv`, `transfer_comparison.csv` | Part 3 baseline and transfer reference scores | yes (explicitly approved) |
-| `reddit/test_100_ai_labeled.csv` and `reddit/collection_manifest.json` | 100 r/jobs comments with AI labels and provenance | yes (explicitly approved) |
+| `reddit/test_100_labeled.csv` and `reddit/collection_manifest.json` | 100 hand-labelled r/jobs comments and provenance | yes (explicitly approved) |
 | Other r/jobs candidates, browser exports and annotation JSONs | collected by the team | no |
 
 Label mapping to toxic / non-toxic is described in the project proposal (`Project Proposal/`).
@@ -72,9 +72,9 @@ dataset/
 
 ## Reddit collection and annotation
 
-### Shared AI-labelled sample (2026-10-28)
+### Shared hand-labelled sample (2026-10-28)
 
-The committed `dataset/reddit/test_100_ai_labeled.csv` contains **100 actual r/jobs comments
+The committed `dataset/reddit/test_100_labeled.csv` contains **100 actual r/jobs comments
 from 58 posts**, selected from 287 deduplicated candidates read through the
 user-verified Reddit browser. The comment creation dates range from 2022-10-17
 to 2026-10-13. Collection took place on October 27–28, 2026 (Singapore time).
@@ -82,11 +82,14 @@ No synthetic comments were included. The user explicitly authorized sharing
 this 100-row sample and its provenance in Git; other collection artifacts remain
 excluded. Labels assess toxicity, not positive/negative sentiment.
 
-- `test_100_ai_labeled.csv`: 50 non-toxic labels and 50 toxic labels, with source
-  URLs and individual rationales. **AI annotations are the reference labels**,
-  `annotation_status=ai_labeled`, `annotator=AI:Codex`. This file is tracked and
-  ready for evaluation. The user approved using AI labels directly on 2026-11-02;
-  the original comments, labels and selection are unchanged.
+- `test_100_labeled.csv`: 50 non-toxic labels and 50 toxic labels, with source
+  URLs. **The hand labels are the reference labels**,
+  `annotation_status=hand_labelled`, `annotator=human`. A Codex annotation was the
+  first draft; a team member read every comment and corrected the labels by hand
+  before the file was first committed. The `ai_draft_rationale` column keeps the
+  draft's reasons, which may not match a corrected label. This file is tracked and
+  ready for evaluation. It was renamed from `test_100_ai_labeled.csv` on 2026-11-07
+  with its metadata corrected; comments, labels and selection are unchanged.
 - `collection_manifest.json`: tracked acquisition method, dates, selection
   limitations, counts and source/output SHA-256 hashes. References to local-only
   files document provenance; those files are not included in a fresh clone.
@@ -95,13 +98,13 @@ excluded. Labels assess toxicity, not positive/negative sentiment.
   records the selected IDs and AI rationales.
 
 From a fresh clone, the shared CSV is ready for zero-shot evaluation. Read
-`text` as the model input and `is_toxic` as the **AI-labelled** binary reference.
-`comment_id` is the join key; `annotation_notes` contains the reasoning for each
-annotation. Use `permalink` to inspect a source. Apply the saved training
+`text` as the model input and `is_toxic` as the **hand-labelled** binary reference.
+`comment_id` is the join key; `ai_draft_rationale` holds the AI draft's reasoning.
+Use `permalink` to inspect a source. Apply the saved training
 preprocessing/tokenizer without refitting. The Reddit section of
-`notebook/4_LSTM_model.ipynb` loads this file directly and records the label source
+`notebook/4b_LSTM_Logistic_Comparison.ipynb` loads this file directly and records the label source
 alongside precision, recall, macro F1 and PR-AUC. These scores measure agreement
-with AI annotations, which can themselves contain classification errors.
+with one annotator's labels, which can themselves contain classification errors.
 
 The browser records contain rendered comment text, not API raw Markdown. Case
 and words are preserved; Markdown formatting and inline-link destinations are
@@ -132,7 +135,12 @@ it does not call a model or infer labels from keywords. Its annotation JSON maps
 each selected ID to `{"label": 0, "reason": "..."}` or label `1`, exactly 50 of each.
 Its output is the complete test set, with AI provenance and per-comment reasons.
 
-Work package 1 produces a **100-comment, AI-labelled r/jobs test set:
+Note: the commands above and in sections 2 and 3 describe the AI-draft stage of the
+collection tooling. The tool writes `ai_labeled` / `AI:<model>` rows; the committed
+`test_100_labeled.csv` is the hand-corrected result and does not pass `finalize`'s
+AI-provenance check.
+
+Work package 1 produces a **100-comment, hand-labelled r/jobs test set:
 50 non-toxic and 50 toxic**. It is reserved for final zero-shot evaluation of the
 classifier trained on external datasets. Do not add it to training, fit a tokenizer
 on it, choose hyperparameters from it, or use it to tune a decision threshold.

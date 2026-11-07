@@ -3,7 +3,7 @@
 *.ipynb diff=ipynb
 
 # Preserve the exact handoff bytes and manifest hashes on every platform
-dataset/reddit/test_100_ai_labeled.csv -text
+dataset/reddit/test_100_labeled.csv -text
 dataset/pooled/pooled_train.csv -text
 dataset/pooled/pooled_val.csv -text
 dataset/pooled/manifest.json -text
@@ -15,3 +15,4 @@ dataset/gosu-ai-english-dota-chat/tagged-data.csv -text
 
 # Preserve source whitespace and exact SHA-256 bytes in the frozen bundle
 dataset/monthly_Topics/kmeans/** -text -whitespace
+dataset/monthly_Topics/monthly_coverage.csv -text

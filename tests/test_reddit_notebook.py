@@ -71,7 +71,7 @@ class RedditNotebookTests(unittest.TestCase):
       cls.cells[name] = compile(matches[0], name, 'exec')
 
   def setUp(self):
-    self.frame = pd.read_csv(ROOT / 'dataset/reddit/test_100_ai_labeled.csv',
+    self.frame = pd.read_csv(ROOT / 'dataset/reddit/test_100_labeled.csv',
                              dtype=str, keep_default_na=False)
     self.actual = self.frame['is_toxic'].astype(int).to_numpy()
     self.probas = {name: np.where(self.actual == 1, 0.9, 0.1) for name in MODEL_NAMES}
@@ -118,7 +118,7 @@ class RedditNotebookTests(unittest.TestCase):
       if name != 'LR (balanced)':
         other = self.ns['reddit_results'].loc[name]
         self.assertEqual((other['precision'], other['recall (TPR)'], other['macro_f1'], other['FPR']), (1.0, 1.0, 1.0, 0.0))
-    self.assertEqual(self.ns['reddit_label_source'], 'AI annotations')
+    self.assertEqual(self.ns['reddit_label_source'], 'hand labels')
     self.assertEqual(self.ns['THRESHOLD'], 0.37)
     self.assertEqual(self.tokenizer.word_index, vocabulary)
     cleaned = [cleanup_text(t.lower()) for t in self.frame['text']]
@@ -164,11 +164,13 @@ class RedditNotebookTests(unittest.TestCase):
       self.run_cell('reddit-load', self.frame.drop(columns=['is_toxic']))
     self.predict_proba.assert_not_called()
 
-  def test_ai_provenance_is_required_and_reported(self):
+  def test_human_provenance_is_required_and_reported(self):
     self.run_cell('reddit-load')
-    self.assertEqual(self.ns['reddit_label_source'], 'AI annotations')
-    for column, value in (('annotator', ''), ('annotator', 'AI:'),
-                          ('annotator', 'unknown'), ('annotation_notes', ' ')):
+    self.assertEqual(self.ns['reddit_label_source'], 'hand labels')
+    self.assertTrue((self.frame['annotation_status'] == 'hand_labelled').all())
+    self.assertTrue((self.frame['annotator'] == 'human').all())
+    for column, value in (('annotator', ''), ('annotator', 'AI:Codex'),
+                          ('annotation_status', 'ai_labeled')):
       changed = self.frame.copy()
       changed.loc[0, column] = value
       with self.subTest(column=column, value=value), self.assertRaises(ValueError):

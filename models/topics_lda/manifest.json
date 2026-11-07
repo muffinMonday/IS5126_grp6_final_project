@@ -1,0 +1,14 @@
+{
+  "model": "LatentDirichletAllocation, K = 10, batch, 200 max iterations, evaluate_every 10, n_jobs -1",
+  "file": "lda_models.joblib",
+  "sha256": "0971cc247a01d8d8492daa2fbc4929c7281442cc18ffff04904d6901e8a9f938",
+  "contents": {"lda_seed42": "final model", "lda_seed7": "stability check model", "vocabulary": "8,058 terms, in column order"},
+  "input_file": "dataset/monthly_Topics/comments_clean.csv",
+  "input_sha256": "62111327682df76d2d44899c0f28cceddbe51b3800d871d684cdf29b34ea1fc3",
+  "modelled_comments": 9660,
+  "fitted_with": {"numpy": "2.5.4", "scikit-learn": "1.9.1", "python": "3.14"},
+  "fitted_on": "2026-11-07, with the settings of notebook/2b_lda_topics.ipynb (seed 42: 169 iterations, seed 7: 200)",
+  "matches_slides": false,
+  "difference_from_shipped_exports": "Not the model behind slides 18 to 22. The shipped dataset/monthly_Topics/lda/ exports came from a fit with 159 iterations for seed 42. On the same input this refit gives a different solution: the top topic differs for 41% of comments (ARI 0.30 with the shipped assignments), no topic has the same 12 top words, and topic shares differ by up to 0.8 points. The result is identical under scikit-learn 1.7.2 and 1.9.1, so the library version is not the cause; the cause was not found (n_jobs was not ruled out).",
+  "use": "Every LDA number, table and figure in the analysis is read from the shipped exports in dataset/monthly_Topics/lda/. This model is for loading, inspection and the RETRAIN path only. Do not join its topic ids to the K-means clusters or the slide topic names."
+}

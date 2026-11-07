@@ -52,7 +52,9 @@ class PairedBootstrapTests(unittest.TestCase):
 
   def test_notebook_cell_reports_points_and_whether_zero_is_inside(self):
     cells = json.loads(NOTEBOOK.read_text(encoding='utf-8'))['cells']
-    source = next(''.join(c['source']) for c in cells if c['id'] == 'bootstrap')
+    # find the cell by content: nbstripout renumbers cell ids at commit time
+    source = next(''.join(c['source']) for c in cells
+                  if c['cell_type'] == 'code' and 'BOOTSTRAP = {' in ''.join(c['source']))
     probas = {'LSTM (standard)': self.good, 'LSTM (balanced)': self.noise, 'LR (balanced)': self.good * 0.9}
     shown = []
     ns = {'pd': pd, 'paired_bootstrap': paired_bootstrap, 'THRESHOLD': 0.5, 'display': shown.append,

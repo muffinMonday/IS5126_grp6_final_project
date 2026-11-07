@@ -1,0 +1,15 @@
+{
+  "model": "TF-IDF (10,000 terms) -> PCA 100 -> row L2 normalisation -> K-means",
+  "file": "topic_pipeline.joblib",
+  "sha256": "6be0804458701fc1d1dce6684fb30e9dbd7c167a2e8af359cb8ceadce5e548ef",
+  "k": 18,
+  "seed": 42,
+  "n_init": 30,
+  "pca_components": 100,
+  "input_file": "dataset/monthly_Topics/comments_clean.csv",
+  "input_sha256": "62111327682df76d2d44899c0f28cceddbe51b3800d871d684cdf29b34ea1fc3",
+  "assigned_comments": 9770,
+  "fitted_with": {"numpy": "2.3.0", "pandas": "2.3.0", "scikit-learn": "1.7.0"},
+  "source": "Copy of dataset/monthly_Topics/kmeans/prepared/topics_pca100_l2_20261029T105658930366Z/topic_pipeline.joblib (hash recorded in dataset/monthly_Topics/kmeans/bundle_manifest.json as final_pipeline_sha256)",
+  "note": "Loads under scikit-learn 1.9.1 with an InconsistentVersionWarning and reproduces all 9,770 shipped cluster assignments exactly (checked 2026-11-07). Cluster ids and names apply only to this model."
+}
