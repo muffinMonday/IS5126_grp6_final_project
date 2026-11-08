@@ -14,6 +14,8 @@ glove/
 # saved search results in models/ are shared (a .keras file elsewhere stays ignored)
 !models/**/*.keras
 *.zip
+# the course submission package (built from the repository, never committed)
+final_submission/submission_material/
 
 # Data: track only the explicitly shared samples and documentation
 dataset/*
