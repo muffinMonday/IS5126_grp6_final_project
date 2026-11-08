@@ -16,7 +16,7 @@ The notebook is saved with the outputs of the run the slides use, so it can be r
 | `scripts/compare_topic_models.py` | stop-word and phrase lists, needed only by the LDA refit (`RETRAIN = True`) |
 | `requirements.txt` | Python packages |
 
-The data and the trained models are **not** in this folder, to keep it small. The first cell of the notebook after the settings downloads whatever is missing (74 files, about 96 MB) from our repository, <https://github.com/muffinMonday/IS5126_grp6_final_project>, at the fixed release tag `submission-v1`, and checks each file against a SHA-256 hash recorded in the notebook. Nothing is downloaded if the files are already present. If you have the repository folders (`dataset/`, `models/`), copy them next to the notebook and nothing needs to be downloaded.
+The data and the trained models are **not** in this folder, to keep it small. The first cell of the notebook after the settings downloads whatever is missing (72 files, about 93 MB) from our repository, <https://github.com/muffinMonday/IS5126_grp6_final_project>, at the fixed release tag `submission-v1`, and checks each file against a SHA-256 hash recorded in the notebook. Nothing is downloaded if the files are already present. If you have the repository folders (`dataset/`, `models/`), copy them next to the notebook and nothing needs to be downloaded. The separate refit in `models/topics_lda/` is not required or downloaded.
 
 ## How to run
 
@@ -30,7 +30,7 @@ You can also just read the saved outputs.
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `RETRAIN` | `False` | `False` loads the saved models. `True` refits the logistic regressions, the two Bi-LSTMs, the K-means pipeline and the LDA models and saves them to `models_retrained/` (never over `models/`). It needs `glove/glove.6B.100d.txt` (347 MB; downloaded from Stanford if missing) and takes hours, dominated by the Bayesian searches (30 trials with 5-fold cross-validation for each of four models). A retrained model differs slightly from the one behind the slides. |
+| `RETRAIN` | `False` | `False` loads the saved models and frozen LDA exports. `True` refits the logistic regressions, the two Bi-LSTMs, the K-means pipeline and the LDA models and saves them to `models_retrained/` (never over `models/`). It needs `glove/glove.6B.100d.txt` (347 MB; downloaded from Stanford if missing) and takes hours, dominated by the Bayesian searches (30 trials with 5-fold cross-validation for each of four models). LDA refits may produce different topics; reported LDA tables always use the frozen exports. |
 | `DOWNLOAD_MISSING` | `True` | fetch missing files from the repository |
 | `OVERWRITE_CHANGED` | `False` | by default a local file that differs from the repository is kept and reported, never replaced |
 | `FETCH_PARTS` | `{'A', 'B'}` | download only the topic files (`'A'`) or only the toxicity files (`'B'`) |
@@ -40,7 +40,8 @@ Everything the notebook computes is written to `outputs/`. It never writes into 
 ## What is and is not reproduced
 
 - Every number in Part B and in the K-means part of Part A is recomputed from the saved models and data. The K-means pipeline is a frozen model whose hash is checked, and it reproduces all 9,770 shipped cluster assignments exactly.
-- The LDA and layoff tables are recomputed from the shipped LDA exports and layoff counts, and section A6 compares each regenerated table with the shipped one (14 of 14 match). The LDA *model* in `models/topics_lda/` is a refit that gives different topics from the slides, because refitting LDA under another library version does not give the same solution; no LDA number is taken from it.
+- The original fitted LDA model file was not retained. Its comment-level posterior weights, topic profiles and seed-check monthly shares are preserved in the hash-checked exports. The LDA and layoff tables are recomputed from these exports and layoff counts; A6 compares each regenerated table with the shipped one (14 of 14 match). This reproduces the reported analysis from frozen outputs, without requiring the original development notebook.
+- A7 optionally fits a new LDA with the original domain stop words and protected phrases (9,660 documents, 8,058 terms), using one worker and one numerical thread. The model, vectorizer, ordered comment IDs and input fingerprints are saved together. A refit may produce different topics and requires a separate naming review. The cause of the earlier mismatch has not been established; it should not be attributed to a library version without evidence.
 - Fit times (slide 33) are not measured: they differ from machine to machine.
 - Collecting the Reddit data and pooling the external training datasets are not part of this notebook. The pooled splits and the r/jobs sample are shared files.
 
